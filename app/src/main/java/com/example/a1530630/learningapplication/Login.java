@@ -30,18 +30,17 @@ public class Login extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(MyPreferences, Context.MODE_PRIVATE);
         try
         {
-
+            User user = new User();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("UserID",0);
+            editor.putInt("UserID",user.getUserID());
             editor.putString("Username","");
             editor.putString("Password","");
             editor.putString("Email","");
-            editor.putString("FirstName","");
-            editor.putString("LastName","");
+            editor.putString("FullName","");
             editor.commit();
 
-            Toast.makeText(this, "User Account created",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Logged In",Toast.LENGTH_LONG).show();
             Intent i = new Intent(getApplicationContext(), Main_Menu.class);
             startActivity(i);
         }

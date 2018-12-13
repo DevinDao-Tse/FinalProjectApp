@@ -36,8 +36,7 @@ public class Register extends AppCompatActivity {
                 editor.putString("Username","");
                 editor.putString("Password","");
                 editor.putString("Email","");
-                editor.putString("FirstName","");
-                editor.putString("LastName","");
+                editor.putString("FullName","");
                 editor.commit();
 
                 Toast.makeText(this, "User Account created",Toast.LENGTH_LONG).show();

@@ -11,8 +11,7 @@ public class User
     public static final String COLUMN_ID ="UserID";
     public static final String COLUMN_USERNAME="Username";
     public static final String COLUMN_PASSWORD="Password";
-    public static final String COLUMN_FIRST_NAME="FirstName";
-    public static final String COLUMN_LAST_NAME="LastName";
+    public static final String COLUMN_FULL_NAME="FullName";
     public static final String COLUMN_EMAIL="Email";
     public static final String COLUMN_CREATED="Created";
 
@@ -20,23 +19,21 @@ public class User
             + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
             + COLUMN_USERNAME + "TEXT,"
             + COLUMN_PASSWORD + "TEXT,"
-            + COLUMN_FIRST_NAME + "TEXT,"
-            + COLUMN_LAST_NAME + "TEXT,"
+            + COLUMN_FULL_NAME + "TEXT,"
             + COLUMN_EMAIL + "TEXT,"
             + COLUMN_CREATED + "TEXT,"
             + COLUMN_USERNAME + "TEXT);";
 
     private Integer userID;
-    private String Username,Password,FirstName,LastName,Email,Created;
+    private String Username,Password,FullName,Email,Created;
 
     public User(){}
-    public User(String user,String pass, String first,String last, String email)
+    public User(String user,String pass, String full, String email)
     {
         this.userID = null;
         this.Username = user;
         this.Password = pass;
-        this.FirstName =first;
-        this.LastName = last;
+        this.FullName =full;
         this.Email =email;
         this.Created =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());;
     }
@@ -65,20 +62,12 @@ public class User
         Password = password;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getFullName() {
+        return FullName;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
-    }
-
-    public String getLastName() {
-        return LastName;
-    }
-
-    public void setLastName(String lastName) {
-        LastName = lastName;
+    public void setFullName(String fullName) {
+        FullName = fullName;
     }
 
     public String getEmail() {

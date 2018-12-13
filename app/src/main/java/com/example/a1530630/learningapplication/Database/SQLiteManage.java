@@ -23,8 +23,7 @@ public class SQLiteManage extends SQLiteOpenHelper
 
         values.put(User.COLUMN_USERNAME, user.getUsername());
         values.put(User.COLUMN_PASSWORD,user.getPassword());
-        values.put(User.COLUMN_FIRST_NAME,user.getFirstName());
-        values.put(User.COLUMN_LAST_NAME,user.getLastName());
+        values.put(User.COLUMN_FULL_NAME,user.getFullName());
         values.put(User.COLUMN_EMAIL,user.getEmail());
         values.put(User.COLUMN_CREATED, user.getCreated());
 
