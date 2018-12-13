@@ -55,20 +55,20 @@ public class Register extends AppCompatActivity {
             }
             else
                 {
-                    User newUser = new User();
-                    newUser.setUsername(user);
-                    newUser.setPassword(password);
-                    newUser.setEmail(email);
-                    newUser.setFullName("blank");
+                    User newUser = new User(user,password,"blank",email);
+                    //newUser.setUsername(user);
+                    //newUser.setPassword(password);
+                    //newUser.setEmail(email);
+                    //newUser.setFullName("blank");
 
                     if(newUser != null) {
                         db.addNewUser(newUser);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt("UserID", 0);
-                        editor.putString("Username", "");
-                        editor.putString("Password", "");
-                        editor.putString("Email", "");
-                        editor.putString("FullName", "");
+                        editor.putInt("UserID", newUser.getUserID());
+                        editor.putString("Username", user);
+                        editor.putString("Password", password);
+                        editor.putString("Email", email);
+                        editor.putString("FullName", newUser.getFullName());
                         editor.commit();
 
                         Toast.makeText(this, "User Account created", Toast.LENGTH_LONG).show();

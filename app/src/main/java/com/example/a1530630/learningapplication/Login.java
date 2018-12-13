@@ -53,19 +53,23 @@ public class Login extends AppCompatActivity {
             }
             else
                 {
-                    User user = new User();
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("UserID",user.getUserID());
-                    editor.putString("Username","");
-                    editor.putString("Password","");
-                    editor.putString("Email","");
-                    editor.putString("FullName","");
-                    editor.commit();
+                    if(db.Login(username,password))
+                    {
+                        User user = new User();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        //editor.putInt("UserID",user.getUserID());
+                        editor.putString("Username",username);
+                        editor.putString("Password",password);
+                        //editor.putString("Email",user.getEmail());
+                        //editor.putString("FullName",user.getFullName());
+                        editor.commit();
 
-                    Toast.makeText(this, "Logged In",Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-                    startActivity(i);
+                        Toast.makeText(this, "Logged In",Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                        startActivity(i);
+                    }
+
                 }
 
         }
