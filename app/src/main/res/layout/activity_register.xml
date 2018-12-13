@@ -83,16 +83,10 @@
                 tools:layout_editor_absoluteY="232dp" />
 
             <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:text="Already registered, login now" />
-
-            <Button
                 android:id="@+id/createBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="RegisterUser"
                 android:text="@string/create_account"
                 tools:layout_editor_absoluteX="76dp"
                 tools:layout_editor_absoluteY="104dp" />

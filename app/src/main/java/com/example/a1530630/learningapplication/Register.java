@@ -35,17 +35,19 @@ public class Register extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
         try
         {
+            EditText FullName =  findViewById(R.id.fullNameText);
             EditText Username = findViewById(R.id.nameText);
             EditText Email = findViewById(R.id.emailText);
             EditText Password = findViewById(R.id.passwordText);
             EditText ConfirmPassword = findViewById(R.id.confirmPass);
 
+            String name = FullName.getText().toString();
             String user = Username.getText().toString();
             String email = Email.getText().toString();
             String password = Password.getText().toString();
             String confirmpassword = ConfirmPassword.getText().toString();
 
-            if(user.isEmpty()  || email.isEmpty() || password.isEmpty() || confirmpassword.isEmpty())
+            if(name.isEmpty() || user.isEmpty()  || email.isEmpty() || password.isEmpty() || confirmpassword.isEmpty())
             {
                 Toast.makeText(getApplicationContext(),"Enter user details",Toast.LENGTH_LONG).show();
             }
@@ -55,11 +57,7 @@ public class Register extends AppCompatActivity {
             }
             else
                 {
-                    User newUser = new User(user,password,"blank",email);
-                    //newUser.setUsername(user);
-                    //newUser.setPassword(password);
-                    //newUser.setEmail(email);
-                    //newUser.setFullName("blank");
+                    User newUser = new User(user,password,name,email);
 
                     if(newUser != null) {
                         db.addNewUser(newUser);
@@ -68,7 +66,7 @@ public class Register extends AppCompatActivity {
                         editor.putString("Username", user);
                         editor.putString("Password", password);
                         editor.putString("Email", email);
-                        editor.putString("FullName", newUser.getFullName());
+                        editor.putString("FullName", name);
                         editor.commit();
 
                         Toast.makeText(this, "User Account created", Toast.LENGTH_LONG).show();
