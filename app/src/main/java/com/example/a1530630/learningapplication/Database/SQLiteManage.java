@@ -26,7 +26,7 @@ public class SQLiteManage extends SQLiteOpenHelper
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(User.CREATE_TABLE); //table for user
+        db.execSQL(User.CREATE_TABLE);
 
     }
 

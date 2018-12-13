@@ -1,5 +1,7 @@
 package com.example.a1530630.learningapplication.Models;
 
+import java.util.Date;
+
 public class User
 {
     public static final String TABLE_NAME="Users";
@@ -11,13 +13,22 @@ public class User
     public static final String COLUMN_EMAIL="Email";
     public static final String COLUMN_CREATED="Created";
 
-    public static final String CREATE_TABLE="";
+    public static final String CREATE_TABLE=" CREATE TABLE "+TABLE_NAME+" ("
+            + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_USERNAME + "TEXT,"
+            + COLUMN_PASSWORD + "TEXT,"
+            + COLUMN_FIRST_NAME + "TEXT,"
+            + COLUMN_LAST_NAME + "TEXT,"
+            + COLUMN_EMAIL + "TEXT,"
+            + COLUMN_CREATED + "TEXT,"
+            + COLUMN_USERNAME + "TEXT);";
 
     private Integer userID;
-    private String Username,Password,FirstName,LastName,Email,Created;
+    private String Username,Password,FirstName,LastName,Email;//,Created;
+    private Date Created;
 
     public User(){}
-    public User(String user,String pass, String first,String last, String email, String create)
+    public User(String user,String pass, String first,String last, String email, Date create)
     {
         this.userID = null;
         this.Username = user;
@@ -76,11 +87,11 @@ public class User
         Email = email;
     }
 
-    public String getCreated() {
+    public Date getCreated() {
         return Created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         Created = created;
     }
 }
