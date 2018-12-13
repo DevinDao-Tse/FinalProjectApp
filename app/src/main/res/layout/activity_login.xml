@@ -10,19 +10,19 @@
         android:id="@+id/loginView"
         android:layout_width="85dp"
         android:layout_height="31dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="264dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="148dp"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Login" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/LoginPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="Password"
@@ -33,11 +33,11 @@
         app:layout_constraintTop_toBottomOf="@+id/passView" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/LoginUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/username"
@@ -52,12 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:text="@string/username"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.028"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginView" />
 
@@ -66,14 +66,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="192dp"
         android:layout_marginEnd="8dp"
         android:text="@string/password"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
+        app:layout_constraintHorizontal_bias="0.079"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -82,8 +82,23 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="40dp"
+        android:onClick="LoginBtn"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/RegisterView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="396dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:text="Don't have an Account? Click here to register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.395"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
