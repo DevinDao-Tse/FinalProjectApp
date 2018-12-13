@@ -13,16 +13,16 @@ public class User
     public static final String COLUMN_PASSWORD="Password";
     public static final String COLUMN_FULL_NAME="FullName";
     public static final String COLUMN_EMAIL="Email";
-    public static final String COLUMN_CREATED="Created";
+    //public static final String COLUMN_CREATED="Created";
 
     public static final String CREATE_TABLE=" CREATE TABLE "+TABLE_NAME+" ("
-            + COLUMN_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLUMN_USERNAME + "TEXT,"
-            + COLUMN_PASSWORD + "TEXT,"
-            + COLUMN_FULL_NAME + "TEXT,"
-            + COLUMN_EMAIL + "TEXT,"
-            + COLUMN_CREATED + "TEXT,"
-            + COLUMN_USERNAME + "TEXT);";
+            + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COLUMN_USERNAME + " TEXT, "
+            + COLUMN_PASSWORD + " TEXT, "
+            + COLUMN_FULL_NAME + " TEXT, "
+            + COLUMN_EMAIL + " TEXT); ";
+            //+ COLUMN_CREATED + "TEXT,"
+
 
     private Integer userID;
     private String Username,Password,FullName,Email,Created;
@@ -35,7 +35,7 @@ public class User
         this.Password = pass;
         this.FullName =full;
         this.Email =email;
-        this.Created =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());;
+        //this.Created =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());;
     }
 
     public Integer getUserID() {

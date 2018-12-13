@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
@@ -23,30 +25,59 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         db = new SQLiteManage(this);
+
+        TextView RegisterView = findViewById(R.id.RegisterView);
+
+        RegisterView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Register.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void LoginBtn(View view)
     {
+        EditText LoginUser = findViewById(R.id.LoginUser);
+        EditText LoginPassword = findViewById(R.id.LoginPassword);
+
+        String username = LoginUser.getText().toString();
+        String password = LoginPassword.getText().toString();
         sharedPreferences = getSharedPreferences(MyPreferences, Context.MODE_PRIVATE);
         try
         {
-            User user = new User();
+            if(username.isEmpty() || password.isEmpty())
+            {
+                Toast.makeText(getApplicationContext(),"Enter login credentials", Toast.LENGTH_LONG).show();
+            }
+            else
+                {
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putInt("UserID",user.getUserID());
-            editor.putString("Username","");
-            editor.putString("Password","");
-            editor.putString("Email","");
-            editor.putString("FullName","");
-            editor.commit();
+                    if(db.Login(username,password))
+                    {
+                        User user = new User();
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        //editor.putInt("UserID",user.getUserID());
+                        editor.putString("Username",username);
+                        editor.putString("Password",password);
+                        //editor.putString("Email",user.getEmail());
+                        //editor.putString("FullName",user.getFullName());
+                        editor.commit();
 
-            Toast.makeText(this, "Logged In",Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-            startActivity(i);
+                        Toast.makeText(this, "Logged In",Toast.LENGTH_LONG).show();
+                        Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                        startActivity(i);
+                    }
+
+                }
+
         }
         catch(Exception e)
         {
             Toast.makeText(this, e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
+
+
 }
