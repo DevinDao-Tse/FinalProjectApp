@@ -53,25 +53,42 @@ public class Login extends AppCompatActivity {
             }
             else
                 {
-
                     if(db.Login(username,password))
                     {
                         User user = new User();
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        //editor.putInt("UserID",user.getUserID());
-                        editor.putString("Username",username);
-                        editor.putString("Password",password);
-                        //editor.putString("Email",user.getEmail());
-                        //editor.putString("FullName",user.getFullName());
-                        editor.commit();
+                        user.setUsername(username);
+                        user.setPassword(password);
+                        if(db.getUserInfo(user) !=null)
+                        {
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            Integer idRef = user.getUserID();
+                            String usernameRef = user.getUsername();
+                            String passwordRef = user.getPassword();
+                            String emailRef = user.getEmail();
+                            String fullnameRef= user.getFullName();
 
-                        Toast.makeText(this, "Logged In",Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-                        startActivity(i);
+                            editor.putInt("UserID",idRef);
+                            editor.putString("Username",usernameRef);
+                            editor.putString("Password",passwordRef);
+                            editor.putString("Email",emailRef);
+                            editor.putString("FullName",fullnameRef);
+                            editor.commit();
+
+                            Toast.makeText(this, "Logged In",Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                            startActivity(i);
+                        }
+                        else
+                            {
+                                Toast.makeText(getApplicationContext(),"Didn't save", Toast.LENGTH_LONG).show();
+                            }
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Invalid Username or Password",Toast.LENGTH_LONG).show();
                     }
 
                 }
-
         }
         catch(Exception e)
         {

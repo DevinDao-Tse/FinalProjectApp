@@ -26,9 +26,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         db = new SQLiteManage(this);
-
     }
     public void RegisterUser(View view)
     {
@@ -51,6 +49,7 @@ public class Register extends AppCompatActivity {
             {
                 Toast.makeText(getApplicationContext(),"Enter user details",Toast.LENGTH_LONG).show();
             }
+
             if(!password.equalsIgnoreCase(confirmpassword))
             {
                 Toast.makeText(getApplicationContext(),"Passwords are not the same",Toast.LENGTH_LONG).show();
