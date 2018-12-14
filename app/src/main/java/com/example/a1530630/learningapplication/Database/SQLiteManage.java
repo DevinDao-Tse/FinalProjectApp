@@ -17,6 +17,7 @@ public class SQLiteManage extends SQLiteOpenHelper
 
     public SQLiteManage(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION);}
 
+    //add new user to database
     public User addNewUser(User user)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -33,38 +34,29 @@ public class SQLiteManage extends SQLiteOpenHelper
         db.close();
         return user;
     }
-
-    public boolean User_Exist(User user)
+    //verify if a user exist through email,full name
+    public boolean User_Exist(String email,String password)
     {
-        String sql = "SELECT * FROM "+User.TABLE_NAME+ " WHERE Email='" + user.getEmail()+ "' and Username='"+user.getUsername()+"'";
+        String sql = "SELECT * FROM "+User.TABLE_NAME+ " WHERE Email='" + email+ "' and Username='"+password+"'";
         SQLiteDatabase db =this.getWritableDatabase();
         Cursor verify = db.rawQuery(sql,null);
         boolean check = false;
-        if(verify.moveToFirst())
-        {
-            check = true;
-        }
-        else
-            {
-                check = false;
-            }
+
+        if(verify.moveToFirst()) { check = true; }
+        else { check = false; }
             verify.close();
             db.close();
             return check;
     }
-
+    //Verify Login with username and password
     public boolean Login(String username,String password)
     {
         String sql="SELECT * FROM "+User.TABLE_NAME+ " WHERE Username='"+username+ "' and Password='"+password+"'";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor CheckUser = db.rawQuery(sql,null);
-        if(CheckUser.moveToFirst())
-        {
-            return true;
-        }
-        else{
-            return false;
-        }
+
+        if(CheckUser.moveToFirst()) { return true; }
+        else{ return false; }
     }
 
     public User getUserInfo(User user)
@@ -82,26 +74,32 @@ public class SQLiteManage extends SQLiteOpenHelper
                 user.setEmail(getInfo.getString(getInfo.getColumnIndex(User.COLUMN_EMAIL)));
                 user.setFullName(getInfo.getString(getInfo.getColumnIndex(User.COLUMN_FULL_NAME)));
             }
-            else
-                {
-                    user =null;
-                }
+            else { user =null; }
             getInfo.close();
             db.close();
         }
         return user;
     }
 
-
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(User.CREATE_TABLE);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    public User UpdateProfile(User user, int id)
     {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues newInfo = new ContentValues();
+
+        newInfo.put(User.COLUMN_USERNAME, user.getUsername());
+        newInfo.put(User.COLUMN_PASSWORD,user.getPassword());
+        newInfo.put(User.COLUMN_FULL_NAME,user.getFullName());
+        newInfo.put(User.COLUMN_EMAIL,user.getEmail());
+
+        int i = db.update(User.TABLE_NAME, newInfo, "UserID = "+ id,null);
+        db.close();
+        return user;
     }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) { db.execSQL(User.CREATE_TABLE); }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
 }
 

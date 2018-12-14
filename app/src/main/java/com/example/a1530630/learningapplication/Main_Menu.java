@@ -21,6 +21,7 @@ public class Main_Menu extends AppCompatActivity {
         db = new SQLiteManage(this);
 
         Button logout = findViewById(R.id.logoffBtn);
+        Button profile = findViewById(R.id.ProfileBtn);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +31,14 @@ public class Main_Menu extends AppCompatActivity {
                 editor.clear();
                 editor.commit();
                 Intent i = new Intent(getApplicationContext(),Login.class);
+                startActivity(i);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Profile.class);
                 startActivity(i);
             }
         });
