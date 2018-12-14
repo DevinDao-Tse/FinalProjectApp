@@ -1,96 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Register">
 
-    <ScrollView
-        android:id="@+id/AccountScroll"
-        android:layout_width="match_parent"
-        android:layout_height="408dp"
+    <TextView
+        android:id="@+id/createID"
+        android:layout_width="189dp"
+        android:layout_height="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="25sp"
+        tools:text="Create Account" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <EditText
+        android:id="@+id/fullNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/createID"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Enter full name"
+        android:inputType="textPersonName"/>
 
-            <TextView
-                android:id="@+id/createID"
-                android:layout_width="189dp"
-                android:layout_height="38dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="8dp"
-                android:textSize="25sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/AccountScroll"
-                tools:text="Create Account" />
+    <EditText
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/fullNameText"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Enter username"
+        android:inputType="textPersonName" />
 
-            <EditText
-                android:id="@+id/fullNameText"
-                android:layout_width="197dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter full name"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteX="89dp"
-                tools:layout_editor_absoluteY="172dp" />
+    <EditText
+        android:id="@+id/emailText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/nameText"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Enter email"
+        android:inputType="textEmailAddress"/>
 
-            <EditText
-                android:id="@+id/nameText"
-                android:layout_width="137dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter username"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="106dp" />
+    <EditText
+        android:id="@+id/passwordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/emailText"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Enter password"
+        android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/emailText"
-                android:layout_width="181dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter email"
-                android:inputType="textEmailAddress"
-                tools:layout_editor_absoluteX="32dp"
-                tools:layout_editor_absoluteY="305dp" />
+    <EditText
+        android:id="@+id/confirmPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/passwordText"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Confirm password"
+        android:inputType="textPassword" />
 
-            <EditText
-                android:id="@+id/passwordText"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Enter password"
-                android:inputType="textPassword"
-                tools:layout_editor_absoluteX="197dp"
-                tools:layout_editor_absoluteY="126dp" />
+    <CheckBox
+        android:id="@+id/termServiceBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agree with Terms and Services"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/confirmPass"
+        android:layout_marginTop="25dp"
 
-            <EditText
-                android:id="@+id/confirmPass"
-                android:layout_width="167dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Confirm password"
-                android:inputType="textPassword"
-                tools:layout_editor_absoluteX="139dp"
-                tools:layout_editor_absoluteY="232dp" />
+        />
 
-            <Button
-                android:id="@+id/createBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="RegisterUser"
-                android:text="@string/create_account"
-                tools:layout_editor_absoluteX="76dp"
-                tools:layout_editor_absoluteY="104dp" />
-        </LinearLayout>
-    </ScrollView>
+    <Button
+        android:id="@+id/createBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="45dp"
+        android:onClick="RegisterUser"
+        android:text="@string/create_account" />
 
-</FrameLayout>
+</RelativeLayout>
