@@ -2,6 +2,7 @@ package com.example.a1530630.learningapplication.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -12,7 +13,7 @@ public class SQLiteManage extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Android_Database";
-
+    SharedPreferences sharedPreferences;
 
     public SQLiteManage(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION);}
 
@@ -35,7 +36,21 @@ public class SQLiteManage extends SQLiteOpenHelper
 
     public boolean User_Exist(User user)
     {
-        return false;
+        String sql = "SELECT * FROM "+User.TABLE_NAME+ " WHERE Email='" + user.getEmail()+ "' and Username='"+user.getUsername()+"'";
+        SQLiteDatabase db =this.getWritableDatabase();
+        Cursor verify = db.rawQuery(sql,null);
+        boolean check = false;
+        if(verify.moveToFirst())
+        {
+            check = true;
+        }
+        else
+            {
+                check = false;
+            }
+            verify.close();
+            db.close();
+            return check;
     }
 
     public boolean Login(String username,String password)
@@ -50,6 +65,31 @@ public class SQLiteManage extends SQLiteOpenHelper
         else{
             return false;
         }
+    }
+
+    public User getUserInfo(User user)
+    {
+        if(Login(user.getUsername(),user.getPassword()))
+        {
+            String sql = "SELECT * FROM "+User.TABLE_NAME+" WHERE Username='"+ user.getUsername()+"' and Password='"+user.getPassword()+"'";
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor getInfo = db.rawQuery(sql,null);
+            if(getInfo.moveToFirst())
+            {
+                user.setUserID(getInfo.getInt(getInfo.getColumnIndex(User.COLUMN_ID)));
+                user.setUsername(getInfo.getString(getInfo.getColumnIndex(User.COLUMN_USERNAME)));
+                user.setPassword(getInfo.getString(getInfo.getColumnIndex(User.COLUMN_PASSWORD)));
+                user.setEmail(getInfo.getString(getInfo.getColumnIndex(User.COLUMN_EMAIL)));
+                user.setFullName(getInfo.getString(getInfo.getColumnIndex(User.COLUMN_FULL_NAME)));
+            }
+            else
+                {
+                    user =null;
+                }
+            getInfo.close();
+            db.close();
+        }
+        return user;
     }
 
 
