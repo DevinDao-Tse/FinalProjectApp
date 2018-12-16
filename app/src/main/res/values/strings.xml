@@ -4,4 +4,6 @@
     <string name="create_account">Create account</string>
     <string name="username">Username</string>
     <string name="login">Login</string>
+    <string name="nav_open">Nav Open</string>
+    <string name="nav_close">Nav Close</string>
 </resources>
