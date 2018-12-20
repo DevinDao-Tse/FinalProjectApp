@@ -85,6 +85,7 @@ public class Main_Menu extends AppCompatActivity
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Intent i;
         switch (menuItem.getItemId())
         {
             case R.id.nav_menu:
@@ -94,7 +95,8 @@ public class Main_Menu extends AppCompatActivity
             }
             case R.id.nav_profile:
             {
-
+                i = new Intent(this, Profile.class);
+                startActivity(i);
                 return true;
             }
             case R.id.nav_settings:
