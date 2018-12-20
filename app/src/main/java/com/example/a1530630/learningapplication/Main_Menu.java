@@ -19,7 +19,7 @@ import com.example.a1530630.learningapplication.Database.SQLiteManage;
 public class Main_Menu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
-    private DrawerLayout dl;
+    protected DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawer_layout);;
     private ActionBarDrawerToggle t;
     SQLiteManage db;
     @Override
@@ -32,7 +32,7 @@ public class Main_Menu extends AppCompatActivity
         Button logout = findViewById(R.id.logoffBtn);
         Button profile = findViewById(R.id.ProfileBtn);
 
-        dl = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
         t.syncState(); getSupportActionBar().setDisplayHomeAsUpEnabled(true);

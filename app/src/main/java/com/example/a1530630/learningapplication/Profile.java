@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.User;
 
-public class Profile extends AppCompatActivity {
+public class Profile extends Main_Menu {
 
     SQLiteManage db;
     SharedPreferences sharedPreferences;
@@ -22,6 +22,8 @@ public class Profile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+
 
         EditText Fullname = findViewById(R.id.UserFull);
         EditText Username = findViewById(R.id.UserName);
