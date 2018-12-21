@@ -13,7 +13,7 @@ public class User
     public static final String COLUMN_PASSWORD="Password";
     public static final String COLUMN_FULL_NAME="FullName";
     public static final String COLUMN_EMAIL="Email";
-    //public static final String COLUMN_CREATED="Created";
+    public static final String COLUMN_CREATED="Created";
 
     private String getNow()
     {
@@ -29,12 +29,14 @@ public class User
             + COLUMN_USERNAME + " TEXT, "
             + COLUMN_PASSWORD + " TEXT, "
             + COLUMN_FULL_NAME + " TEXT, "
-            + COLUMN_EMAIL + " TEXT); ";
-           // + COLUMN_CREATED + "TEXT);";
+            //+ COLUMN_EMAIL + " TEXT); ";  <-- uncomment this
+            + COLUMN_EMAIL + " TEXT, " //<-- comment this
+            + COLUMN_CREATED + " REAL);"; //<-- comment this
 
 
     private Integer userID;
-    private String Username,Password,FullName,Email,Created;
+    private String Username,Password,FullName,Email;
+    private long Created;
 
     public User(){}
     public User(String user,String pass, String full, String email)
@@ -44,7 +46,7 @@ public class User
         this.Password = pass;
         this.FullName =full;
         this.Email =email;
-        //this.Created = getNow();
+        this.Created = System.currentTimeMillis(); //<-- Comment this
     }
 
     public Integer getUserID() {
@@ -87,11 +89,11 @@ public class User
         Email = email;
     }
 
-    public String getCreated() {
+    public long getCreated() {
         return Created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(long created) {
         Created = created;
     }
 }
