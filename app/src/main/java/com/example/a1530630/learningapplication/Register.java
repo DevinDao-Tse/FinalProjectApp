@@ -58,20 +58,29 @@ public class Register extends AppCompatActivity {
                 {
                     User newUser = new User(user,password,name,email);
 
-                    if(newUser != null) {
-                        db.addNewUser(newUser);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt("UserID", newUser.getUserID());
-                        editor.putString("Username", user);
-                        editor.putString("Password", password);
-                        editor.putString("Email", email);
-                        editor.putString("FullName", name);
-                        editor.commit();
+                    if(!db.User_Exist(email, user))
+                    {
+                        if(newUser != null) {
+                            db.addNewUser(newUser);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("UserID", newUser.getUserID());
+                            editor.putString("Username", user);
+                            editor.putString("Password", password);
+                            editor.putString("Email", email);
+                            editor.putString("FullName", name);
+                            editor.commit();
 
-                        Toast.makeText(this, "User Account created", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-                        startActivity(i);
+                            Toast.makeText(this, "User Account created", Toast.LENGTH_LONG).show();
+                            Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                            startActivity(i);
+                        }
                     }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),"Account already exist",Toast.LENGTH_LONG).show();
+                    }
+
+
             }
 
         }

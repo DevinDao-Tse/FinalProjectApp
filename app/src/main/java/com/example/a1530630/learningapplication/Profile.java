@@ -23,8 +23,7 @@ public class Profile extends Main_Menu {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-
-
+        //inputs
         EditText Fullname = findViewById(R.id.UserFull);
         EditText Username = findViewById(R.id.UserName);
         EditText Password = findViewById(R.id.UserPass);
@@ -33,6 +32,8 @@ public class Profile extends Main_Menu {
 
         db = new SQLiteManage(this);
         SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+
+        //converted inputs
         String userName = settings.getString("Username",null);
         String fullName = settings.getString("FullName",null);
         String passWord = settings.getString("Password",null);
@@ -73,7 +74,6 @@ public class Profile extends Main_Menu {
             user.setUsername(userName);
             user.setPassword(passWord);
             user.setEmail(email);
-
 
             db.UpdateProfile(user, id);
 

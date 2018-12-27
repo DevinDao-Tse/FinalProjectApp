@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class User
 {
-    public static final String TABLE_NAME="Users";
+    public static final String USER_TABLE_NAME="Users";
     public static final String COLUMN_ID ="UserID";
     public static final String COLUMN_USERNAME="Username";
     public static final String COLUMN_PASSWORD="Password";
@@ -15,16 +15,7 @@ public class User
     public static final String COLUMN_EMAIL="Email";
     public static final String COLUMN_CREATED="Created";
 
-    private String getNow()
-    {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
-    }
-
-
-
-    public static final String CREATE_TABLE=" CREATE TABLE "+TABLE_NAME+" ("
+    public static final String CREATE_TABLE=" CREATE TABLE "+USER_TABLE_NAME+" ("
             + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COLUMN_USERNAME + " TEXT, "
             + COLUMN_PASSWORD + " TEXT, "
