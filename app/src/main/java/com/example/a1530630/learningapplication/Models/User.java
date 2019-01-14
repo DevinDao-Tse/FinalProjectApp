@@ -20,9 +20,9 @@ public class User
             + COLUMN_USERNAME + " TEXT, "
             + COLUMN_PASSWORD + " TEXT, "
             + COLUMN_FULL_NAME + " TEXT, "
-            //+ COLUMN_EMAIL + " TEXT); ";  <-- uncomment this
-            + COLUMN_EMAIL + " TEXT, " //<-- comment this
-            + COLUMN_CREATED + " REAL);"; //<-- comment this
+            //+ COLUMN_EMAIL + " TEXT); "; // <-- uncomment this
+           + COLUMN_EMAIL + " TEXT, " //<-- comment this
+            + COLUMN_CREATED + " LONG);"; //<-- comment this
 
 
     private Integer userID;

@@ -14,7 +14,7 @@ import com.example.a1530630.learningapplication.Models.User_Track;
 public class SQLiteManage extends SQLiteOpenHelper
 {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Android_Database";
+    private static final String DATABASE_NAME = "Android_Database2";
     SharedPreferences sharedPreferences;
 
     public SQLiteManage(Context context) { super(context, DATABASE_NAME, null, DATABASE_VERSION);}

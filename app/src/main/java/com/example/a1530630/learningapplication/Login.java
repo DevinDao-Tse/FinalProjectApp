@@ -58,8 +58,7 @@ public class Login extends AppCompatActivity {
                         User user = new User();
                         user.setUsername(username);
                         user.setPassword(password);
-                        if(db.getUserInfo(user) !=null)
-                        {
+                        if(db.getUserInfo(user) !=null) {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             Integer idRef = user.getUserID();
                             String usernameRef = user.getUsername();

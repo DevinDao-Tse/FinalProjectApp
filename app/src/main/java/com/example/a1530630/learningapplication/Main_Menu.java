@@ -16,26 +16,26 @@ import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 
+import org.w3c.dom.Text;
+
 public class Main_Menu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
-    protected DrawerLayout dl = (DrawerLayout) findViewById(R.id.drawer_layout);;
-    private ActionBarDrawerToggle t;
+    public DrawerLayout dl;
+    public ActionBarDrawerToggle t;
     SQLiteManage db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
-
+        dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
-
-        Button logout = findViewById(R.id.logoffBtn);
-        Button profile = findViewById(R.id.ProfileBtn);
-
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
-        t.syncState(); getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        t.syncState(); //getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         dl.addDrawerListener(new DrawerLayout.DrawerListener()
         {
@@ -58,25 +58,19 @@ public class Main_Menu extends AppCompatActivity
         NavigationView nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
 
-        logout.setOnClickListener(new View.OnClickListener() {
+        TextView dev = findViewById(R.id.textView1);
+        TextView sha = findViewById(R.id.textView2);
+
+        dev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.clear();
-                editor.commit();
-                Intent i = new Intent(getApplicationContext(),Login.class);
+                Intent i = new Intent(getApplicationContext(), Session.class);
+                i.putExtra("Audio1", "aud1");
                 startActivity(i);
             }
         });
 
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Profile.class);
-                startActivity(i);
-            }
-        });
+
     }
     public boolean onOptionsItemSelected(MenuItem item) {
         if(t.onOptionsItemSelected(item))
@@ -90,7 +84,8 @@ public class Main_Menu extends AppCompatActivity
         {
             case R.id.nav_menu:
             {
-
+                i = new Intent(this,Main_Menu.class);
+                startActivity(i);
                 return true;
             }
             case R.id.nav_profile:
@@ -106,7 +101,12 @@ public class Main_Menu extends AppCompatActivity
             }
             case R.id.nav_exit:
             {
-
+                SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.clear();
+                editor.commit();
+                i = new Intent(getApplicationContext(),Login.class);
+                startActivity(i);
                 return true;
             }
         }

@@ -19,29 +19,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.676">
 
-        <Button
-            android:id="@+id/logoffBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="76dp"
+            android:layout_height="39dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="484dp"
+            android:layout_marginTop="148dp"
             android:layout_marginEnd="8dp"
-            android:text="Log out"
+            android:text="Devin's test"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.073"
+            app:layout_constraintHorizontal_bias="0.112"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/content_frame" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/ProfileBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="91dp"
+            android:layout_height="51dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="484dp"
-            android:layout_marginEnd="96dp"
-            android:text="Profile"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="8dp"
+            android:text="Shaniesha's Test"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.739"
+            app:layout_constraintHorizontal_bias="0.118"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
