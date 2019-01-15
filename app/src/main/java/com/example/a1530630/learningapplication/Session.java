@@ -3,6 +3,7 @@ package com.example.a1530630.learningapplication;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ public class Session extends AppCompatActivity {
     private SoundPool soundPool;
     private SparseIntArray soundmap;
 
+    private MediaRecorder mediaRecorder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +34,13 @@ public class Session extends AppCompatActivity {
         test.setText(aud);
         configureSounds();
         initiliazeFiles();
+    }
+
+    private void StartRecord()
+    {
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
     }
 
     private void configureSounds()
