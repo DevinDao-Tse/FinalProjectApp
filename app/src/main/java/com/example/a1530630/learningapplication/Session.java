@@ -17,11 +17,12 @@ import android.widget.TextView;
 
 public class Session extends AppCompatActivity {
 
-    private ImageButton playbtn,recordbtn;
+    private ImageButton playbtn,recordbtn,nextbtn;
     private SoundPool soundPool;
     private Intent intent;
     int[] sm;
     private SparseIntArray soundmap;
+    public int counter =0;
 
     private MediaRecorder mediaRecorder;
 
@@ -29,17 +30,27 @@ public class Session extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
-
         TextView test = findViewById(R.id.textViewTest);
         intent = getIntent();
+        String aud = intent.getStringExtra("Audio");
 
-        recordbtn = (ImageButton) findViewById(R.id.RecordBtn);
-        //recordbtn.setImageResource(R.drawable.ic_settings);
+        recordbtn = (ImageButton) findViewById(R.id.RecordBtn); //recordbtn.setImageResource(R.drawable.ic_settings);
+        nextbtn = (ImageButton) findViewById(R.id.NextButton);
 
-        String aud = intent.getStringExtra("Audio1");
+        /*if(!aud.equalsIgnoreCase("0"))
+        {
+            nextbtn.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            nextbtn.setVisibility(View.VISIBLE);
+        }*/
+
         test.setText(aud);
         configureSounds();
         initiliazeFiles();
+        nextFile();
+
     }
 
     private void StartRecord()
@@ -54,8 +65,9 @@ public class Session extends AppCompatActivity {
         soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC,0);
         sm = new int[3];
         sm[0] = soundPool.load(this, R.raw.aud1,1);
-        sm[1] = soundPool.load(this, R.raw.aud8,1);
-       // soundmap = new SparseIntArray(1);
+        sm[1] = soundPool.load(this, R.raw.aud2,1);
+        sm[2] = soundPool.load(this, R.raw.aud3,1);
+        //soundmap = new SparseIntArray(1);
         //soundmap.put(1,soundPool.load(this,R.raw.aud1,1));
     }
 
@@ -63,26 +75,43 @@ public class Session extends AppCompatActivity {
     {
         playbtn = (ImageButton) findViewById(R.id.PlayButton);
         playbtn.setOnClickListener(playsound);
-
     }
 
+    //next lesson
+    private void nextFile()
+    {
+        nextbtn.setOnClickListener(nextOne);
+    }
+
+    //listener for going to next lesson
+    private View.OnClickListener nextOne = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(getApplicationContext(), Session.class);
+            counter = counter+1;
+            String pass = String.valueOf(counter);
+            i.putExtra("Audio", pass);
+            startActivity(i);
+        }
+    };
+
+    //plays sound based on module/lesson
     private void setPlaysound(int num)
     {
         soundPool.play(sm[num],1,1,1,0,1.0f);
     }
 
+    //listener for play button
     private View.OnClickListener playsound = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             intent = getIntent();
-            String aud = intent.getStringExtra("Audio1");
-
+            String aud = intent.getStringExtra("Audio");
             String soundname = (String) view.getContentDescription().toString();
-            int i = Integer.parseInt(aud);
+             counter = Integer.parseInt(aud);
             if(soundname.contentEquals("play1"))
             {
-                setPlaysound(i);
-                //soundPool.play(1,1,1,1,0,1.0f);
+                setPlaysound(counter);
             }
         }
     };
