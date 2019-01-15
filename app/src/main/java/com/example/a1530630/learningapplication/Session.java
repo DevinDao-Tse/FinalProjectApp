@@ -19,6 +19,8 @@ public class Session extends AppCompatActivity {
 
     private ImageButton playbtn,recordbtn;
     private SoundPool soundPool;
+    private Intent intent;
+    int[] sm;
     private SparseIntArray soundmap;
 
     private MediaRecorder mediaRecorder;
@@ -29,7 +31,7 @@ public class Session extends AppCompatActivity {
         setContentView(R.layout.activity_session);
 
         TextView test = findViewById(R.id.textViewTest);
-        Intent intent = getIntent();
+        intent = getIntent();
 
         recordbtn = (ImageButton) findViewById(R.id.RecordBtn);
         //recordbtn.setImageResource(R.drawable.ic_settings);
@@ -50,8 +52,11 @@ public class Session extends AppCompatActivity {
     private void configureSounds()
     {
         soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC,0);
-        soundmap = new SparseIntArray(1);
-        soundmap.put(1,soundPool.load(this,R.raw.aud1,1));
+        sm = new int[3];
+        sm[0] = soundPool.load(this, R.raw.aud1,1);
+        sm[1] = soundPool.load(this, R.raw.aud8,1);
+       // soundmap = new SparseIntArray(1);
+        //soundmap.put(1,soundPool.load(this,R.raw.aud1,1));
     }
 
     private void initiliazeFiles()
@@ -60,13 +65,24 @@ public class Session extends AppCompatActivity {
         playbtn.setOnClickListener(playsound);
 
     }
+
+    private void setPlaysound(int num)
+    {
+        soundPool.play(sm[num],1,1,1,0,1.0f);
+    }
+
     private View.OnClickListener playsound = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            String soundname = (String) view.getContentDescription();
+            intent = getIntent();
+            String aud = intent.getStringExtra("Audio1");
+
+            String soundname = (String) view.getContentDescription().toString();
+            int i = Integer.parseInt(aud);
             if(soundname.contentEquals("play1"))
             {
-                soundPool.play(1,1,1,1,0,1.0f);
+                setPlaysound(i);
+                //soundPool.play(1,1,1,1,0,1.0f);
             }
         }
     };

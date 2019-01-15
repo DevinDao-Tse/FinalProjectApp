@@ -23,7 +23,7 @@ public class Main_Menu extends AppCompatActivity
 
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
-    TextView dev;
+    TextView dev,dev2;
     TextView sha;
 
     SQLiteManage db;
@@ -62,13 +62,23 @@ public class Main_Menu extends AppCompatActivity
         nv.setNavigationItemSelectedListener(this);
 
         dev = findViewById(R.id.textView1);
+        dev2 = findViewById(R.id.textView3);
         sha = findViewById(R.id.textView2);
 
         dev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Session.class);
-                i.putExtra("Audio1", dev.getText().toString());
+                i.putExtra("Audio1", dev.getContentDescription().toString());
+                startActivity(i);
+            }
+        });
+
+        dev2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Session.class);
+                i.putExtra("Audio1", dev2.getContentDescription().toString());
                 startActivity(i);
             }
         });
