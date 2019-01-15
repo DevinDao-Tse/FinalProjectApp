@@ -1,6 +1,7 @@
 package com.example.a1530630.learningapplication;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 public class Session extends AppCompatActivity {
 
-    private ImageButton playbtn;
+    private ImageButton playbtn,recordbtn;
     private SoundPool soundPool;
     private SparseIntArray soundmap;
 
@@ -29,6 +30,9 @@ public class Session extends AppCompatActivity {
 
         TextView test = findViewById(R.id.textViewTest);
         Intent intent = getIntent();
+
+        recordbtn = (ImageButton) findViewById(R.id.RecordBtn);
+        //recordbtn.setImageResource(R.drawable.ic_settings);
 
         String aud = intent.getStringExtra("Audio1");
         test.setText(aud);
