@@ -43,7 +43,7 @@ public class Login extends AppCompatActivity {
         EditText LoginUser = findViewById(R.id.LoginUser);
         EditText LoginPassword = findViewById(R.id.LoginPassword);
         Modules mod1 = new Modules(1);
-       // db.setModules(mod1);
+        db.setModules(mod1);
 
         String username = LoginUser.getText().toString();
         String password = LoginPassword.getText().toString();

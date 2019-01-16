@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.Modules;
@@ -41,7 +42,14 @@ public class Main_Menu extends AppCompatActivity
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
 
-
+        if(db.DisplayMod())
+        {
+            Toast.makeText(this, "true", Toast.LENGTH_LONG).show();
+        }
+        else
+            {
+                Toast.makeText(this, "false", Toast.LENGTH_LONG).show();
+            }
 
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);

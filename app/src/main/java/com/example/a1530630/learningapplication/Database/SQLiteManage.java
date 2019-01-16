@@ -51,6 +51,24 @@ public class SQLiteManage extends SQLiteOpenHelper
 
         return mod;
     }
+
+    public boolean DisplayMod()
+    {
+        Boolean mod=false;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql="SELECT * FROM "+Modules.MODULE_TABLE_NAME;
+        Cursor check = db.rawQuery(sql, null);
+        if(check.moveToFirst())
+        {
+            mod = true;
+        }
+        else
+            {
+                mod =false;
+            }
+
+        return mod;
+    }
     //verify if a user exist through email,full name
     public boolean User_Exist(String email,String username)
     {
@@ -122,7 +140,7 @@ public class SQLiteManage extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.CREATE_TABLE);
-        //db.execSQL(Modules.CREATE_MODULE_TABLE);
+        db.execSQL(Modules.CREATE_MODULE_TABLE);
         //db.execSQL(User_Track.CREATE_USER_TRACK_TABLE);
     }
 
