@@ -1,5 +1,6 @@
 package com.example.a1530630.learningapplication;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -64,14 +66,15 @@ public class Main_Menu extends AppCompatActivity
         dev = findViewById(R.id.textView1);
         dev2 = findViewById(R.id.textView3);
         dev1_1 = findViewById(R.id.textView4);
-        sha = findViewById(R.id.textView2);
+
 
         dev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Session.class);
-                i.putExtra("Audio", dev.getContentDescription().toString());
-                startActivity(i);
+                //Intent i = new Intent(getApplicationContext(), Session.class);
+               // i.putExtra("Audio", dev.getContentDescription().toString());
+               // startActivity(i);
+                LessonBox();
             }
         });
 
@@ -92,9 +95,17 @@ public class Main_Menu extends AppCompatActivity
                 startActivity(i);
             }
         });
-
+    }
+    public void LessonBox()
+    {
+        final Dialog BOX = new Dialog(this);
+        BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        BOX.setContentView(R.layout.module_lessons);
+        BOX.show();
 
     }
+
+
     public boolean onOptionsItemSelected(MenuItem item) {
         if(t.onOptionsItemSelected(item))
             return true;
