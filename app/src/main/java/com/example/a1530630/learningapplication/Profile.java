@@ -35,7 +35,6 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         EditText Username = findViewById(R.id.UserName);
         EditText Password = findViewById(R.id.UserPass);
         EditText Email = findViewById(R.id.UserEmail);
-        TextView UserID = findViewById(R.id.UserID);
 
         db = new SQLiteManage(this);
         SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
@@ -45,14 +44,11 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         String fullName = settings.getString("FullName",null);
         String passWord = settings.getString("Password",null);
         String email = settings.getString("Email",null);
-        Integer id = settings.getInt("UserID",0);
-        String showID = String.valueOf(id);
 
         Fullname.setText(fullName);
         Username.setText(userName);
         Password.setText(passWord);
         Email.setText(email);
-        UserID.setText(showID);
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
