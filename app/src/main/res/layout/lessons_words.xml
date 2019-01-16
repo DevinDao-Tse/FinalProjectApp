@@ -5,42 +5,42 @@
 
 
     <TextView
-        android:id="@+id/Lesson1"
+        android:id="@+id/Word1"
         android:layout_width="65dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:contentDescription="Lesson1"
-        android:text="Lesson1" />
+        android:contentDescription="0"
+        android:text="Word1" />
 
     <TextView
-        android:id="@+id/Lesson2"
+        android:id="@+id/Word2"
         android:layout_width="67dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:contentDescription="Lesson2"
-        android:text="Lesson2" />
+        android:contentDescription="1"
+        android:text="Word2" />
 
     <TextView
-        android:id="@+id/Lesson3"
+        android:id="@+id/Word3"
         android:layout_width="70dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:contentDescription="Lesson3"
-        android:text="Lesson3" />
+        android:contentDescription="2"
+        android:text="Word3" />
 
     <TextView
-        android:id="@+id/Lesson4"
+        android:id="@+id/Word4"
         android:layout_width="69dp"
         android:layout_height="36dp"
         android:layout_weight="1"
-        android:contentDescription="Lesson4"
-        android:text="Lesson4" />
+        android:contentDescription="3"
+        android:text="Word4" />
 
     <TextView
         android:id="@+id/Lesson5"
         android:layout_width="72dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:contentDescription="Lesson5"
-        android:text="Lesson5" />
+        android:contentDescription="4"
+        android:text="Word5" />
 </LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
+import com.example.a1530630.learningapplication.Models.Modules;
 import com.example.a1530630.learningapplication.Models.User;
 
 public class Login extends AppCompatActivity {
@@ -41,6 +42,8 @@ public class Login extends AppCompatActivity {
     {
         EditText LoginUser = findViewById(R.id.LoginUser);
         EditText LoginPassword = findViewById(R.id.LoginPassword);
+        Modules mod1 = new Modules(1);
+       // db.setModules(mod1);
 
         String username = LoginUser.getText().toString();
         String password = LoginPassword.getText().toString();

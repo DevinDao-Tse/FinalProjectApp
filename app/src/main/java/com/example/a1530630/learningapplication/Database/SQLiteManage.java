@@ -36,6 +36,21 @@ public class SQLiteManage extends SQLiteOpenHelper
         db.close();
         return user;
     }
+
+    public Modules setModules(Modules mod)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(Modules.MODULE_COLUMN_NUMBER, mod.getModuleNum());
+
+        long id = db.insert(Modules.MODULE_TABLE_NAME,null,values);
+
+        mod.setModuleID((int)id);
+        db.close();
+
+        return mod;
+    }
     //verify if a user exist through email,full name
     public boolean User_Exist(String email,String username)
     {
@@ -103,6 +118,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         return user;
     }
 
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.CREATE_TABLE);
@@ -112,6 +128,8 @@ public class SQLiteManage extends SQLiteOpenHelper
 
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onCreate(db);
+    }
 }
 
