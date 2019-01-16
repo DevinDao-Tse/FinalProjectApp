@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/Word1"
+        android:layout_width="65dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="0"
+        android:text="Word1" />
+
+    <TextView
+        android:id="@+id/Word2"
+        android:layout_width="67dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="1"
+        android:text="Word2" />
+
+    <TextView
+        android:id="@+id/Word3"
+        android:layout_width="70dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="2"
+        android:text="Word3" />
+
+    <TextView
+        android:id="@+id/Word4"
+        android:layout_width="69dp"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:contentDescription="3"
+        android:text="Word4" />
+
+    <TextView
+        android:id="@+id/Lesson5"
+        android:layout_width="72dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="4"
+        android:text="Word5" />
+</LinearLayout>

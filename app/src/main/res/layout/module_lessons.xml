@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/Lesson1"
+        android:layout_width="65dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="Lesson1"
+        android:text="Lesson1" />
+
+    <TextView
+        android:id="@+id/Lesson2"
+        android:layout_width="67dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="Lesson2"
+        android:text="Lesson2" />
+
+    <TextView
+        android:id="@+id/Lesson3"
+        android:layout_width="70dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="Lesson3"
+        android:text="Lesson3" />
+
+    <TextView
+        android:id="@+id/Lesson4"
+        android:layout_width="69dp"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:contentDescription="Lesson4"
+        android:text="Lesson4" />
+
+    <TextView
+        android:id="@+id/Lesson5"
+        android:layout_width="72dp"
+        android:layout_height="34dp"
+        android:layout_weight="1"
+        android:contentDescription="Lesson5"
+        android:text="Lesson5" />
+</LinearLayout>
