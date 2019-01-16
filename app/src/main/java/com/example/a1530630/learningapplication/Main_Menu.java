@@ -26,7 +26,8 @@ public class Main_Menu extends AppCompatActivity
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
     TextView dev,dev2,dev1_1;
-    TextView sha;
+    TextView l1;
+    String moduleHolder;
 
     SQLiteManage db;
     @Override
@@ -74,7 +75,8 @@ public class Main_Menu extends AppCompatActivity
                 //Intent i = new Intent(getApplicationContext(), Session.class);
                // i.putExtra("Audio", dev.getContentDescription().toString());
                // startActivity(i);
-                LessonBox();
+                moduleHolder = dev.getContentDescription().toString();
+                LessonBox(moduleHolder);
             }
         });
 
@@ -96,11 +98,23 @@ public class Main_Menu extends AppCompatActivity
             }
         });
     }
-    public void LessonBox()
+    public void LessonBox(final String mod)
     {
         final Dialog BOX = new Dialog(this);
         BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);
         BOX.setContentView(R.layout.module_lessons);
+
+        l1 = findViewById(R.id.Lesson1);
+
+        l1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Session.class);
+                i.putExtra("Audio", l1.getContentDescription().toString());
+                i.putExtra("Module",mod);
+                startActivity(i);
+            }
+        });
         BOX.show();
 
     }
