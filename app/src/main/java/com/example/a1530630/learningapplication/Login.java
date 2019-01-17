@@ -1,9 +1,11 @@
 package com.example.a1530630.learningapplication;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,12 +22,19 @@ public class Login extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     public static final String MyPreferences ="User";
     SQLiteManage db;
+    static final int REQUEST_PERMISSION_KEY = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         db = new SQLiteManage(this);
+
+        String[] PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
+        if(!Permission.hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
+        }
 
         TextView RegisterView = findViewById(R.id.RegisterView);
 

@@ -28,7 +28,7 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        dl = (DrawerLayout) findViewById(R.id.drawer_layout);
+        dl  = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         //inputs
         EditText Fullname = findViewById(R.id.UserFull);
@@ -96,13 +96,13 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
             }
             case R.id.nav_profile:
             {
-                i = new Intent(this, Profile.class);
-                startActivity(i);
+
                 return true;
             }
             case R.id.nav_settings:
             {
-
+                i = new Intent(this, Settings.class);
+                startActivity(i);
                 return true;
             }
             case R.id.nav_exit:
@@ -120,50 +120,4 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         return true;
     }
 
-
-
-    public void UpdateUser(View view)
-    {
-        SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        Integer id = settings.getInt("UserID",0);
-        editor.clear();
-        editor.commit();
-
-        EditText Fullname = findViewById(R.id.UserFull);
-        EditText Username = findViewById(R.id.UserName);
-        EditText Password = findViewById(R.id.UserPass);
-        EditText Email = findViewById(R.id.UserEmail);
-
-        String userName = Fullname.getText().toString();
-        String fullName = Username.getText().toString();
-        String passWord = Password.getText().toString();
-        String email = Email.getText().toString();
-
-        try
-        {
-            User user = new User();
-            user.setFullName(fullName);
-            user.setUsername(userName);
-            user.setPassword(passWord);
-            user.setEmail(email);
-
-            db.UpdateProfile(user, id);
-
-            editor.putInt("UserID",id);
-            editor.putString("Username",user.getUsername());
-            editor.putString("Password",user.getPassword());
-            editor.putString("Email",user.getEmail());
-            editor.putString("FullName",user.getFullName());
-            editor.commit();
-
-            Toast.makeText(this, "Profile Updated",Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-            startActivity(i);
-        }
-        catch(Exception e)
-        {
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-        }
-    }
 }

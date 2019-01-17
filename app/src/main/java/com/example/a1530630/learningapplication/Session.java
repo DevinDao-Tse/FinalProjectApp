@@ -54,7 +54,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
     private ProgressBar progressBar;
     private SpeechRecognizer speech =null;
     private Intent recognizeIntent;
-    static final int REQUEST_PERMISSION_KEY = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +79,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         homebtn = (ImageButton)findViewById(R.id.HomeButton);
 
 
-        String[] PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
-        if(!Permission.hasPermissions(this, PERMISSIONS)){
-            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
-        }
+
 
 
         recordbtn = (Button) findViewById(R.id.RecordBtn); //recordbtn.setImageResource(R.drawable.ic_settings);
@@ -98,8 +95,8 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         recognizeIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
 
         //recognizeIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "en");
-        recognizeIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "fr-CA");
-
+        //recognizeIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "fr-CA");
+        recognizeIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "fr-CA");
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,this.getPackageName());
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS,true);
@@ -187,7 +184,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
     @Override
     public void onPartialResults(Bundle arg0) {
         Log.d("Log", "onPartialResults");
-        wordTest = "Hello";
+        wordTest = "Table";
         ArrayList<String> matches = arg0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         String text = "";
          //To get all close matchs
@@ -361,7 +358,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
             }
         });
    }
-*/
+
 
     private void StartRecord() throws IOException {
         if(mediaRecorder!=null){mediaRecorder.release();}
@@ -413,25 +410,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+*/
 
 
     private void homeButton(){homebtn.setOnClickListener(goHome);}
