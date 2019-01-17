@@ -29,7 +29,7 @@ public class Main_Menu extends AppCompatActivity
 
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
-    TextView dev,dev2;
+    TextView dev;
     TextView w1,w2,w3,w4,w5;
     TextView l1,l2,l3,l4,l5;
     String moduleHolder,lessonHolder;
