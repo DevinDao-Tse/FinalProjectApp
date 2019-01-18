@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_90sdp"
             android:layout_marginLeft="@dimen/_103sdp"
-            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:layout_marginRight="@dimen/_95sdp"
             tools:srcCompat="@tools:sample/avatars[0]" />
     </RelativeLayout>
