@@ -14,6 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/ProfileTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_99sdp"
+            android:layout_marginLeft="@dimen/_103sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_95sdp"
+            android:text="Profile"
+            android:textSize="@dimen/_26sdp" />
 
         <ImageView
             android:id="@+id/AviPic2"
@@ -21,9 +31,107 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_90sdp"
             android:layout_marginLeft="@dimen/_103sdp"
-            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_80sdp"
             android:layout_marginRight="@dimen/_95sdp"
             tools:srcCompat="@tools:sample/avatars[0]" />
+
+        <TextView
+            android:id="@+id/profileUserName"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/AviPic2"
+            android:layout_marginStart="@dimen/_100sdp"
+            android:layout_marginLeft="@dimen/_103sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginRight="@dimen/_95sdp"
+            android:text="Username"
+            android:textSize="@dimen/_19sdp" />
+
+
+        <LinearLayout
+            android:id="@+id/topNav"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/general1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_270sdp"
+                android:layout_weight="0"
+                android:text="General"
+                android:textSize="@dimen/_13sdp" />
+
+
+            <TextView
+                android:id="@+id/Process1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_270sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="0"
+                android:text=" Process"
+                android:textSize="@dimen/_13sdp" />
+
+            <TextView
+                android:id="@+id/Purchase1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_270sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_weight="0"
+                android:text=" Purchase"
+                android:textSize="@dimen/_13sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/picChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginTop="@dimen/_380sdp"
+                android:layout_marginLeft="@dimen/_25sdp"
+                android:text="Change Picture" />
+
+            <Button
+                android:id="@+id/editBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_marginTop="@dimen/_380sdp"
+                android:layout_marginLeft="@dimen/_60sdp"
+                android:text="Edit Profile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/logOutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/_66sdp"
+                android:layout_marginLeft="@dimen/_125sdp"
+                android:text="Log Out" />
+        </LinearLayout>
+
+
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
