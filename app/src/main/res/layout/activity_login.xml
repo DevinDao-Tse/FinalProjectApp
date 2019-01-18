@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_83sdp"
-                android:layout_marginTop="@dimen/_68sdp"
+                android:layout_marginTop="@dimen/_48sdp"
                 android:gravity="center"
                 android:text="Login"
                 android:textSize="@dimen/_29sdp" />
@@ -73,7 +73,7 @@
                 android:layout_marginEnd="@dimen/_140sdp"
                 android:onClick="LoginBtn"
                 android:text="@string/login"
-                android:textSize="@dimen/_17sdp" />
+                android:textSize="@dimen/_15sdp" />
 
             <TextView
                 android:id="@+id/RegisterView"

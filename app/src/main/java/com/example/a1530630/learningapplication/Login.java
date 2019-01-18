@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,12 +32,14 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         db = new SQLiteManage(this);
 
+
         String[] PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
         if(!Permission.hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
         }
 
         TextView RegisterView = findViewById(R.id.RegisterView);
+
 
         RegisterView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +59,9 @@ public class Login extends AppCompatActivity {
 
         String username = LoginUser.getText().toString();
         String password = LoginPassword.getText().toString();
+
+
+
         sharedPreferences = getSharedPreferences(MyPreferences, Context.MODE_PRIVATE);
         try
         {
@@ -107,5 +113,15 @@ public class Login extends AppCompatActivity {
         }
     }
 
-
+    /*
+    private void closeKeyboard()
+    {
+        View view = this.getCurrentFocus();
+        if(view != null)
+        {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        }
+    }
+    */
 }
