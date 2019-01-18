@@ -38,18 +38,15 @@ public class Session extends AppCompatActivity implements RecognitionListener {
     //https://androstock.com/tutorials/android-speech-to-text-converter-android-studio.html
     //use reference for speech
 
-    private ImageButton playbtn,nextbtn,homebtn;
+    private ImageButton playbtn,nextbtn,backbtn,homebtn;
     private Button recordbtn,stopbtn;
     public SoundPool soundPool;
     private Intent intent;
     public int[] sm;
-    public int counter; //variable to convert to string as we click next  or previous
+    public int counter,countAttempt; //variable to convert to string as we click next  or previous
     public String aud,mod,les,wordTest,match; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
-    private TextView see,returnedText;
+    private TextView see,returnedText,attempt;
 
-    private String FILE;
-    private MediaRecorder mediaRecorder;
-    private MediaPlayer play;
 
     private ProgressBar progressBar;
     private SpeechRecognizer speech =null;
@@ -62,29 +59,35 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         setContentView(R.layout.activity_session);
         getSupportActionBar().hide();
 
-
+        countAttempt =0;
 
         TextView test = findViewById(R.id.textViewTest);
         intent = getIntent();
-        aud = intent.getStringExtra("Audio");
-        mod = intent.getStringExtra("Module");
-        les = intent.getStringExtra("Lesson");
+        aud = intent.getStringExtra("Audio"); //passing audio# and word
+        mod = intent.getStringExtra("Module"); //passing module #
+        les = intent.getStringExtra("Lesson"); //passing lesson#
         see = (TextView)findViewById(R.id.TxtRecord);
 
+        nextbtn = (ImageButton) findViewById(R.id.NextButton); //next button
+        nextbtn.setEnabled(false); //disabled until passed
+        backbtn = (ImageButton) findViewById(R.id.PreviousButton); //back button
+        homebtn = (ImageButton)findViewById(R.id.HomeButton); //home button
+        recordbtn = (Button) findViewById(R.id.RecordBtn); //record button
+        //recordbtn.setImageResource(R.drawable.ic_settings);
+        stopbtn = (Button)findViewById(R.id.StopBtn); //stop record button
+        stopbtn.setEnabled(false); //starting lesson, remains disabled
 
-        FILE = Environment.getExternalStorageState()+"/tempRecord.3gpp";
+
+        //hide back button if start at word 1
+        if(aud.equalsIgnoreCase("0")) { backbtn.setVisibility(View.INVISIBLE); }
+        else { backbtn.setVisibility(View.VISIBLE);}
+
+        //hide next button if start at last word
+        if(aud.equalsIgnoreCase("4")){ nextbtn.setVisibility(View.INVISIBLE);}
+        else {nextbtn.setVisibility(View.VISIBLE);}
 
 
-        nextbtn = (ImageButton) findViewById(R.id.NextButton);
-        homebtn = (ImageButton)findViewById(R.id.HomeButton);
-
-
-
-
-
-        recordbtn = (Button) findViewById(R.id.RecordBtn); //recordbtn.setImageResource(R.drawable.ic_settings);
-        stopbtn = (Button)findViewById(R.id.StopBtn); stopbtn.setEnabled(false);
-
+        attempt = (TextView)findViewById(R.id.AttemptView);
         returnedText = (TextView) findViewById(R.id.textView1);
         returnedText.setTextColor(Color.RED);
         progressBar = (ProgressBar) findViewById(R.id.progressBar1);
@@ -100,7 +103,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,this.getPackageName());
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS,true);
-        recognizeIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 5000);
+        recognizeIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 10000);
         recognizeIntent.putExtra("android.speech.extra.DICTATION_MODE", true);
 
         recordbtn.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +187,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
     @Override
     public void onPartialResults(Bundle arg0) {
         Log.d("Log", "onPartialResults");
-        wordTest = "Table";
+        wordTest = "Bonjour";
         ArrayList<String> matches = arg0.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
         String text = "";
          //To get all close matchs
@@ -195,12 +198,16 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         if(text.equalsIgnoreCase(wordTest))
         {
             match= "match";
+            countAttempt++;
+            nextbtn.setEnabled(true);
         }
         else
             {
                 match ="does not match";
+                countAttempt++;
             }
 
+            attempt.setText("Attempt: "+countAttempt);
         returnedText.setText(text+" // "+ match);
     }
 
@@ -210,16 +217,11 @@ public class Session extends AppCompatActivity implements RecognitionListener {
     }
 
     @Override
-    public void onResults(Bundle results) {
-        Log.d("Log", "onResults");
-
-    }
+    public void onResults(Bundle results) { Log.d("Log", "onResults"); }
 
     @Override
-    public void onRmsChanged(float rmsdB) {
-        Log.d("Log", "onRmsChanged: " + rmsdB);
+    public void onRmsChanged(float rmsdB) { Log.d("Log", "onRmsChanged: " + rmsdB);
         progressBar.setProgress((int) rmsdB);
-
     }
 
     public static String getErrorText(int errorCode) {
@@ -258,28 +260,6 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         }
         return message;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
    private void configureSounds(String lesson)
@@ -331,87 +311,6 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         }
     };
 
-/*
-    private void initiate()
-    {
-        recordbtn = (Button) findViewById(R.id.RecordBtn); recordbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                see = (TextView)findViewById(R.id.TxtRecord);
-                if(recordbtn.getText().toString().equals(("Record")))
-                {
-                    try { StartRecord();}
-                    catch (IOException e) { e.printStackTrace(); }
-                    see.setText("RECORDING......");recordbtn.setText("End");
-                }
-                else if(recordbtn.getText().toString().equals("End"))
-                {
-                    StopRecord(); recordbtn.setText("Play");see.setText("");
-                }
-                else if(recordbtn.getText().toString().equals("Play"))
-                {
-                    try {startPlayback();}
-                    catch (IOException e) { e.printStackTrace(); }
-                    recordbtn.setText("Record");
-                }
-                else{stopPlayBack();}
-            }
-        });
-   }
-
-
-    private void StartRecord() throws IOException {
-        if(mediaRecorder!=null){mediaRecorder.release();}
-
-        File fileout = new File(FILE);
-        if (fileout != null)
-        {
-            fileout.delete();
-        }
-        mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        mediaRecorder.setOutputFile(FILE);
-
-        mediaRecorder.prepare();
-        mediaRecorder.start();
-    }
-    private void StopRecord()
-    {
-        mediaRecorder.stop();
-        mediaRecorder.release();
-    }
-    private void startPlayback() throws IOException
-    {
-        if(play!=null)
-        {
-            play.stop();
-            play.release();
-        }
-        play = new MediaPlayer();
-        play.setDataSource(FILE);
-        play.prepare();
-        play.start();
-        play.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                play.release();
-            }
-        });
-    }
-    private void stopPlayBack()
-    {
-        play.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                play.release();
-            }
-        });
-    }
-
-*/
-
 
     private void homeButton(){homebtn.setOnClickListener(goHome);}
     private View.OnClickListener goHome = new View.OnClickListener() {
@@ -428,6 +327,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(getApplicationContext(), Session.class);
+            counter = Integer.parseInt(aud);
             counter = counter+1;
             String pass = String.valueOf(counter);
             i.putExtra("Audio", pass);
@@ -438,8 +338,21 @@ public class Session extends AppCompatActivity implements RecognitionListener {
     };
 
     //previous lesson
-    private void previousFile(){ }
-
+    private void previousFile(){ backbtn.setOnClickListener(backOne);
+         }
+    private View.OnClickListener backOne = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(getApplicationContext(), Session.class);
+            counter = Integer.parseInt(aud);
+            counter = counter-1;
+            String pass = String.valueOf(counter);
+            i.putExtra("Audio", pass);
+            i.putExtra("Module",mod);
+            i.putExtra("Lesson",les);
+            startActivity(i);
+        }
+    };
 
 
 }
