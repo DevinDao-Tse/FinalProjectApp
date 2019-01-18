@@ -4,75 +4,88 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#c7e8fb"
+    android:orientation="vertical"
     tools:context=".Login">
 
-    <TextView
-        android:id="@+id/loginView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="83dp"
-        android:layout_marginTop="68dp"
-        android:gravity="center"
-        android:text="Account Login"
-        android:textSize="28sp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/LoginPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/LoginUser"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="104dp"
-        android:layout_marginLeft="104dp"
-        android:layout_marginTop="34dp"
-        android:layout_marginRight="94dp"
-        android:ems="10"
-        android:hint="Enter Password"
-        android:inputType="textPassword" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_190sdp">
 
-    <EditText
-        android:id="@+id/LoginUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/loginView"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="104dp"
-        android:layout_marginLeft="104dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginRight="92dp"
-        android:ems="10"
-        android:hint="Enter Username"
-        android:inputType="textPersonName" />
+            <TextView
+                android:id="@+id/loginView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_83sdp"
+                android:layout_marginTop="@dimen/_68sdp"
+                android:gravity="center"
+                android:text="Login"
+                android:textSize="@dimen/_29sdp" />
 
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="140dp"
-        android:layout_below="@+id/RegisterView"
-        android:onClick="LoginBtn"
-        android:text="@string/login"
-        android:textSize="19dp" />
+            <EditText
+                android:id="@+id/LoginUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_42sdp"
+                android:layout_marginRight="@dimen/_92sdp"
+                android:ems="10"
+                android:textSize="@dimen/_15sdp"
+                android:hint="Enter Username"
+                android:inputType="textPersonName" />
 
-    <TextView
-        android:id="@+id/RegisterView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/LoginPassword"
-        android:text="Don't Have a account? \nClick here to register"
-        android:textSize="16sp" />
+            <EditText
+                android:id="@+id/LoginPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginRight="@dimen/_94sdp"
+                android:ems="10"
+                android:textSize="@dimen/_15sdp"
+                android:hint="Enter Password"
+                android:inputType="textPassword" />
+
+            <CheckBox
+                android:id="@+id/rememberMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_85sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_23sdp"
+                android:layout_marginRight="@dimen/_80sdp"
+                android:text="Remember Me"
+                android:textSize="@dimen/_15sdp"/>
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_100sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_140sdp"
+                android:onClick="LoginBtn"
+                android:text="@string/login"
+                android:textSize="@dimen/_17sdp" />
+
+            <TextView
+                android:id="@+id/RegisterView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_74sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text="Don't Have a account? \nClick here to register"
+                android:textSize="@dimen/_16sdp" />
+        </LinearLayout>
+    </ScrollView>
+
 </RelativeLayout>

@@ -8,9 +8,8 @@
     tools:context=".Register">
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="10dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,24 +20,24 @@
                 android:id="@+id/welcomeID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="103dp"
-                android:layout_marginLeft="103dp"
-                android:layout_marginTop="100dp"
-                android:layout_marginRight="95dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_60sdp"
+                android:layout_marginRight="@dimen/_95sdp"
                 android:textColor="@android:color/black"
-                android:textSize="26dp"
+                android:textSize="@dimen/_26sdp"
                 android:text="Welcome" />
 
             <TextView
                 android:id="@+id/createID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="103dp"
-                android:layout_marginLeft="103dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="95dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginRight="@dimen/_95sdp"
                 android:textColor="@android:color/black"
-                android:textSize="25dp"
+                android:textSize="@dimen/_20sdp"
                 android:text="Create Account" />
 
 
@@ -46,12 +45,13 @@
                 android:id="@+id/fullNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="103dp"
-                android:layout_marginLeft="103dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="95dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginRight="@dimen/_95sdp"
                 android:layout_below="@+id/createID"
                 android:ems="10"
+                android:textSize="@dimen/_15sdp"
                 android:hint="Enter full name"
                 android:inputType="textPersonName" />
 
@@ -59,12 +59,13 @@
                 android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="19dp"
-                android:layout_marginRight="98dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginRight="@dimen/_95sdp"
                 android:layout_below="@+id/fullNameText"
                 android:ems="10"
+                android:textSize="@dimen/_15sdp"
                 android:hint="Enter username"
                 android:inputType="textPersonName" />
 
@@ -72,12 +73,13 @@
                 android:id="@+id/emailText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="104dp"
-                android:layout_marginLeft="104dp"
-                android:layout_marginTop="23dp"
-                android:layout_marginRight="94dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginRight="@dimen/_95sdp"
                 android:layout_below="@+id/nameText"
                 android:ems="10"
+                android:textSize="@dimen/_15sdp"
                 android:hint="Enter email"
                 android:inputType="textEmailAddress" />
 
@@ -85,12 +87,13 @@
                 android:id="@+id/passwordText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="102dp"
-                android:layout_marginLeft="102dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="96dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:layout_marginRight="@dimen/_95sdp"
                 android:layout_below="@+id/emailText"
                 android:ems="10"
+                android:textSize="@dimen/_15sdp"
                 android:hint="Enter password"
                 android:inputType="textPassword" />
 
@@ -98,12 +101,13 @@
                 android:id="@+id/confirmPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="104dp"
-                android:layout_marginLeft="104dp"
-                android:layout_marginTop="22dp"
-                android:layout_marginRight="94dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_104sdp"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:layout_marginRight="@dimen/_94sdp"
                 android:layout_below="@+id/passwordText"
                 android:ems="10"
+                android:textSize="@dimen/_15sdp"
                 android:hint="Confirm password"
                 android:inputType="textPassword" />
 
@@ -111,20 +115,22 @@
                 android:id="@+id/termServiceBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="103dp"
-                android:layout_marginLeft="103dp"
-                android:layout_marginTop="23dp"
-                android:layout_marginRight="80dp"
+                android:layout_marginStart="@dimen/_80sdp"
+                android:layout_marginLeft="@dimen/_103sdp"
+                android:layout_marginTop="@dimen/_23sdp"
+                android:layout_marginRight="@dimen/_80sdp"
+                android:textSize="@dimen/_12sdp"
                 android:text="Agree with Terms and Services" />
 
             <Button
                 android:id="@+id/createBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="132dp"
-                android:layout_marginTop="26dp"
-                android:layout_marginEnd="134dp"
-                android:layout_marginBottom="175dp"
+                android:layout_marginStart="@dimen/_90sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_40sdp"
+                android:textSize="@dimen/_14sdp"
                 android:onClick="RegisterUser"
                 android:text="@string/create_account" />
         </LinearLayout>
