@@ -221,7 +221,7 @@ public class Main_Menu extends AppCompatActivity
             }
             case R.id.nav_settings:
             {
-                i = new Intent(this, Settings.class);
+                i = new Intent(this, User_setting.class);
                 startActivity(i);
                 return true;
 

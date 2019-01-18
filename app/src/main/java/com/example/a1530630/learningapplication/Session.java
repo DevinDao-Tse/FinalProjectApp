@@ -22,14 +22,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.a1530630.learningapplication.Audio.Audio_files;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Session extends AppCompatActivity implements RecognitionListener {
@@ -76,6 +71,8 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         //recordbtn.setImageResource(R.drawable.ic_settings);
         stopbtn = (Button)findViewById(R.id.StopBtn); //stop record button
         stopbtn.setEnabled(false); //starting lesson, remains disabled
+        playbtn = (ImageButton) findViewById(R.id.PlayButton);
+        playbtn.setEnabled(false);
 
 
         //hide back button if start at word 1
@@ -103,7 +100,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE,this.getPackageName());
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH);
         recognizeIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS,true);
-        recognizeIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 10000);
+        recognizeIntent.putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 5000);
         recognizeIntent.putExtra("android.speech.extra.DICTATION_MODE", true);
 
         recordbtn.setOnClickListener(new View.OnClickListener() {
@@ -207,6 +204,10 @@ public class Session extends AppCompatActivity implements RecognitionListener {
                 countAttempt++;
             }
 
+            if(countAttempt > 2)
+            {
+                playbtn.setEnabled(true);
+            }
             attempt.setText("Attempt: "+countAttempt);
         returnedText.setText(text+" // "+ match);
     }
@@ -292,7 +293,7 @@ public class Session extends AppCompatActivity implements RecognitionListener {
 
     private void initiliazeFiles()
     {
-        playbtn = (ImageButton) findViewById(R.id.PlayButton);
+
         playbtn.setOnClickListener(playsound);
     }
 

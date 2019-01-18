@@ -101,8 +101,8 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
             }
             case R.id.nav_settings:
             {
-                i = new Intent(this, Settings.class);
-                startActivity(i);
+                i = new Intent(this, User_setting.class);
+               startActivity(i);
                 return true;
             }
             case R.id.nav_exit:

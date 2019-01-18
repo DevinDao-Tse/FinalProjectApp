@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.User;
 
-public class Settings extends Main_Menu implements NavigationView.OnNavigationItemSelectedListener {
+public class User_setting extends Main_Menu implements NavigationView.OnNavigationItemSelectedListener {
 
     SQLiteManage db;
     SharedPreferences sharedPreferences;
@@ -26,7 +26,7 @@ public class Settings extends Main_Menu implements NavigationView.OnNavigationIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_user_setting);
 
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
 
