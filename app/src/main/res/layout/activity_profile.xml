@@ -11,11 +11,8 @@
 
     <RelativeLayout
         android:id="@+id/profile_frame"
-        android:layout_width="358dp"
-        android:layout_height="558dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
 
