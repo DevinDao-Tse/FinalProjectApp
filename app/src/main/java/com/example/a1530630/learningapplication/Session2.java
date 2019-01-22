@@ -3,6 +3,7 @@ package com.example.a1530630.learningapplication;
 
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class Session2 extends AppCompatActivity  {
     public int counter,countAttempt; //variable to convert to string as we click next  or previous
     public String aud,mod,les,wordTest,match; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
     private TextView attempt;
+    public MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,13 @@ public class Session2 extends AppCompatActivity  {
 
 
         attempt = (TextView)findViewById(R.id.AttemptView);
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer = MediaPlayer.create(this, R.raw.aud1);
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+
 
         configureSounds(les);
         initiliazeFiles();

@@ -54,8 +54,14 @@ public class Login extends AppCompatActivity {
     {
         EditText LoginUser = findViewById(R.id.LoginUser);
         EditText LoginPassword = findViewById(R.id.LoginPassword);
+
         Modules mod1 = new Modules(1);
-        db.setModules(mod1);
+        Modules mod2 = new Modules(2);
+        Modules mod3 = new Modules(3);
+        Modules mod4 = new Modules(4);
+        Modules mod5 = new Modules(5);
+
+        db.setModules(mod1); db.setModules(mod2); db.setModules(mod3); db.setModules(mod4); db.setModules(mod5);
 
         String username = LoginUser.getText().toString();
         String password = LoginPassword.getText().toString();
