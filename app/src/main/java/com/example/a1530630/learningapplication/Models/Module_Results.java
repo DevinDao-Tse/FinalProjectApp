@@ -22,20 +22,21 @@ public class Module_Results
             + MODULE_RESULT_COLUMN_LESSON_FOUR + " INTEGER, "
             + MODULE_RESULT_COLUMN_LESSON_FIVE + " INTEGER);";
 
-    private Integer userID, moduleID,resultID, lesOne, lesTwo, lesThree, lesFour, lesFive;
+    private Integer moduleresID, userID, moduleID,resultID, lesOne, lesTwo, lesThree, lesFour, lesFive;
 
     public Module_Results(){}
 
-    public Module_Results(Integer usID, Integer modID, Integer resID, Integer leOne, Integer leTwo, Integer leThree, Integer leFour, Integer leFive)
+    public Module_Results(Integer usID)
     {
+
+        this.resultID = null;
         this.userID = usID;
-        this.moduleID = modID;
-        this.resultID = resID;
-        this.lesOne = leOne;
-        this.lesTwo = leTwo;
-        this.lesThree = leThree;
-        this.lesFour = leFour;
-        this.lesFive = leFive;
+        this.moduleID = 0;
+        this.lesOne = 0;
+        this.lesTwo = 0;
+        this.lesThree = 0;
+        this.lesFour = 0;
+        this.lesFive = 0;
     }
 
     public Integer getUserID() { return userID; }

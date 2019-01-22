@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.Modules;
 import com.example.a1530630.learningapplication.Models.User;
 import com.example.a1530630.learningapplication.Models.User_Track;
@@ -37,37 +38,48 @@ public class SQLiteManage extends SQLiteOpenHelper
         return user;
     }
 
-    public Modules setModules(Modules mod)
+    public Module_Results createResult(Module_Results mod,int modNum)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Modules.MODULE_COLUMN_NUMBER, mod.getModuleNum());
-
-        long id = db.insert(Modules.MODULE_TABLE_NAME,null,values);
-
-        mod.setModuleID((int)id);
+        values.put(Module_Results.MODULE_RESULT_COLUMN_USER_ID,mod.getUserID());
+        values.put(Module_Results.MODULE_RESULT_COLUMN_MODULE_ID,modNum);
+        long id = db.insert(Module_Results.MODULE_RESULT_TABLE_NAME,null,values);
+        mod.setResultID((int)id);
         db.close();
-
         return mod;
     }
 
-    public boolean DisplayMod()
+    public Boolean setModule(int modNum)
     {
-        Boolean mod=false;
+        boolean check = false;
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql="SELECT * FROM "+Modules.MODULE_TABLE_NAME;
-        Cursor check = db.rawQuery(sql, null);
-        if(check.moveToFirst())
+        String sql = "SELECT "+Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+" FROM "+Module_Results.MODULE_RESULT_TABLE_NAME+" WHERE "
+                +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+ " = "+modNum;
+
+        Cursor cursor = db.rawQuery(sql,null);
+        if(cursor.moveToFirst())
         {
-            mod = true;
-        }
+            check = true; //check user already attempted module
+    }
         else
             {
-                mod =false;
+                check = false; //verify if they attempt the first time
             }
 
-        return mod;
+        return check;
+    }
+
+    public boolean testset(long rowid ,int test,String modNum)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID,rowid);
+        values.put(modNum, test);
+
+        return db.update(Module_Results.MODULE_RESULT_TABLE_NAME, values, Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID + " = "+ rowid,null)>0;
     }
     //verify if a user exist through email,full name
     public boolean User_Exist(String email,String username)
@@ -84,8 +96,6 @@ public class SQLiteManage extends SQLiteOpenHelper
         else {
             check = false;
         }
-            //verify.close();
-            //db.close();
             return check;
     }
     //Verify Login with username and password
@@ -140,7 +150,8 @@ public class SQLiteManage extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.CREATE_TABLE);
-        db.execSQL(Modules.CREATE_MODULE_TABLE);
+        //db.execSQL(Modules.CREATE_MODULE_TABLE);
+        db.execSQL(Module_Results.CREATE_MODULE_RESULT);
         //db.execSQL(User_Track.CREATE_USER_TRACK_TABLE);
     }
 

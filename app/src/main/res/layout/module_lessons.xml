@@ -9,7 +9,7 @@
         android:layout_width="65dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:contentDescription="Lesson1"
+        android:contentDescription="LessonOne"
         android:text="Lesson1" />
 
     <TextView
@@ -17,7 +17,7 @@
         android:layout_width="67dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:contentDescription="Lesson2"
+        android:contentDescription="LessonTwo"
         android:text="Lesson2" />
 
     <TextView

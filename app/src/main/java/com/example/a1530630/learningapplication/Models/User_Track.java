@@ -9,7 +9,7 @@ public class User_Track
 
     public static String CREATE_USER_TRACK_TABLE="CREATE TABLE "+USER_TRACK_TABLE_NAME+" ("
             +USER_TRACK_COLUMN_USERID+ " INTEGER REFERENCES "+ User.USER_TABLE_NAME+" ("+User.COLUMN_ID+"), "
-            +USER_TRACK_COLUMN_MODULEID+ " INTEGER REFERENCES "+ Modules.MODULE_COLUMN_ID+" ("+Modules.MODULE_COLUMN_ID+"),  "
+            +USER_TRACK_COLUMN_MODULEID+ " INTEGER REFERENCES "+ Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+" ("+Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+"),  "
             +USER_TRACK_COLUMN_RESULT+ " INTEGER);";
 
     private Integer userID,moduleID,results;

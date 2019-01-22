@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
+import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.User;
 
 import java.io.IOException;
@@ -62,6 +63,7 @@ public class Register extends AppCompatActivity {
                     {
                         if(newUser != null) {
                             db.addNewUser(newUser);
+
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putInt("UserID", newUser.getUserID());
                             editor.putString("Username", user);

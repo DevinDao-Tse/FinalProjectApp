@@ -4,8 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -20,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
+import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.Modules;
 
 import org.w3c.dom.Text;
@@ -33,24 +32,18 @@ public class Main_Menu extends AppCompatActivity
     TextView w1,w2,w3,w4,w5;
     TextView l1,l2,l3,l4,l5;
     String moduleHolder,lessonHolder;
+    SharedPreferences pref;
 
     SQLiteManage db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
+        getSupportActionBar().hide();
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
 
-        if(db.DisplayMod())
-        {
-            Toast.makeText(this, "true", Toast.LENGTH_LONG).show();
-        }
-        else
-            {
-                Toast.makeText(this, "false", Toast.LENGTH_LONG).show();
-            }
-
+        pref = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
@@ -105,33 +98,64 @@ public class Main_Menu extends AppCompatActivity
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                int num = Integer.parseInt(moduleHolder);
+                if(db.setModule(num))
+                {
+                    Intent i = new Intent(getApplicationContext(), Session2.class);
+                    i.putExtra("Audio", "0");
+                    i.putExtra("Module",moduleHolder);
+                    i.putExtra("Lesson",l1.getContentDescription().toString());
+                    startActivity(i);
+                }
+                else
+                    {
+                        int useID = pref.getInt("UserID",0);
+                        Module_Results res = new Module_Results(useID);
+                        db.createResult(res,num);
+                        Intent i = new Intent(getApplicationContext(), Session2.class);
+                        i.putExtra("Audio", "0");
+                        i.putExtra("Module",moduleHolder);
+                        i.putExtra("Lesson",l1.getContentDescription().toString());
+                        startActivity(i);
+                    }
+
+
+
                 //lessonHolder = l1.getContentDescription().toString();
                //WordBox(lessonHolder); //passing the selected lesson
-                Intent i = new Intent(getApplicationContext(), Session2.class);
-                i.putExtra("Audio", "0");
-                i.putExtra("Module",moduleHolder);
-                i.putExtra("Lesson",l1.getContentDescription().toString());
-                startActivity(i);
+
+
             }
         });
 
-        /*
+
         l2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lessonHolder = l2.getContentDescription().toString();
-                WordBox(lessonHolder);
+                int num = Integer.parseInt(moduleHolder);
+                if(db.setModule(num))
+                {
+                    Intent i = new Intent(getApplicationContext(), Session2.class);
+                    i.putExtra("Audio", "0");
+                    i.putExtra("Module",moduleHolder);
+                    i.putExtra("Lesson",l1.getContentDescription().toString());
+                    startActivity(i);
+                }
+                else
+                {
+                    int useID = pref.getInt("UserID",0);
+                    Module_Results res = new Module_Results(useID);
+                    db.createResult(res,num);
+                    Intent i = new Intent(getApplicationContext(), Session2.class);
+                    i.putExtra("Audio", "0");
+                    i.putExtra("Module",moduleHolder);
+                    i.putExtra("Lesson",l1.getContentDescription().toString());
+                    startActivity(i);
+                }
             }
         });
 
-        l3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lessonHolder = l3.getContentDescription().toString();
-                WordBox(lessonHolder);
-            }
-        });
-        */
         BOX.show();
     }
 
