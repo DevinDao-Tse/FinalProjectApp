@@ -105,11 +105,17 @@ public class Main_Menu extends AppCompatActivity
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lessonHolder = l1.getContentDescription().toString();
-               WordBox(lessonHolder); //passing the selected lesson
+                //lessonHolder = l1.getContentDescription().toString();
+               //WordBox(lessonHolder); //passing the selected lesson
+                Intent i = new Intent(getApplicationContext(), Session2.class);
+                i.putExtra("Audio", "0");
+                i.putExtra("Module",moduleHolder);
+                i.putExtra("Lesson",l1.getContentDescription().toString());
+                startActivity(i);
             }
         });
 
+        /*
         l2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,6 +131,7 @@ public class Main_Menu extends AppCompatActivity
                 WordBox(lessonHolder);
             }
         });
+        */
         BOX.show();
     }
 
