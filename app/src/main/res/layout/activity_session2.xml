@@ -86,17 +86,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="?attr/homeAsUpIndicator" />
 
-    <TextView
-        android:id="@+id/AttemptView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="388dp"
-        android:layout_marginEnd="8dp"
-        android:text="Attemps: 0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 </android.support.constraint.ConstraintLayout>

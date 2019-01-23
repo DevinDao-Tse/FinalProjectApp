@@ -30,7 +30,6 @@ public class Session2 extends AppCompatActivity  {
         setContentView(R.layout.activity_session2);
         getSupportActionBar().hide();
 
-        countAttempt =0;
 
         TextView test = findViewById(R.id.textViewTest);
         intent = getIntent();
@@ -58,20 +57,20 @@ public class Session2 extends AppCompatActivity  {
         mediaPlayer.setLooping(false);
         mediaPlayer.start();
 
-
-        configureSounds(les);
+        configureSounds(les,mod);
         initiliazeFiles();
         nextFile();
+        previousFile();
         homeButton();//initiate();
         test.setText(aud+" "+mod+" "+les);
     }
 
 
-    private void configureSounds(String lesson)
+    private void configureSounds(String lesson,String module)
     {
         soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC,0);
         sm = new int[5];
-        if(lesson.equals("LessonOne"))
+        if(lesson.equals("LessonOne") && module.equals("1"))
         {
             sm[0] = soundPool.load(this, R.raw.mod1les1w1,1);
             sm[1] = soundPool.load(this, R.raw.aud2,1);
@@ -80,7 +79,7 @@ public class Session2 extends AppCompatActivity  {
             sm[4] = soundPool.load(this, R.raw.aud2,1);
 
         }
-        else if(lesson.equals("LessonTwo"))
+        else if(lesson.equals("LessonOne")&& module.equals("2"))
         {
             sm[0] = soundPool.load(this, R.raw.aud6,1);
             sm[1] = soundPool.load(this, R.raw.aud7,1);
@@ -137,12 +136,11 @@ public class Session2 extends AppCompatActivity  {
     };
 
     //previous lesson
-    private void previousFile(){ backbtn.setOnClickListener(backOne);
-    }
+    private void previousFile(){ backbtn.setOnClickListener(backOne); }
     private View.OnClickListener backOne = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(getApplicationContext(), Session.class);
+            Intent i = new Intent(getApplicationContext(), Session2.class);
             counter = Integer.parseInt(aud);
             counter = counter-1;
             String pass = String.valueOf(counter);
