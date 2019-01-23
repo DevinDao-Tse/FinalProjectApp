@@ -3,6 +3,7 @@ package com.example.a1530630.learningapplication;
 
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -21,8 +23,11 @@ public class Session2 extends AppCompatActivity  {
     public int[] sm;
     public int counter,countAttempt; //variable to convert to string as we click next  or previous
     public String aud,mod,les; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
+    public ImageView CorrectOn,CorrectOff,IncorrectOn,IncorrectOff;
 
     public MediaPlayer mediaPlayer;
+    public int score;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +41,16 @@ public class Session2 extends AppCompatActivity  {
         aud = intent.getStringExtra("Audio"); //passing audio#
         mod = intent.getStringExtra("Module"); //passing module #
         les = intent.getStringExtra("Lesson"); //passing lesson#
+        score = intent.getIntExtra("Score",score);
+
+        CorrectOn = (ImageView)findViewById(R.id.onCorrect);
+        CorrectOff =(ImageView)findViewById(R.id.offCorrect);
+
+        IncorrectOff = (ImageView)findViewById(R.id.offIncorrect);
+        IncorrectOn = (ImageView)findViewById(R.id.onIncorrect);
 
         nextbtn = (ImageButton) findViewById(R.id.NextButton); //next button
-        nextbtn.setEnabled(true); //disabled until passed
+        nextbtn.setEnabled(false); //disabled until passed
         backbtn = (ImageButton) findViewById(R.id.PreviousButton); //back button
         homebtn = (ImageButton)findViewById(R.id.HomeButton); //home button
         playbtn = (ImageButton) findViewById(R.id.PlayButton2);
@@ -94,6 +106,25 @@ public class Session2 extends AppCompatActivity  {
         soundPool.play(sm[num],1,1,1,0,1.0f);
     }
 
+    public void addScore()
+    {
+        if(CorrectOff.isSelected())
+        {
+            CorrectOn.setVisibility(View.VISIBLE);
+            CorrectOff.setVisibility(View.INVISIBLE);
+            score = score +1;
+            nextbtn.setEnabled(true);
+        }
+        else if(IncorrectOff.isSelected())
+        {
+            nextbtn.setEnabled(true);
+            score = score +0;
+            IncorrectOn.setVisibility(View.VISIBLE);
+            IncorrectOff.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
     private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }
 
     //listener for play button
@@ -127,10 +158,12 @@ public class Session2 extends AppCompatActivity  {
             Intent i = new Intent(getApplicationContext(), Session2.class);
             counter = Integer.parseInt(aud);
             counter = counter+1;
+            score = score+1;
             String pass = String.valueOf(counter);
             i.putExtra("Audio", pass);
             i.putExtra("Module",mod);
             i.putExtra("Lesson",les);
+            i.putExtra("Score",score);
             startActivity(i);
         }
     };
