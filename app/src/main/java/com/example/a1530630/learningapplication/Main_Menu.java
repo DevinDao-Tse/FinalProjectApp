@@ -158,6 +158,10 @@ public class Main_Menu extends AppCompatActivity
                 startActivity(i);
                 return true;
             }
+            case R.id.nav_add:
+                i = new Intent(getApplicationContext(),Adding.class);
+                startActivity(i);
+                return true;
         }
 
         return true;

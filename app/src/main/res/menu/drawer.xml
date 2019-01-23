@@ -16,5 +16,9 @@
         <item
             android:id="@+id/nav_exit"
             android:title="Sign Out" />
+
+        <item
+            android:id="@+id/nav_add"
+            android:title="Add more"/>
     </group>
 </menu>
