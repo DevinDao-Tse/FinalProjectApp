@@ -28,12 +28,12 @@ public class Main_Menu extends AppCompatActivity
 
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
-    TextView dev,dev2;
-    TextView w1,w2,w3,w4,w5;
-    TextView l1,l2,l3,l4,l5;
-    String moduleHolder,lessonHolder;
+    TextView w1;
+    TextView less,mod;
+    String moduleHolder;
     Intent idk;
     SharedPreferences pref;
+    public Dialog BOX;
 
     SQLiteManage db;
     @Override
@@ -71,165 +71,55 @@ public class Main_Menu extends AppCompatActivity
 
         NavigationView nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
-
-        dev = findViewById(R.id.textView1);
-        dev2 = findViewById(R.id.textView2);
-
-        dev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moduleHolder = dev.getContentDescription().toString();
-                LessonBox(moduleHolder);
-            }
-        });
-        dev2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                moduleHolder = dev2.getContentDescription().toString();
-                LessonBox(moduleHolder);
-            }
-        });
-
-
         idk = new Intent(getApplicationContext(), Session2.class);
     }
 
-    //Lessons dialog box when clicking the module
-    public void LessonBox(final String mod)
+    //setting imageview/textview to onclick method
+    //show box for lessons
+    public void showLessons(View v)
     {
-        final Dialog BOX = new Dialog(Main_Menu.this);
+        BOX = new Dialog(Main_Menu.this);
         BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);
         BOX.setContentView(R.layout.module_lessons);
-
-        //lessons items
-        l1 = (TextView) BOX.findViewById(R.id.Lesson1);
-        l2 = (TextView) BOX.findViewById(R.id.Lesson2);
-        l3 = (TextView) BOX.findViewById(R.id.Lesson3);
-        l4 = (TextView) BOX.findViewById(R.id.Lesson4);
-        l5 = (TextView) BOX.findViewById(R.id.Lesson5);
-
-
-        l1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int useID = pref.getInt("UserID",0);
-                int num = Integer.parseInt(moduleHolder);
-                if(db.setModule(num,useID))
-                {
-                    idk.putExtra("Audio", "0");
-                    idk.putExtra("Module",moduleHolder);
-                    idk.putExtra("Lesson",l1.getContentDescription().toString());
-                    startActivity(idk);
-                }
-                else
-                {
-                    Module_Results res = new Module_Results(useID);
-                    db.createResult(res,num);
-                    idk.putExtra("Audio", "0");
-                    idk.putExtra("Module",moduleHolder);
-                    idk.putExtra("Lesson",l1.getContentDescription().toString());
-                    startActivity(idk);
-                }
-            }
-        });
-
-        l2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int useID = pref.getInt("UserID",0);
-                int num = Integer.parseInt(moduleHolder);
-                if(db.setModule(num,useID))
-                {
-                    idk.putExtra("Audio", "0");
-                    idk.putExtra("Module",moduleHolder);
-                    idk.putExtra("Lesson",l2.getContentDescription().toString());
-                    startActivity(idk);
-                }
-                else
-                {
-                    Module_Results res = new Module_Results(useID);
-                    db.createResult(res,num);
-                    idk.putExtra("Audio", "0");
-                    idk.putExtra("Module",moduleHolder);
-                    idk.putExtra("Lesson",l2.getContentDescription().toString());
-                    startActivity(idk);
-                }
-            }
-        });
-
+        mod =(TextView)v;
+        moduleHolder = mod.getContentDescription().toString();
         BOX.show();
     }
 
-    //selecting word for audio
-    public void WordBox(final String le)
+    //selecting lessons and passing parameters in intent
+    public void goingtoLesson(View v)
     {
-        final Dialog WORD = new Dialog(Main_Menu.this);
-        WORD.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        WORD.setContentView(R.layout.lessons_words);
-
-        w1 = (TextView) WORD.findViewById(R.id.Word1);
-        w1.setOnClickListener(new View.OnClickListener() {
+        less = (TextView)v;
+        less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Session.class);
-                i.putExtra("Audio", w1.getContentDescription().toString());
-                i.putExtra("Module",moduleHolder);
-                i.putExtra("Lesson",le);
-                startActivity(i);
+                int useID = pref.getInt("UserID",0);
+                int num = Integer.parseInt(moduleHolder);
+                if(db.setModule(num,useID))
+                {
+                    idk.putExtra("Audio", "0");
+                    idk.putExtra("Module",moduleHolder);
+                    idk.putExtra("Lesson",less.getContentDescription().toString());
+                    startActivity(idk);
+                }
+                else
+                {
+                    Module_Results res = new Module_Results(useID);
+                    db.createResult(res,num);
+                    idk.putExtra("Audio", "0");
+                    idk.putExtra("Module",moduleHolder);
+                    idk.putExtra("Lesson",less.getContentDescription().toString());
+                    startActivity(idk);
+                }
             }
         });
-
-        w2 = (TextView) WORD.findViewById(R.id.Word2);
-        w2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Session.class);
-                i.putExtra("Audio", w2.getContentDescription().toString());
-                i.putExtra("Module",moduleHolder);
-                i.putExtra("Lesson",le);
-                startActivity(i);
-            }
-        });
-
-        w3 = (TextView) WORD.findViewById(R.id.Word1);
-        w3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Session.class);
-                i.putExtra("Audio", w3.getContentDescription().toString());
-                i.putExtra("Module",moduleHolder);
-                i.putExtra("Lesson",le);
-                startActivity(i);
-            }
-        });
-
-        w4 = (TextView) WORD.findViewById(R.id.Word1);
-        w4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Session.class);
-                i.putExtra("Audio", w4.getContentDescription().toString());
-                i.putExtra("Module",moduleHolder);
-                i.putExtra("Lesson",le);
-                startActivity(i);
-            }
-        });
-
-        w5 = (TextView) WORD.findViewById(R.id.Word1);
-        w5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Session.class);
-                i.putExtra("Audio", w5.getContentDescription().toString());
-                i.putExtra("Module",moduleHolder);
-                i.putExtra("Lesson",le);
-                startActivity(i);
-            }
-        });
-
-        WORD.show();
     }
-
+/////////////////////////DO NOT ERASE PLZ///////////////////////////////////////
+    //Lessons dialog box when clicking the module
+    public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
+    //selecting word for audio
+    public void WordBox(final String le) { final Dialog WORD = new Dialog(Main_Menu.this);WORD.requestWindowFeature(Window.FEATURE_NO_TITLE);WORD.setContentView(R.layout.lessons_words);w1 = (TextView) WORD.findViewById(R.id.Word1);w1.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View view) { Intent i = new Intent(getApplicationContext(), Session.class);i.putExtra("Audio", w1.getContentDescription().toString());i.putExtra("Module",moduleHolder);i.putExtra("Lesson",le);startActivity(i); }});WORD.show(); }
+//////////////////////////DO NOT ERASE PLEASE////////////////////////////////////
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if(t.onOptionsItemSelected(item))
