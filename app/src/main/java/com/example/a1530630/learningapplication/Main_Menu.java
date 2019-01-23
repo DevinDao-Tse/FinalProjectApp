@@ -28,10 +28,11 @@ public class Main_Menu extends AppCompatActivity
 
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
-    TextView dev;
+    TextView dev,dev2;
     TextView w1,w2,w3,w4,w5;
     TextView l1,l2,l3,l4,l5;
     String moduleHolder,lessonHolder;
+    Intent idk;
     SharedPreferences pref;
 
     SQLiteManage db;
@@ -72,6 +73,7 @@ public class Main_Menu extends AppCompatActivity
         nv.setNavigationItemSelectedListener(this);
 
         dev = findViewById(R.id.textView1);
+        dev2 = findViewById(R.id.textView2);
 
         dev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +82,16 @@ public class Main_Menu extends AppCompatActivity
                 LessonBox(moduleHolder);
             }
         });
+        dev2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moduleHolder = dev2.getContentDescription().toString();
+                LessonBox(moduleHolder);
+            }
+        });
 
+
+        idk = new Intent(getApplicationContext(), Session2.class);
     }
 
     //Lessons dialog box when clicking the module
@@ -94,6 +105,9 @@ public class Main_Menu extends AppCompatActivity
         l1 = (TextView) BOX.findViewById(R.id.Lesson1);
         l2 = (TextView) BOX.findViewById(R.id.Lesson2);
         l3 = (TextView) BOX.findViewById(R.id.Lesson3);
+        l4 = (TextView) BOX.findViewById(R.id.Lesson4);
+        l5 = (TextView) BOX.findViewById(R.id.Lesson5);
+
 
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,53 +116,43 @@ public class Main_Menu extends AppCompatActivity
                 int num = Integer.parseInt(moduleHolder);
                 if(db.setModule(num,useID))
                 {
-                    Intent i = new Intent(getApplicationContext(), Session2.class);
-                    i.putExtra("Audio", "0");
-                    i.putExtra("Module",moduleHolder);
-                    i.putExtra("Lesson",l1.getContentDescription().toString());
-                    startActivity(i);
+                    idk.putExtra("Audio", "0");
+                    idk.putExtra("Module",moduleHolder);
+                    idk.putExtra("Lesson",l1.getContentDescription().toString());
+                    startActivity(idk);
                 }
                 else
-                    {
-
-                        Module_Results res = new Module_Results(useID);
-                        db.createResult(res,num);
-                        Intent i = new Intent(getApplicationContext(), Session2.class);
-                        i.putExtra("Audio", "0");
-                        i.putExtra("Module",moduleHolder);
-                        i.putExtra("Lesson",l1.getContentDescription().toString());
-                        startActivity(i);
-                    }
-
-                //lessonHolder = l1.getContentDescription().toString();
-               //WordBox(lessonHolder); //passing the selected lesson
-
+                {
+                    Module_Results res = new Module_Results(useID);
+                    db.createResult(res,num);
+                    idk.putExtra("Audio", "0");
+                    idk.putExtra("Module",moduleHolder);
+                    idk.putExtra("Lesson",l1.getContentDescription().toString());
+                    startActivity(idk);
+                }
             }
         });
-
 
         l2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int useID = pref.getInt("UserID",0);
                 int num = Integer.parseInt(moduleHolder);
-                if(db.setModule(num,useID ))
+                if(db.setModule(num,useID))
                 {
-                    Intent i = new Intent(getApplicationContext(), Session2.class);
-                    i.putExtra("Audio", "0");
-                    i.putExtra("Module",moduleHolder);
-                    i.putExtra("Lesson",l2.getContentDescription().toString());
-                    startActivity(i);
+                    idk.putExtra("Audio", "0");
+                    idk.putExtra("Module",moduleHolder);
+                    idk.putExtra("Lesson",l2.getContentDescription().toString());
+                    startActivity(idk);
                 }
                 else
                 {
                     Module_Results res = new Module_Results(useID);
                     db.createResult(res,num);
-                    Intent i = new Intent(getApplicationContext(), Session2.class);
-                    i.putExtra("Audio", "0");
-                    i.putExtra("Module",moduleHolder);
-                    i.putExtra("Lesson",l2.getContentDescription().toString());
-                    startActivity(i);
+                    idk.putExtra("Audio", "0");
+                    idk.putExtra("Module",moduleHolder);
+                    idk.putExtra("Lesson",l2.getContentDescription().toString());
+                    startActivity(idk);
                 }
             }
         });

@@ -73,7 +73,7 @@ public class Session2 extends AppCompatActivity  {
         sm = new int[5];
         if(lesson.equals("LessonOne"))
         {
-            sm[0] = soundPool.load(this, R.raw.aud1,1);
+            sm[0] = soundPool.load(this, R.raw.mod1les1w1,1);
             sm[1] = soundPool.load(this, R.raw.aud2,1);
             sm[2] = soundPool.load(this, R.raw.aud3,1);
             sm[3] = soundPool.load(this, R.raw.aud1,1);

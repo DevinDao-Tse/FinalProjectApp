@@ -33,10 +33,10 @@ public class Login extends AppCompatActivity {
         db = new SQLiteManage(this);
 
 
-        String[] PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
+       /*String[] PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
         if(!Permission.hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
-        }
+        }*/
 
         TextView RegisterView = findViewById(R.id.RegisterView);
 
