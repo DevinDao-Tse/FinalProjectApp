@@ -12,18 +12,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 
 public class Session2 extends AppCompatActivity  {
 
     private ImageButton playbtn,nextbtn,backbtn,homebtn;
-    private Button recordbtn,stopbtn;
     public SoundPool soundPool;
     private Intent intent;
     public int[] sm;
     public int counter,countAttempt; //variable to convert to string as we click next  or previous
-    public String aud,mod,les,wordTest,match; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
-    private TextView attempt;
+    public String aud,mod,les; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
+
     public MediaPlayer mediaPlayer;
 
     @Override
@@ -36,15 +34,15 @@ public class Session2 extends AppCompatActivity  {
 
         TextView test = findViewById(R.id.textViewTest);
         intent = getIntent();
-        aud = intent.getStringExtra("Audio"); //passing audio# and word
+        aud = intent.getStringExtra("Audio"); //passing audio#
         mod = intent.getStringExtra("Module"); //passing module #
         les = intent.getStringExtra("Lesson"); //passing lesson#
 
         nextbtn = (ImageButton) findViewById(R.id.NextButton); //next button
-        nextbtn.setEnabled(false); //disabled until passed
+        nextbtn.setEnabled(true); //disabled until passed
         backbtn = (ImageButton) findViewById(R.id.PreviousButton); //back button
         homebtn = (ImageButton)findViewById(R.id.HomeButton); //home button
-        playbtn = (ImageButton) findViewById(R.id.PlayButton);
+        playbtn = (ImageButton) findViewById(R.id.PlayButton2);
 
         //hide back button if start at word 1
         if(aud.equalsIgnoreCase("0")) { backbtn.setVisibility(View.INVISIBLE); }
@@ -53,9 +51,6 @@ public class Session2 extends AppCompatActivity  {
         //hide next button if start at last word
         if(aud.equalsIgnoreCase("4")){ nextbtn.setVisibility(View.INVISIBLE);}
         else {nextbtn.setVisibility(View.VISIBLE);}
-
-
-        attempt = (TextView)findViewById(R.id.AttemptView);
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(this, R.raw.aud1);
@@ -72,22 +67,20 @@ public class Session2 extends AppCompatActivity  {
     }
 
 
-
-
     private void configureSounds(String lesson)
     {
         soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC,0);
         sm = new int[5];
-        if(lesson.equals("Lesson1"))
+        if(lesson.equals("LessonOne"))
         {
-            sm[0] = soundPool.load(this, R.raw.mod1les1w1,1);
+            sm[0] = soundPool.load(this, R.raw.aud1,1);
             sm[1] = soundPool.load(this, R.raw.aud2,1);
             sm[2] = soundPool.load(this, R.raw.aud3,1);
             sm[3] = soundPool.load(this, R.raw.aud1,1);
             sm[4] = soundPool.load(this, R.raw.aud2,1);
 
         }
-        else if(lesson.equals("Lesson2"))
+        else if(lesson.equals("LessonTwo"))
         {
             sm[0] = soundPool.load(this, R.raw.aud6,1);
             sm[1] = soundPool.load(this, R.raw.aud7,1);
@@ -102,18 +95,12 @@ public class Session2 extends AppCompatActivity  {
         soundPool.play(sm[num],1,1,1,0,1.0f);
     }
 
-    private void initiliazeFiles()
-    {
-
-        playbtn.setOnClickListener(playsound);
-    }
+    private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }
 
     //listener for play button
     private View.OnClickListener playsound = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
-            aud = intent.getStringExtra("Audio");
             String soundname = (String) view.getContentDescription().toString();
             counter = Integer.parseInt(aud);
             if(soundname.contentEquals("play1"))
@@ -138,7 +125,7 @@ public class Session2 extends AppCompatActivity  {
     private View.OnClickListener nextOne = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(getApplicationContext(), Session.class);
+            Intent i = new Intent(getApplicationContext(), Session2.class);
             counter = Integer.parseInt(aud);
             counter = counter+1;
             String pass = String.valueOf(counter);

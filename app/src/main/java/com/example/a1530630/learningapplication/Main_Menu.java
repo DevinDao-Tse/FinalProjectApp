@@ -98,9 +98,9 @@ public class Main_Menu extends AppCompatActivity
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                int useID = pref.getInt("UserID",0);
                 int num = Integer.parseInt(moduleHolder);
-                if(db.setModule(num))
+                if(db.setModule(num,useID))
                 {
                     Intent i = new Intent(getApplicationContext(), Session2.class);
                     i.putExtra("Audio", "0");
@@ -110,7 +110,7 @@ public class Main_Menu extends AppCompatActivity
                 }
                 else
                     {
-                        int useID = pref.getInt("UserID",0);
+
                         Module_Results res = new Module_Results(useID);
                         db.createResult(res,num);
                         Intent i = new Intent(getApplicationContext(), Session2.class);
@@ -120,11 +120,8 @@ public class Main_Menu extends AppCompatActivity
                         startActivity(i);
                     }
 
-
-
                 //lessonHolder = l1.getContentDescription().toString();
                //WordBox(lessonHolder); //passing the selected lesson
-
 
             }
         });
@@ -133,24 +130,24 @@ public class Main_Menu extends AppCompatActivity
         l2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int useID = pref.getInt("UserID",0);
                 int num = Integer.parseInt(moduleHolder);
-                if(db.setModule(num))
+                if(db.setModule(num,useID ))
                 {
                     Intent i = new Intent(getApplicationContext(), Session2.class);
                     i.putExtra("Audio", "0");
                     i.putExtra("Module",moduleHolder);
-                    i.putExtra("Lesson",l1.getContentDescription().toString());
+                    i.putExtra("Lesson",l2.getContentDescription().toString());
                     startActivity(i);
                 }
                 else
                 {
-                    int useID = pref.getInt("UserID",0);
                     Module_Results res = new Module_Results(useID);
                     db.createResult(res,num);
                     Intent i = new Intent(getApplicationContext(), Session2.class);
                     i.putExtra("Audio", "0");
                     i.putExtra("Module",moduleHolder);
-                    i.putExtra("Lesson",l1.getContentDescription().toString());
+                    i.putExtra("Lesson",l2.getContentDescription().toString());
                     startActivity(i);
                 }
             }

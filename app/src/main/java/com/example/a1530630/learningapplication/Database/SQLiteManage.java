@@ -51,12 +51,12 @@ public class SQLiteManage extends SQLiteOpenHelper
         return mod;
     }
 
-    public Boolean setModule(int modNum)
+    public Boolean setModule(int modNum, int user)
     {
         boolean check = false;
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "SELECT "+Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+" FROM "+Module_Results.MODULE_RESULT_TABLE_NAME+" WHERE "
-                +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+ " = "+modNum;
+                +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+ " = "+modNum + " AND "+ Module_Results.MODULE_RESULT_COLUMN_USER_ID+" = "+user;
 
         Cursor cursor = db.rawQuery(sql,null);
         if(cursor.moveToFirst())
