@@ -6,23 +6,23 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.ContentFrameLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.Module_Results;
-import com.example.a1530630.learningapplication.Models.Modules;
 
-import org.w3c.dom.Text;
 
 public class Main_Menu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
@@ -35,17 +35,34 @@ public class Main_Menu extends AppCompatActivity
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
+    public Button test;
+    public EditText testnum;
+    public int num=0;
+    public ConstraintLayout main;
+
     long ModResID= 0;
     SQLiteManage db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
+
+
         getSupportActionBar().hide();
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
 
         pref = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+        test = (Button)findViewById(R.id.Testbtn);
+        testnum = (EditText)findViewById(R.id.TestAdd);
+
+        main = findViewById(R.id.content_frame);
+
+        test.setOnClickListener(onClick());
+
+
+
+
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
@@ -74,6 +91,29 @@ public class Main_Menu extends AppCompatActivity
         nv.setNavigationItemSelectedListener(this);
         idk = new Intent(getApplicationContext(), Session2.class);
     }
+
+    private View.OnClickListener onClick() {
+        return new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                num = Integer.parseInt(testnum.getText().toString());
+                main.addView(createNewTextView(num));
+
+            }
+        };
+    }
+
+
+    private TextView createNewTextView(int text) {
+        final ConstraintLayout.LayoutParams lparams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        final TextView textView = new TextView(this);
+        textView.setLayoutParams(lparams);
+        textView.setText("Module" + text);
+        return textView;
+    }
+
+
 
     //setting imageview/textview to onclick method
     //show box for lessons
