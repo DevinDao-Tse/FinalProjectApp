@@ -50,6 +50,61 @@ public class SQLiteManage extends SQLiteOpenHelper
         db.close();
         return mod;
     }
+    public User_Track createTrack(User_Track user_track)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(User_Track.USER_TRACK_COLUMN_USERID, user_track.getUserID());
+        values.put(User_Track.USER_TRACK_COLUMN_MODULEID, user_track.getModuleID());
+        db.insert(User_Track.USER_TRACK_TABLE_NAME,null,values);
+
+        db.close();
+        return user_track;
+    }
+
+
+    public Float TrackProfile(int UserID,int Module)
+    {
+        float l1=0;
+        float l2=0;
+        float l3=0;
+        float l4=0;
+        float l5=0;
+        float Total =0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+ Module_Results.MODULE_RESULT_COLUMN_LESSON_ONE+", "
+                +Module_Results.MODULE_RESULT_COLUMN_LESSON_TWO+", "
+                +Module_Results.MODULE_RESULT_COLUMN_LESSON_THREE+", "
+                +Module_Results.MODULE_RESULT_COLUMN_LESSON_FOUR+", "
+                +Module_Results.MODULE_RESULT_COLUMN_LESSON_FIVE+" FROM " + Module_Results.MODULE_RESULT_TABLE_NAME+ " WHERE "
+                +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+ " = "+Module+ " AND "+ Module_Results.MODULE_RESULT_COLUMN_USER_ID+ " = "+UserID;
+
+        Cursor cursor = db.rawQuery(sql,null);
+
+        if(cursor.moveToFirst()){
+
+            l1= cursor.getFloat(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_ONE));
+            l2= cursor.getFloat(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_TWO));
+            l3= cursor.getFloat(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_THREE));
+            l4= cursor.getFloat(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_FOUR));
+            l5= cursor.getFloat(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_FIVE));
+            Total =(l1+l2+l3+l4+l5) /5;
+
+        }
+        return Total;
+    }
+    public boolean updateTrack (float Total, int UserID, int Module)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues value = new ContentValues();
+        value.put(User_Track.USER_TRACK_COLUMN_RESULT,Total);
+        String userCon = String.valueOf(UserID);
+        String modCon = String.valueOf(Module);
+        db.update(User_Track.USER_TRACK_TABLE_NAME,value, User_Track.USER_TRACK_COLUMN_USERID + " = ? AND "+ User_Track.USER_TRACK_COLUMN_MODULEID +" = ?",new String[]{userCon,modCon});
+        return true;
+    }
+
 
     public Boolean setModule(int modNum, int user)
     {
@@ -74,7 +129,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         return cursor;
     }
 
-    public boolean testset(long rowid ,int test,String lesson)
+    public boolean testset(long rowid ,float test,String lesson)
     {
         String idConvert = String.valueOf(rowid);
         SQLiteDatabase db = this.getWritableDatabase();
@@ -150,13 +205,12 @@ public class SQLiteManage extends SQLiteOpenHelper
         return user;
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.CREATE_TABLE);
         //db.execSQL(Modules.CREATE_MODULE_TABLE);
         db.execSQL(Module_Results.CREATE_MODULE_RESULT);
-        //db.execSQL(User_Track.CREATE_USER_TRACK_TABLE);
+        db.execSQL(User_Track.CREATE_USER_TRACK_TABLE);
     }
 
 

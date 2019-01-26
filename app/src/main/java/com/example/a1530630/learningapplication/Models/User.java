@@ -20,14 +20,14 @@ public class User
             + COLUMN_USERNAME + " TEXT, "
             + COLUMN_PASSWORD + " TEXT, "
             + COLUMN_FULL_NAME + " TEXT, "
-            //+ COLUMN_EMAIL + " TEXT); "; // <-- uncomment this
            + COLUMN_EMAIL + " TEXT, " //<-- comment this
-            + COLUMN_CREATED + " LONG);"; //<-- comment this
+            + COLUMN_CREATED + " TEXT);"; //<-- comment this
 
 
     private Integer userID;
     private String Username,Password,FullName,Email;
-    private long Created;
+    private String Created;
+    private String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
     public User(){}
     public User(String user,String pass, String full, String email)
@@ -37,7 +37,7 @@ public class User
         this.Password = pass;
         this.FullName =full;
         this.Email =email;
-        this.Created = System.currentTimeMillis(); //<-- Comment this
+        this.Created = date;
     }
 
     public Integer getUserID() {
@@ -80,11 +80,11 @@ public class User
         Email = email;
     }
 
-    public long getCreated() {
+    public String getCreated() {
         return Created;
     }
 
-    public void setCreated(long created) {
+    public void setCreated(String created) {
         Created = created;
     }
 }

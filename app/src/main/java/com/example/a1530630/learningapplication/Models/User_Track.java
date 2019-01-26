@@ -10,16 +10,22 @@ public class User_Track
     public static String CREATE_USER_TRACK_TABLE="CREATE TABLE "+USER_TRACK_TABLE_NAME+" ("
             +USER_TRACK_COLUMN_USERID+ " INTEGER REFERENCES "+ User.USER_TABLE_NAME+" ("+User.COLUMN_ID+"), "
             +USER_TRACK_COLUMN_MODULEID+ " INTEGER REFERENCES "+ Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+" ("+Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+"),  "
-            +USER_TRACK_COLUMN_RESULT+ " INTEGER);";
+            +USER_TRACK_COLUMN_RESULT+ " REAL);";
 
     private Integer userID,moduleID,results;
 
-    public User_Track(){}
-    public User_Track(Integer uID, Integer mID,Integer res)
+
+    public User_Track(Integer uID, Integer mID)
     {
         this.userID = uID;
         this.moduleID =mID;
-        this.results =res;
+        this.results =0;
+    }
+    public User_Track()
+    {
+        this.userID = 0;
+        this.moduleID =0;
+        this.results =0;
     }
 
     public Integer getUserID() {

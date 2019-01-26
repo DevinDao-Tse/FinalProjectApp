@@ -1,7 +1,9 @@
 package com.example.a1530630.learningapplication;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -19,6 +21,8 @@ import com.example.a1530630.learningapplication.Database.SQLiteManage;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
+
 
 public class Session2 extends AppCompatActivity  {
 
@@ -31,8 +35,12 @@ public class Session2 extends AppCompatActivity  {
     public ImageView CorrectOn,CorrectOff,IncorrectOn,IncorrectOff;
     public TextView scoreCount,modRes;
     public MediaPlayer mediaPlayer;
-    public int score,Total;
+    public int score,userCon,modCon;
+    public float Total;
     public long ModResID;
+
+
+    SharedPreferences sharedPreferences;
 
     SQLiteManage db;
 
@@ -42,6 +50,9 @@ public class Session2 extends AppCompatActivity  {
         setContentView(R.layout.activity_session2);
         getSupportActionBar().hide();
         db = new SQLiteManage(this);
+        sharedPreferences = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+        userCon = sharedPreferences.getInt("UserID",0);
+
 
         TextView test = findViewById(R.id.textViewTest);
         intent = getIntent();
@@ -54,6 +65,8 @@ public class Session2 extends AppCompatActivity  {
         String modResConvert = String.valueOf(ModResID);
         modRes.setText(modResConvert);
 
+        modCon = Integer.parseInt(mod);
+
 
         CorrectOn = (ImageView)findViewById(R.id.onCorrect);
         CorrectOff =(ImageView)findViewById(R.id.offCorrect);
@@ -65,7 +78,7 @@ public class Session2 extends AppCompatActivity  {
 
         scoreCount = (TextView)findViewById(R.id.scoreView);
         scoreCount.setText(scoreString);
-        Total = Integer.parseInt(scoreString);
+        Total = Float.parseFloat(scoreString);
 
 
 
@@ -176,12 +189,19 @@ public class Session2 extends AppCompatActivity  {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-            //Total = (Total/5)*100;
+            if(aud.equals("4") && CorrectOn.getVisibility() == View.VISIBLE)
+            { Total = Total + 1; }
+            else { Total = Total +0; }
+
+            Total = (Total/5)*100;
             if(db.testset(ModResID,Total,les))
             {
-                startActivity(i);
-                Toast.makeText(getApplicationContext(), " - "+Total+" - ", Toast.LENGTH_LONG).show();
-            }
+                   // db.updateTrack(db.TrackProfile(userCon,modCon), userCon,modCon);
+                    startActivity(i);
+                    Toast.makeText(getApplicationContext(), " - "+Total+" - ", Toast.LENGTH_LONG).show();
+
+
+           }
 
         }
     };

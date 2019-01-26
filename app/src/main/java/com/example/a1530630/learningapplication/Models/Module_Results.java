@@ -16,11 +16,11 @@ public class Module_Results
             + MODULE_RESULT_COLUMN_MODULE_RES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + MODULE_RESULT_COLUMN_MODULE_ID + " INTEGER ,"
             + MODULE_RESULT_COLUMN_USER_ID + " INTEGER REFERENCES " + User.COLUMN_ID+" ("+User.COLUMN_ID+"),"
-            + MODULE_RESULT_COLUMN_LESSON_ONE + " INTEGER, "
-            + MODULE_RESULT_COLUMN_LESSON_TWO + " INTEGER, "
-            + MODULE_RESULT_COLUMN_LESSON_THREE + " INTEGER, "
-            + MODULE_RESULT_COLUMN_LESSON_FOUR + " INTEGER, "
-            + MODULE_RESULT_COLUMN_LESSON_FIVE + " INTEGER);";
+            + MODULE_RESULT_COLUMN_LESSON_ONE + " REAL, "
+            + MODULE_RESULT_COLUMN_LESSON_TWO + " REAL, "
+            + MODULE_RESULT_COLUMN_LESSON_THREE + " REAL, "
+            + MODULE_RESULT_COLUMN_LESSON_FOUR + " REAL, "
+            + MODULE_RESULT_COLUMN_LESSON_FIVE + " REAL);";
 
     private Integer moduleresID, userID, moduleID,resultID, lesOne, lesTwo, lesThree, lesFour, lesFive;
 

@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.Module_Results;
+import com.example.a1530630.learningapplication.Models.User_Track;
 
 
 public class Main_Menu extends AppCompatActivity
@@ -130,7 +131,6 @@ public class Main_Menu extends AppCompatActivity
     //selecting lessons and passing parameters in intent
     public void goingtoLesson(View v)
     {
-
         less = (TextView)v;
         less.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +153,9 @@ public class Main_Menu extends AppCompatActivity
                 else
                 {
                     Module_Results res = new Module_Results(useID);
+                    User_Track track = new User_Track(useID,num);
                     db.createResult(res,num);
+                    db.createTrack(track);
                     Cursor cursor = db.getModuleResID(useID);
                     if(cursor.moveToFirst())
                     {
@@ -164,7 +166,9 @@ public class Main_Menu extends AppCompatActivity
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
                     startActivity(idk);
+
                 }
+
             }
         });
     }
