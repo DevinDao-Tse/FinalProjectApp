@@ -6,11 +6,11 @@ public class Module_Results
     public static String MODULE_RESULT_COLUMN_MODULE_RES_ID = "ModuleResID";
     public static String MODULE_RESULT_COLUMN_MODULE_ID = "ModuleID";
     public static String MODULE_RESULT_COLUMN_USER_ID = "UserID";
-    public static String MODULE_RESULT_COLUMN_LESSON_ONE = "LessonOne";
-    public static String MODULE_RESULT_COLUMN_LESSON_TWO = "LessonTwo";
-    public static String MODULE_RESULT_COLUMN_LESSON_THREE = "LessonThree";
-    public static String MODULE_RESULT_COLUMN_LESSON_FOUR = "LessonFour";
-    public static String MODULE_RESULT_COLUMN_LESSON_FIVE = "LessonFive";
+    public static String MODULE_RESULT_COLUMN_LESSON_ONE = "Lesson1";
+    public static String MODULE_RESULT_COLUMN_LESSON_TWO = "Lesson2";
+    public static String MODULE_RESULT_COLUMN_LESSON_THREE = "Lesson3";
+    public static String MODULE_RESULT_COLUMN_LESSON_FOUR = "Lesson4";
+    public static String MODULE_RESULT_COLUMN_LESSON_FIVE = "Lesson5";
 
     public static String CREATE_MODULE_RESULT = "CREATE TABLE " + MODULE_RESULT_TABLE_NAME + " ("
             + MODULE_RESULT_COLUMN_MODULE_RES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "

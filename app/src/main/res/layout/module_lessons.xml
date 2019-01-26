@@ -9,7 +9,7 @@
         android:layout_width="65dp"
         android:layout_height="34dp"
         android:layout_weight="1"
-        android:contentDescription="LessonOne"
+        android:contentDescription="Lesson1"
         android:clickable="true"
         android:onClick="goingtoLesson"
         android:text="Lesson1" />
@@ -21,7 +21,7 @@
         android:layout_weight="1"
         android:clickable="true"
         android:onClick="goingtoLesson"
-        android:contentDescription="LessonTwo"
+        android:contentDescription="Lesson2"
         android:text="Lesson2" />
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:clickable="true"
         android:onClick="goingtoLesson"
-        android:contentDescription="LessonThree"
+        android:contentDescription="Lesson3"
         android:text="Lesson3" />
 
     <TextView
@@ -39,7 +39,7 @@
         android:layout_width="69dp"
         android:layout_height="36dp"
         android:layout_weight="1"
-        android:contentDescription="LessonFour"
+        android:contentDescription="Lesson4"
         android:text="Lesson4" />
 
     <TextView
@@ -49,6 +49,6 @@
         android:layout_weight="1"
         android:clickable="true"
         android:onClick="goingtoLesson"
-        android:contentDescription="LessonFive"
+        android:contentDescription="Lesson5"
         android:text="Lesson5" />
 </LinearLayout>

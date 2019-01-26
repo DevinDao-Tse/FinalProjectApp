@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -34,7 +35,7 @@ public class Main_Menu extends AppCompatActivity
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
-
+    long ModResID= 0;
     SQLiteManage db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class Main_Menu extends AppCompatActivity
     //selecting lessons and passing parameters in intent
     public void goingtoLesson(View v)
     {
+
         less = (TextView)v;
         less.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +99,12 @@ public class Main_Menu extends AppCompatActivity
                 int num = Integer.parseInt(moduleHolder);
                 if(db.setModule(num,useID))
                 {
+                   Cursor cursor = db.getModuleResID(useID);
+                    if(cursor.moveToFirst())
+                    {
+                        ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
+                    }
+                    idk.putExtra("ModResID", ModResID);
                     idk.putExtra("Audio", "0");
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
@@ -106,6 +114,12 @@ public class Main_Menu extends AppCompatActivity
                 {
                     Module_Results res = new Module_Results(useID);
                     db.createResult(res,num);
+                    Cursor cursor = db.getModuleResID(useID);
+                    if(cursor.moveToFirst())
+                    {
+                        ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
+                    }
+                    idk.putExtra("ModResID", ModResID);
                     idk.putExtra("Audio", "0");
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
@@ -159,8 +173,8 @@ public class Main_Menu extends AppCompatActivity
                 return true;
             }
             case R.id.nav_add:
-                i = new Intent(getApplicationContext(),Adding.class);
-                startActivity(i);
+               // i = new Intent(getApplicationContext(),Adding.class);
+                //startActivity(i);
                 return true;
         }
 

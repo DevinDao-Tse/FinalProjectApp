@@ -59,27 +59,31 @@ public class SQLiteManage extends SQLiteOpenHelper
                 +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+ " = "+modNum + " AND "+ Module_Results.MODULE_RESULT_COLUMN_USER_ID+" = "+user;
 
         Cursor cursor = db.rawQuery(sql,null);
-        if(cursor.moveToFirst())
-        {
-            check = true; //check user already attempted module
-    }
-        else
-            {
-                check = false; //verify if they attempt the first time
-            }
+
+        if(cursor.moveToFirst()) { check = true; }
+        else { check = false; }
 
         return check;
     }
 
-    public boolean testset(long rowid ,int test,String modNum)
+    public Cursor getModuleResID(int userID)
     {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID+" FROM "+Module_Results.MODULE_RESULT_TABLE_NAME+ " WHERE "+ Module_Results.MODULE_RESULT_COLUMN_USER_ID+ " = "+userID;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+
+    public boolean testset(long rowid ,int test,String lesson)
+    {
+        String idConvert = String.valueOf(rowid);
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID,rowid);
-        values.put(modNum, test);
+        values.put(lesson, test);
+        db.update(Module_Results.MODULE_RESULT_TABLE_NAME, values, Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID + " =  ?",new String[]{idConvert});
 
-        return db.update(Module_Results.MODULE_RESULT_TABLE_NAME, values, Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID + " = "+ rowid,null)>0;
+        return true;
     }
     //verify if a user exist through email,full name
     public boolean User_Exist(String email,String username)
