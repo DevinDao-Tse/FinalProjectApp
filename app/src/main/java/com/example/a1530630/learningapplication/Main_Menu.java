@@ -49,7 +49,6 @@ public class Main_Menu extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
 
-
         getSupportActionBar().hide();
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
@@ -107,6 +106,11 @@ public class Main_Menu extends AppCompatActivity
 
             }
         };
+    }
+
+    @Override
+    public void onBackPressed(){
+        //super.onBackPressed(); //comment out if you want back button to do something
     }
 
     private TextView createNewTextView(int text) {
@@ -185,7 +189,7 @@ public class Main_Menu extends AppCompatActivity
                 {
                     stringBuffer.append("UserID "+ cursor.getInt(0) + "\n");
                     stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
-                    stringBuffer.append("Results "+ cursor.getInt(2)+ "\n\n");
+                    stringBuffer.append("Results "+ cursor.getInt(2)+ "%\n\n");
                 }
                 showMsg(stringBuffer.toString());
             }
@@ -215,8 +219,8 @@ public class Main_Menu extends AppCompatActivity
                     stringBuffer.append("ModuleResID "+ cursor.getInt(0) + "\n");
                     stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
                     stringBuffer.append("UserID "+ cursor.getInt(2)+ "\n");
-                    stringBuffer.append("Lesson1 "+ cursor.getInt(3)+ "\n");
-                    stringBuffer.append("Lesson2 "+ cursor.getInt(4)+ "\n\n");
+                    stringBuffer.append("Lesson1 "+ cursor.getInt(3)+ "%\n");
+                    stringBuffer.append("Lesson2 "+ cursor.getInt(4)+ "%\n\n");
                 }
                 showMsg2(stringBuffer.toString());
             }

@@ -102,6 +102,11 @@ public class Session2 extends AppCompatActivity  {
         test.setText(aud+" "+modCon+" "+les);
     }
 
+    @Override
+    public void onBackPressed(){
+        //super.onBackPressed(); //comment out if you want back button to do something
+    }
+
     private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }
 
     //listener for play button
