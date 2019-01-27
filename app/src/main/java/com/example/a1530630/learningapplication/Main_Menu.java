@@ -1,5 +1,6 @@
 package com.example.a1530630.learningapplication;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +37,7 @@ public class Main_Menu extends AppCompatActivity
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
-    public Button test;
+    public Button test, show,show2;
     public EditText testnum;
     public int num=0;
     public ConstraintLayout main;
@@ -61,8 +62,11 @@ public class Main_Menu extends AppCompatActivity
 
         test.setOnClickListener(onClick());
 
+        show = (Button)findViewById(R.id.Showbtn);
+        show2 = (Button)findViewById(R.id.Showbtn2);
 
-
+        ViewAll();
+        ViewAll2();
 
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
@@ -105,7 +109,6 @@ public class Main_Menu extends AppCompatActivity
         };
     }
 
-
     private TextView createNewTextView(int text) {
         final ConstraintLayout.LayoutParams lparams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
         final TextView textView = new TextView(this);
@@ -137,14 +140,14 @@ public class Main_Menu extends AppCompatActivity
             public void onClick(View view) {
                 int useID = pref.getInt("UserID",0);
                 int num = Integer.parseInt(moduleHolder);
-                if(db.setModule(num,useID))
+                if(db.setModule(num,useID) && db.setTrack(num, useID))
                 {
-                   Cursor cursor = db.getModuleResID(useID);
-                    if(cursor.moveToFirst())
+                   //Cursor cursor = db.getModuleResID(useID);
+                    /*if(cursor.moveToFirst())
                     {
-                        ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
-                    }
-                    idk.putExtra("ModResID", ModResID);
+                        ModResID = cursor.getLong(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
+                    }*/
+                    //idk.putExtra("ModResID", ModResID);
                     idk.putExtra("Audio", "0");
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
@@ -153,15 +156,10 @@ public class Main_Menu extends AppCompatActivity
                 else
                 {
                     Module_Results res = new Module_Results(useID);
-                    User_Track track = new User_Track(useID,num);
+                    User_Track track = new User_Track(useID);
                     db.createResult(res,num);
-                    db.createTrack(track);
-                    Cursor cursor = db.getModuleResID(useID);
-                    if(cursor.moveToFirst())
-                    {
-                        ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
-                    }
-                    idk.putExtra("ModResID", ModResID);
+                    db.createTrack(track,num);
+                    //idk.putExtra("ModResID", ModResID);
                     idk.putExtra("Audio", "0");
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
@@ -172,6 +170,67 @@ public class Main_Menu extends AppCompatActivity
             }
         });
     }
+    public void ViewAll()
+    {
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor cursor = db.trackUpdate();
+                if(cursor.getCount() == 0)
+                {
+                    return;
+                }
+                StringBuffer stringBuffer = new StringBuffer();
+                while(cursor.moveToNext())
+                {
+                    stringBuffer.append("UserID "+ cursor.getInt(0) + "\n");
+                    stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
+                    stringBuffer.append("Results "+ cursor.getInt(2)+ "\n\n");
+                }
+                showMsg(stringBuffer.toString());
+            }
+        });
+    }
+
+    public void showMsg(String msg)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(msg);
+        builder.show();
+    }
+    public void ViewAll2()
+    {
+        show2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor cursor = db.trackModuleRes();
+                if(cursor.getCount() == 0)
+                {
+                    return;
+                }
+                StringBuffer stringBuffer = new StringBuffer();
+                while(cursor.moveToNext())
+                {
+                    stringBuffer.append("ModuleResID "+ cursor.getInt(0) + "\n");
+                    stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
+                    stringBuffer.append("UserID "+ cursor.getInt(2)+ "\n");
+                    stringBuffer.append("Lesson1 "+ cursor.getInt(3)+ "\n");
+                    stringBuffer.append("Lesson2 "+ cursor.getInt(4)+ "\n\n");
+                }
+                showMsg2(stringBuffer.toString());
+            }
+        });
+    }
+
+    public void showMsg2(String msg)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setMessage(msg);
+        builder.show();
+    }
+
 /////////////////////////DO NOT ERASE PLZ///////////////////////////////////////
     //Lessons dialog box when clicking the module
     public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
