@@ -1,5 +1,6 @@
 package com.example.a1530630.learningapplication;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -9,6 +10,18 @@ public class Permission
 {
     public static  boolean hasPermissions(Context context, String... permissions) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public static  boolean hasExternalPermissions(Context context, String... permissions)
+    {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && context !=null && permissions != null){
             for (String permission : permissions) {
                 if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
                     return false;

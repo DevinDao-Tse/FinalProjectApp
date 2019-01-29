@@ -26,7 +26,6 @@ import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.User_Track;
 
-
 public class Main_Menu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -44,6 +43,7 @@ public class Main_Menu extends AppCompatActivity
     public LinearLayout lay;
     public int count=3;
     public TextView textView;
+    public boolean textadded;
 
     long ModResID= 0;
     SQLiteManage db;
@@ -60,8 +60,6 @@ public class Main_Menu extends AppCompatActivity
         test = (Button)findViewById(R.id.Testbtn);
 
         lay = findViewById(R.id.Modules);
-
-        //test.setOnClickListener(onClick());
 
         show = (Button)findViewById(R.id.Showbtn);
         show2 = (Button)findViewById(R.id.Showbtn2);
@@ -99,11 +97,10 @@ public class Main_Menu extends AppCompatActivity
     }
 
 
-
     public void addnewBox(View v)
     {
-        count++;
-        lay.addView(createNewTextView(count));
+            count++;
+            lay.addView(createNewTextView(count));
     }
 
     private View.OnClickListener onClick() {
@@ -125,11 +122,7 @@ public class Main_Menu extends AppCompatActivity
                     }
                 });
                 lay.addView(textView);
-
-
-
-
-               // lay.addView(createNewTextView(count));
+                // lay.addView(createNewTextView(count));
             }
         };
     }
@@ -152,10 +145,9 @@ public class Main_Menu extends AppCompatActivity
                 showLessons(view);
             }
         });
+        textadded =true;
         return textView;
     }
-
-
 
     //setting imageview/textview to onclick method
     //show box for lessons
@@ -168,8 +160,6 @@ public class Main_Menu extends AppCompatActivity
         moduleHolder = mod.getContentDescription().toString();
         BOX.show();
     }
-
-
 
     //selecting lessons and passing parameters in intent
     public void goingtoLesson(View v)
@@ -316,9 +306,9 @@ public class Main_Menu extends AppCompatActivity
                 return true;
             }
             case R.id.nav_add:
-               // i = new Intent(getApplicationContext(),Adding.class);
-                //startActivity(i);
-                return true;
+               i = new Intent(getApplicationContext(),Store.class);
+               startActivity(i);
+               return true;
         }
 
         return true;

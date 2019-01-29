@@ -36,6 +36,7 @@ public class Session2 extends AppCompatActivity  {
     public int counter,countAttempt; //variable to convert to string as we click next  or previous
     public String aud,mod,les; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
     public ImageView CorrectOn,CorrectOff,IncorrectOn,IncorrectOff;
+   //  public ImageView imgWord = (ImageView)findViewById(R.id.ImageView);
     public TextView scoreCount,modRes;
     public MediaPlayer mediaPlayer;
     public int score,userCon,modCon;
