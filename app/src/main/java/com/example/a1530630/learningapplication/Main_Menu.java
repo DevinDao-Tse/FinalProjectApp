@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
@@ -40,7 +41,9 @@ public class Main_Menu extends AppCompatActivity
     public Button test, show,show2;
     public EditText testnum;
     public int num=0;
-    public ConstraintLayout main;
+    public LinearLayout lay;
+    public int count=3;
+    public TextView textView;
 
     long ModResID= 0;
     SQLiteManage db;
@@ -48,18 +51,17 @@ public class Main_Menu extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
-
         getSupportActionBar().hide();
+
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
 
         pref = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
         test = (Button)findViewById(R.id.Testbtn);
-        testnum = (EditText)findViewById(R.id.TestAdd);
 
-        main = findViewById(R.id.content_frame);
+        lay = findViewById(R.id.Modules);
 
-        test.setOnClickListener(onClick());
+        //test.setOnClickListener(onClick());
 
         show = (Button)findViewById(R.id.Showbtn);
         show2 = (Button)findViewById(R.id.Showbtn2);
@@ -96,14 +98,38 @@ public class Main_Menu extends AppCompatActivity
         idk = new Intent(getApplicationContext(), Session2.class);
     }
 
+
+
+    public void addnewBox(View v)
+    {
+        count++;
+        lay.addView(createNewTextView(count));
+    }
+
     private View.OnClickListener onClick() {
         return new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                num = Integer.parseInt(testnum.getText().toString());
-                main.addView(createNewTextView(num));
+                count++;
+                LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                textView = new TextView(getApplicationContext());
+                textView.setLayoutParams(lparams);
+                textView.setText("Module " + count+" ");
+                String con = String.valueOf(count);
+                textView.setContentDescription(con);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showLessons(view);
+                    }
+                });
+                lay.addView(textView);
 
+
+
+
+               // lay.addView(createNewTextView(count));
             }
         };
     }
@@ -114,10 +140,18 @@ public class Main_Menu extends AppCompatActivity
     }
 
     private TextView createNewTextView(int text) {
-        final ConstraintLayout.LayoutParams lparams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         final TextView textView = new TextView(this);
         textView.setLayoutParams(lparams);
-        textView.setText("Module" + text);
+        textView.setText("Module " + text+" ");
+        String con = String.valueOf(text);
+        textView.setContentDescription(con);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLessons(view);
+            }
+        });
         return textView;
     }
 
@@ -134,6 +168,8 @@ public class Main_Menu extends AppCompatActivity
         moduleHolder = mod.getContentDescription().toString();
         BOX.show();
     }
+
+
 
     //selecting lessons and passing parameters in intent
     public void goingtoLesson(View v)

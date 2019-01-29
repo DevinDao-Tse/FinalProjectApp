@@ -15,6 +15,18 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp">
 
+        <LinearLayout
+            android:id="@+id/Modules"
+            android:layout_width="323dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
         <TextView
             android:id="@+id/textView1"
             android:layout_width="0dp"
@@ -52,20 +64,7 @@
             android:layout_marginTop="332dp"
             android:layout_marginEnd="8dp"
             android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <EditText
-            android:id="@+id/TestAdd"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="380dp"
-            android:layout_marginEnd="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
+            android:onClick="addnewBox"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
