@@ -1,16 +1,17 @@
 package com.example.a1530630.learningapplication;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,16 +23,26 @@ import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
 import org.w3c.dom.Text;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.function.Function;
-import java.util.regex.Pattern;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
 
 public class Store extends AppCompatActivity {
 
-    Button pick;
+    Button pick,save;
     TextView filetxt,numFile;
     ImageView img,homebtn;
+    String filePath;
+
+    ZipOutputStream zOut = null;
+
     static final int REQUEST_PERMISSION_KEY = 1001;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +56,18 @@ public class Store extends AppCompatActivity {
 
 
         pick = (Button)findViewById(R.id.Pickbtn);
+        save = (Button)findViewById(R.id.SaveBtn);
+
+        String path = FilePickerActivity.RESULT_FILE_PATH;
+
         filetxt = (TextView)findViewById(R.id.FileText);
         numFile = (TextView)findViewById(R.id.ZipFile);
+        filetxt.setText(path);
+
+
         img = (ImageView)findViewById(R.id.ImageTest);
         homebtn = (ImageView) findViewById(R.id.HomeButton);
+
 
         pick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,13 +81,6 @@ public class Store extends AppCompatActivity {
         });
 
     }
-    private void homeButton(){homebtn.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(Store.this,Main_Menu.class);
-            startActivity(i);
-        }
-    });}
 
     //get number of files in zip file
     int zipEntriesCount(String path) throws IOException {
@@ -76,25 +88,53 @@ public class Store extends AppCompatActivity {
         return zf.size();
     }
 
+    ZipFile zipFiles(String path) throws  IOException
+    {
+        ZipFile zf= new ZipFile(path);
+        return zf;
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1000 && resultCode == RESULT_OK) {
-            String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
-            // Do anything with file
+            filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
+            String path = getApplicationContext().getFilesDir().getAbsolutePath();
             int count =0;
 
             try {
                 count = zipEntriesCount(filePath);
+                String FILENAME = "hello_file";
+                String FOLDERNAME = "sub";
+                String string = "hello world!";
+
+                Context context = getApplicationContext();
+                String folder = context.getFilesDir().getAbsolutePath() + File.separator + FOLDERNAME;
+
+                File subFolder = new File(folder);
+
+                if (!subFolder.exists()) {
+                    subFolder.mkdirs();
+                }
+
+                FileOutputStream outputStream = new FileOutputStream(new File(subFolder, filePath));
+
+                //outputStream.write(string.getBytes());
+                outputStream.close();
+
+            } catch (FileNotFoundException e) {
+                Log.e("ERROR", e.toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("ERROR", e.toString());
             }
 
             filetxt.setText(filePath);
             numFile.setText(String.valueOf(count));
             Bitmap bmImg = BitmapFactory.decodeFile(filePath);
             img.setImageBitmap(bmImg);
+
         }
     }
 
@@ -113,4 +153,12 @@ public class Store extends AppCompatActivity {
                     }
         }
     }
+
+    private void homeButton(){homebtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(Store.this,Main_Menu.class);
+            startActivity(i);
+        }
+    });}
 }
