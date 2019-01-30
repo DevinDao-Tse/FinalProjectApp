@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.a1530630.learningapplication.Models.AudioAndImages;
 import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.Modules;
 import com.example.a1530630.learningapplication.Models.User;
@@ -38,6 +39,35 @@ public class SQLiteManage extends SQLiteOpenHelper
         return user;
     }
 
+    public Modules createModules(Modules mod)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(Modules.MODULE_COLUMN_NUMBER,mod.getModuleNum());
+        long id = db.insert(Modules.MODULE_TABLE_NAME,null,values);
+        mod.setModuleID((int)id);
+        db.close();
+
+        return mod;
+    }
+
+    public Cursor createNewModule()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+Modules.MODULE_COLUMN_NUMBER+ " FROM "+ Modules.MODULE_TABLE_NAME+ " ORDER BY "+Modules.MODULE_COLUMN_NUMBER+ " DESC LIMIT 1";
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+
+    public Cursor ReadModule()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+Modules.MODULE_COLUMN_NUMBER+ " FROM "+ Modules.MODULE_TABLE_NAME;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+
     public Module_Results createResult(Module_Results mod,int modNum)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -58,7 +88,6 @@ public class SQLiteManage extends SQLiteOpenHelper
         values.put(User_Track.USER_TRACK_COLUMN_USERID, user_track.getUserID());
         values.put(User_Track.USER_TRACK_COLUMN_MODULEID, modNum);
         db.insert(User_Track.USER_TRACK_TABLE_NAME,null,values);
-
         db.close();
         return user_track;
     }
@@ -66,11 +95,7 @@ public class SQLiteManage extends SQLiteOpenHelper
 
     public Float TrackProfile(int UserID,int Module)
     {
-        float l1=0;
-        float l2=0;
-        float l3=0;
-        float l4=0;
-        float l5=0;
+        float l1=0;     float l2=0;     float l3=0;     float l4=0;     float l5=0;
         float Total =0;
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "SELECT "+ Module_Results.MODULE_RESULT_COLUMN_LESSON_ONE+", "
@@ -129,7 +154,6 @@ public class SQLiteManage extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "SELECT "+User_Track.USER_TRACK_COLUMN_MODULEID+" FROM "+User_Track.USER_TRACK_TABLE_NAME+" WHERE "
                 +User_Track.USER_TRACK_COLUMN_MODULEID+ " = "+modNum + " AND "+ User_Track.USER_TRACK_COLUMN_USERID+" = "+user;
-
         Cursor cursor = db.rawQuery(sql,null);
 
         if(cursor.moveToFirst()) { check = true; }
@@ -157,7 +181,6 @@ public class SQLiteManage extends SQLiteOpenHelper
         values.put(lesson, test);
         db.update(Module_Results.MODULE_RESULT_TABLE_NAME, values, Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID + " =  ? AND "
                 +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID + " = ?",new String[]{idConvert, modConvert});
-
         return true;
     }
     //verify if a user exist through email,full name
@@ -168,13 +191,9 @@ public class SQLiteManage extends SQLiteOpenHelper
         Cursor verify = db.rawQuery(sql,null);
         boolean check = false;
 
-        if(verify.moveToFirst())
-        {
-            check = true;
-        }
-        else {
-            check = false;
-        }
+        if(verify.moveToFirst()) { check = true; }
+
+        else { check = false; }
             return check;
     }
     //Verify Login with username and password
@@ -239,12 +258,21 @@ public class SQLiteManage extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }
+    public Cursor trackModule()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql="SELECT * FROM " +Modules.MODULE_TABLE_NAME;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.CREATE_TABLE);
+        db.execSQL(Modules.CREATE_MODULE_TABLE);
         db.execSQL(Module_Results.CREATE_MODULE_RESULT);
         db.execSQL(User_Track.CREATE_USER_TRACK_TABLE);
+        //db.execSQL(AudioAndImages.CREATE_AudandImg_TABLE);
     }
 
 
