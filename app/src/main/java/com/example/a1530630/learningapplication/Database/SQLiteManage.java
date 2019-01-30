@@ -244,6 +244,15 @@ public class SQLiteManage extends SQLiteOpenHelper
         return user;
     }
 
+    public boolean DeleteModule(int num)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String numCon = String.valueOf(num);
+        db.delete(Modules.MODULE_TABLE_NAME,  Modules.MODULE_COLUMN_NUMBER + " = ? ",new String[]{numCon});
+        return  true;
+    }
+
     public Cursor trackUpdate()
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -262,6 +271,13 @@ public class SQLiteManage extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql="SELECT * FROM " +Modules.MODULE_TABLE_NAME;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+    public Cursor getModuleNum()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+Modules.MODULE_COLUMN_NUMBER+ " FROM "+ Modules.MODULE_TABLE_NAME;
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }

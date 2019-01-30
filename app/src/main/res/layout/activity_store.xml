@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:id="@+id/ModulesList"
     tools:context=".Store">
 
-    <TextView
-        android:id="@+id/FileText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="file path"/>
 
-    <TextView
-        android:id="@+id/ZipFile"
+    <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="# of files in zip"/>
+        android:layout_height="@dimen/_300sdp"
+        android:id="@+id/listView"/>
 
-    <Button
-        android:id="@+id/Pickbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pick File"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:gravity="center"
+        android:layout_below="@id/listView"
+        android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/ImageTest"
-        android:layout_width="127dp"
-        android:layout_height="103dp"
-        android:src="?attr/colorAccent" />
-    <ImageButton
-        android:id="@+id/HomeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="?attr/homeAsUpIndicator" />
-    <Button
-        android:id="@+id/SaveBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save File"
-        />
+        <Button
+            android:id="@+id/Testbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addnewFromDB"
+            android:text="Button" />
 
+        <ImageButton
+            android:id="@+id/HomeButton"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            app:srcCompat="?attr/homeAsUpIndicator" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/FileText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="file path" />
+
+        <Button
+            android:id="@+id/Pickbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pick File" />
+
+    </LinearLayout>
+
+</RelativeLayout>

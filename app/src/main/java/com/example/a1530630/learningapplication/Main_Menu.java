@@ -106,7 +106,7 @@ public class Main_Menu extends AppCompatActivity
         //super.onBackPressed(); //comment out if you want back button to do something
     }
 
-
+/*
     public void addnewFromDB(View v)
     {
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -149,7 +149,7 @@ public class Main_Menu extends AppCompatActivity
                 lay.addView(textView);
             }
     }
-
+*/
     public void readFromDB()
     {
         final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
