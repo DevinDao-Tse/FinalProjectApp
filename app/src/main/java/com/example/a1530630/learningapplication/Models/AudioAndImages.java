@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class AudioAndImages
 {
@@ -32,13 +33,17 @@ public class AudioAndImages
     }
 
     private Integer FileID;
+    private String word;
     private Bitmap bitmap;
+    private File file;
 
     public AudioAndImages(){}
-    public AudioAndImages(Bitmap img)
+    public AudioAndImages(String w,Bitmap img, File aud)
     {
         this.FileID = null;
+        this.word = w;
         this.bitmap = img;
+        this.file= aud;
     }
 
 
@@ -58,4 +63,11 @@ public class AudioAndImages
         this.bitmap = bitmap;
     }
 
+    public String getWord() { return word; }
+
+    public void setWord(String word) { this.word = word; }
+
+    public File getFile() { return file; }
+
+    public void setFile(File file) { this.file = file; }
 }

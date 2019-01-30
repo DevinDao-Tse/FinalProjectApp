@@ -20,7 +20,6 @@ public class ModulesListAdapter extends ArrayAdapter<Modules> {
     int mresources;
     SQLiteManage db;
     int numcon;
-    int idcon;
 
     public ModulesListAdapter(Context context, int resources, ArrayList<Modules> objects)
     {

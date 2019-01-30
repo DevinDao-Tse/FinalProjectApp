@@ -58,29 +58,8 @@ public class Store extends AppCompatActivity {
         setContentView(R.layout.activity_store);
         db = new SQLiteManage(this);
 
-
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1001);
-        }
-
-        String path = FilePickerActivity.RESULT_FILE_PATH;
-
         add = (Button)findViewById(R.id.Testbtn);
         homebtn = (ImageView) findViewById(R.id.HomeButton);
-        pick = (Button) findViewById(R.id.Pickbtn);
-
-
-        pick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new MaterialFilePicker()
-                        .withActivity(Store.this)
-                        .withRequestCode(1000)
-                        .withHiddenFiles(true) // Show hidden files and folders
-                        .start();
-            }
-        });
 
         ListView listView = (ListView)findViewById(R.id.listView);
 
@@ -122,57 +101,6 @@ public class Store extends AppCompatActivity {
         }
     }
 
-
-    //get number of files in zip file
-    int zipEntriesCount(String path) throws IOException {
-        ZipFile zf= new ZipFile(path);
-        return zf.size();
-    }
-
-    ZipFile zipFiles(String path) throws  IOException
-    {
-        ZipFile zf= new ZipFile(path);
-        return zf;
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 1000 && resultCode == RESULT_OK) {
-            filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
-            String path = getApplicationContext().getFilesDir().getAbsolutePath();
-            int count =0;
-
-            try
-            {
-               count = zipEntriesCount(filePath);
-            }
-            catch (Exception e) { Log.e("ERROR", e.toString()); }
-
-
-            //Bitmap bmImg = BitmapFactory.decodeFile(filePath);
-            //img.setImageBitmap(bmImg);
-
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch(requestCode)
-        {
-            case 1001:
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                { Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show();
-                }
-                else
-                    {
-                        Toast.makeText(this,"Permission not granted",Toast.LENGTH_LONG).show();
-                        finish();
-                    }
-        }
-    }
 
     private void homeButton(){homebtn.setOnClickListener(new View.OnClickListener() {
         @Override
