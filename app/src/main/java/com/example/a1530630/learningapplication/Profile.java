@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,25 +31,16 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
 
         dl  = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        //inputs
-        EditText Fullname = findViewById(R.id.UserFull);
-        EditText Username = findViewById(R.id.UserName);
-        EditText Password = findViewById(R.id.UserPass);
-        EditText Email = findViewById(R.id.UserEmail);
+        //TextView of username
+        TextView Username = findViewById(R.id.profileUserName);
 
         db = new SQLiteManage(this);
         SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
 
-        //converted inputs
+        //See the username
         String userName = settings.getString("Username",null);
-        String fullName = settings.getString("FullName",null);
-        String passWord = settings.getString("Password",null);
-        String email = settings.getString("Email",null);
-
-        Fullname.setText(fullName);
         Username.setText(userName);
-        Password.setText(passWord);
-        Email.setText(email);
+
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
@@ -78,6 +70,14 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         nv.setNavigationItemSelectedListener(this);
 
     }
+
+            //Goes to user setting
+            public void profileEdit(View view)
+            {
+                Intent i = new Intent(this, User_setting.class);
+                startActivity(i);
+            }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         if(t.onOptionsItemSelected(item))
             return true;

@@ -286,6 +286,8 @@ public class Main_Menu extends AppCompatActivity
             }
             case R.id.nav_profile:
             {
+                i = new Intent(this,Profile.class);
+                startActivity(i);
                 return true;
             }
             case R.id.nav_settings:
