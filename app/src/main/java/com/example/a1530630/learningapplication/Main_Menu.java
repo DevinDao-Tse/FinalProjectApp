@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.Module_Results;
+import com.example.a1530630.learningapplication.Models.Modules;
 import com.example.a1530630.learningapplication.Models.User_Track;
 
 public class Main_Menu extends AppCompatActivity
@@ -37,11 +38,10 @@ public class Main_Menu extends AppCompatActivity
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
-    public Button test, show,show2;
-    public EditText testnum;
+    public Button test, show,show2,show3;
     public int num=0;
     public LinearLayout lay;
-    public int count=3;
+    public int count=0;
     public TextView textView;
     public boolean textadded;
 
@@ -63,9 +63,12 @@ public class Main_Menu extends AppCompatActivity
 
         show = (Button)findViewById(R.id.Showbtn);
         show2 = (Button)findViewById(R.id.Showbtn2);
+        show3 = (Button)findViewById(R.id.Showbtn3);
 
         ViewAll();
         ViewAll2();
+        ViewAll3();
+        readFromDB();
 
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
@@ -97,23 +100,45 @@ public class Main_Menu extends AppCompatActivity
     }
 
 
-    public void addnewBox(View v)
-    {
-            count++;
-            lay.addView(createNewTextView(count));
+
+    @Override
+    public void onBackPressed(){
+        //super.onBackPressed(); //comment out if you want back button to do something
     }
 
-    private View.OnClickListener onClick() {
-        return new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                count++;
-                LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                textView = new TextView(getApplicationContext());
+/*
+    public void addnewFromDB(View v)
+    {
+        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        Cursor cursor = db.createNewModule();
+        if(cursor.moveToFirst())
+        {
+            int NewNum = cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER));
+            NewNum =NewNum+1;
+            Modules newOne = new Modules(NewNum);
+            db.createModules(newOne);
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(lparams);
+            textView.setText("Module "+ NewNum+" ");
+            String con = String.valueOf(NewNum);
+            textView.setContentDescription(con);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showLessons(view);
+                }
+            });
+            lay.addView(textView);
+        }
+        else
+            {
+                int NewNum = 1;
+                Modules newOne = new Modules(NewNum);
+                db.createModules(newOne);
+                TextView textView = new TextView(this);
                 textView.setLayoutParams(lparams);
-                textView.setText("Module " + count+" ");
-                String con = String.valueOf(count);
+                textView.setText("Module "+ NewNum+" ");
+                String con = String.valueOf(NewNum);
                 textView.setContentDescription(con);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -122,33 +147,36 @@ public class Main_Menu extends AppCompatActivity
                     }
                 });
                 lay.addView(textView);
-                // lay.addView(createNewTextView(count));
             }
-        };
     }
-
-    @Override
-    public void onBackPressed(){
-        //super.onBackPressed(); //comment out if you want back button to do something
-    }
-
-    private TextView createNewTextView(int text) {
+*/
+    public void readFromDB()
+    {
         final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        final TextView textView = new TextView(this);
-        textView.setLayoutParams(lparams);
-        textView.setText("Module " + text+" ");
-        String con = String.valueOf(text);
-        textView.setContentDescription(con);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showLessons(view);
-            }
-        });
-        textadded =true;
-        return textView;
-    }
 
+        Cursor cursor = db.ReadModule();
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                int txt = cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER));
+                TextView textView = new TextView(this);
+                textView.setLayoutParams(lparams);
+                textView.setText("Module "+ txt+" ");
+                String con = String.valueOf(txt);
+                textView.setContentDescription(con);
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showLessons(view);
+                    }
+                });
+                lay.addView(textView);
+
+            }while(cursor.moveToNext());
+        }
+    }
+    
     //setting imageview/textview to onclick method
     //show box for lessons
     public void showLessons(View v)
@@ -172,12 +200,6 @@ public class Main_Menu extends AppCompatActivity
                 int num = Integer.parseInt(moduleHolder);
                 if(db.setModule(num,useID) && db.setTrack(num, useID))
                 {
-                   //Cursor cursor = db.getModuleResID(useID);
-                    /*if(cursor.moveToFirst())
-                    {
-                        ModResID = cursor.getLong(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
-                    }*/
-                    //idk.putExtra("ModResID", ModResID);
                     idk.putExtra("Audio", "0");
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
@@ -189,7 +211,6 @@ public class Main_Menu extends AppCompatActivity
                     User_Track track = new User_Track(useID);
                     db.createResult(res,num);
                     db.createTrack(track,num);
-                    //idk.putExtra("ModResID", ModResID);
                     idk.putExtra("Audio", "0");
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
@@ -206,10 +227,7 @@ public class Main_Menu extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Cursor cursor = db.trackUpdate();
-                if(cursor.getCount() == 0)
-                {
-                    return;
-                }
+                if(cursor.getCount() == 0) { return; }
                 StringBuffer stringBuffer = new StringBuffer();
                 while(cursor.moveToNext())
                 {
@@ -217,51 +235,61 @@ public class Main_Menu extends AppCompatActivity
                     stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
                     stringBuffer.append("Results "+ cursor.getInt(2)+ "%\n\n");
                 }
-                showMsg(stringBuffer.toString());
+                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
+                builder.setCancelable(true);
+                builder.setMessage(stringBuffer.toString());
+                builder.show();
             }
         });
     }
 
-    public void showMsg(String msg)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setMessage(msg);
-        builder.show();
-    }
     public void ViewAll2()
     {
         show2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Cursor cursor = db.trackModuleRes();
-                if(cursor.getCount() == 0)
-                {
-                    return;
-                }
+                if(cursor.getCount() == 0) { return; }
                 StringBuffer stringBuffer = new StringBuffer();
                 while(cursor.moveToNext())
                 {
-                    stringBuffer.append("ModuleResID "+ cursor.getInt(0) + "\n");
-                    stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
                     stringBuffer.append("UserID "+ cursor.getInt(2)+ "\n");
+                    stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
+                    stringBuffer.append("ModuleResID "+ cursor.getInt(0) + "\n");
                     stringBuffer.append("Lesson1 "+ cursor.getInt(3)+ "%\n");
                     stringBuffer.append("Lesson2 "+ cursor.getInt(4)+ "%\n\n");
                 }
-                showMsg2(stringBuffer.toString());
+                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
+                builder.setCancelable(true);
+                builder.setMessage(stringBuffer.toString());
+                builder.show();
             }
         });
     }
 
-    public void showMsg2(String msg)
+    public void ViewAll3()
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setMessage(msg);
-        builder.show();
+        show3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor cursor = db.trackModule();
+                if(cursor.getCount() == 0) { return; }
+                StringBuffer stringBuffer = new StringBuffer();
+                while(cursor.moveToNext())
+                {
+                    stringBuffer.append("ModuleID "+ cursor.getInt(0) + "\n");
+                    stringBuffer.append("ModuleNum "+ cursor.getInt(1)+ "\n\n");
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
+                builder.setCancelable(true);
+                builder.setMessage(stringBuffer.toString());
+                builder.show();
+            }
+        });
     }
 
 /////////////////////////DO NOT ERASE PLZ///////////////////////////////////////
+    public TextView ViewIriterate(int txt) { final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);final TextView textView = new TextView(this);textView.setLayoutParams(lparams);textView.setText("Module " + txt+" ");String con = String.valueOf(txt);textView.setContentDescription(con);return textView; }
     //Lessons dialog box when clicking the module
     public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
     //selecting word for audio

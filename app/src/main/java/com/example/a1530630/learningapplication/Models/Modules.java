@@ -13,6 +13,11 @@ public class Modules
     private Integer moduleID, moduleNum;
 
     public Modules(){}
+    public Modules(Integer id, Integer num)
+    {
+        this.moduleID = id;
+        this.moduleNum = num;
+    }
     public Modules(Integer num)
     {
         this.moduleID = null;
@@ -33,5 +38,14 @@ public class Modules
 
     public void setModuleNum(Integer moduleNum) {
         this.moduleNum = moduleNum;
+    }
+
+    public static Modules[] populateData()
+    {
+        return new Modules[]
+                {
+                    new Modules(1,1),
+                    new Modules(2,2),
+                };
     }
 }

@@ -17,16 +17,17 @@
 
         <LinearLayout
             android:id="@+id/Modules"
-            android:layout_width="323dp"
-            android:layout_height="43dp"
+            android:layout_width="365dp"
+            android:layout_height="52dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="132dp"
             android:layout_marginEnd="8dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
+<!--
         <TextView
             android:id="@+id/textView1"
             android:layout_width="0dp"
@@ -55,31 +56,19 @@
             app:layout_constraintHorizontal_bias="0.196"
             app:layout_constraintStart_toEndOf="@+id/textView1"
             app:layout_constraintTop_toTopOf="parent" />
+-->
 
-        <Button
-            android:id="@+id/Testbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="332dp"
-            android:layout_marginEnd="8dp"
-            android:text="Button"
-            android:onClick="addnewBox"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/Showbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="108dp"
-            android:layout_marginTop="440dp"
+            android:layout_marginTop="424dp"
             android:layout_marginEnd="8dp"
             android:text="ShowUserTrack"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.027"
+            app:layout_constraintHorizontal_bias="0.146"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,11 +77,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="520dp"
+            android:layout_marginTop="500dp"
             android:layout_marginEnd="88dp"
             android:text="ShowModRes"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.68"
+            app:layout_constraintHorizontal_bias="0.713"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/Showbtn3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="568dp"
+            android:layout_marginEnd="88dp"
+            android:text="ShowModules"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.751"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

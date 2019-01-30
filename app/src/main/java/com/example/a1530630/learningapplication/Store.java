@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -13,11 +14,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.a1530630.learningapplication.Database.SQLiteManage;
+import com.example.a1530630.learningapplication.Models.Modules;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
@@ -29,6 +35,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
@@ -36,10 +43,11 @@ import java.util.zip.ZipOutputStream;
 
 public class Store extends AppCompatActivity {
 
-    Button pick,save;
-    TextView filetxt,numFile;
+    Button pick,save,add;
     ImageView img,homebtn;
     String filePath;
+    SQLiteManage db;
+    //LinearLayout lay;
 
     ZipOutputStream zOut = null;
 
@@ -48,25 +56,19 @@ public class Store extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
+        db = new SQLiteManage(this);
+
 
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED){
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1001);
         }
 
-
-        pick = (Button)findViewById(R.id.Pickbtn);
-        save = (Button)findViewById(R.id.SaveBtn);
-
         String path = FilePickerActivity.RESULT_FILE_PATH;
 
-        filetxt = (TextView)findViewById(R.id.FileText);
-        numFile = (TextView)findViewById(R.id.ZipFile);
-        filetxt.setText(path);
-
-
-        img = (ImageView)findViewById(R.id.ImageTest);
+        add = (Button)findViewById(R.id.Testbtn);
         homebtn = (ImageView) findViewById(R.id.HomeButton);
+        pick = (Button) findViewById(R.id.Pickbtn);
 
 
         pick.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +82,46 @@ public class Store extends AppCompatActivity {
             }
         });
 
+        ListView listView = (ListView)findViewById(R.id.listView);
+
+        ArrayList<Modules> list = new ArrayList<>();
+        Cursor cursor = db.getModuleNum();
+        if(cursor.moveToFirst())
+        {
+            do
+            {
+                Modules modules = new Modules();
+                modules.setModuleNum(cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER)));
+                list.add(modules);
+            }while(cursor.moveToNext());
+        }
+
+        ModulesListAdapter adapter = new ModulesListAdapter(this, R.layout.module_adapter,list);
+        listView.setAdapter(adapter);
+        homeButton();
     }
+
+    public void addnewFromDB(View v)
+    {
+        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        Cursor cursor = db.createNewModule();
+        if(cursor.moveToFirst())
+        {
+            int NewNum = cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER));
+            NewNum =NewNum+1;
+            Modules newOne = new Modules(NewNum);
+            db.createModules(newOne);
+            Toast.makeText(getApplicationContext(),"Module "+NewNum+" created",Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            int NewNum = 1;
+            Modules newOne = new Modules(NewNum);
+            db.createModules(newOne);
+            Toast.makeText(getApplicationContext(),"Module 1 created",Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     //get number of files in zip file
     int zipEntriesCount(String path) throws IOException {
@@ -104,36 +145,15 @@ public class Store extends AppCompatActivity {
             String path = getApplicationContext().getFilesDir().getAbsolutePath();
             int count =0;
 
-            try {
-                count = zipEntriesCount(filePath);
-                String FILENAME = "hello_file";
-                String FOLDERNAME = "sub";
-                String string = "hello world!";
-
-                Context context = getApplicationContext();
-                String folder = context.getFilesDir().getAbsolutePath() + File.separator + FOLDERNAME;
-
-                File subFolder = new File(folder);
-
-                if (!subFolder.exists()) {
-                    subFolder.mkdirs();
-                }
-
-                FileOutputStream outputStream = new FileOutputStream(new File(subFolder, filePath));
-
-                //outputStream.write(string.getBytes());
-                outputStream.close();
-
-            } catch (FileNotFoundException e) {
-                Log.e("ERROR", e.toString());
-            } catch (IOException e) {
-                Log.e("ERROR", e.toString());
+            try
+            {
+               count = zipEntriesCount(filePath);
             }
+            catch (Exception e) { Log.e("ERROR", e.toString()); }
 
-            filetxt.setText(filePath);
-            numFile.setText(String.valueOf(count));
-            Bitmap bmImg = BitmapFactory.decodeFile(filePath);
-            img.setImageBitmap(bmImg);
+
+            //Bitmap bmImg = BitmapFactory.decodeFile(filePath);
+            //img.setImageBitmap(bmImg);
 
         }
     }
