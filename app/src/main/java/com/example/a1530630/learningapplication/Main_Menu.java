@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -57,7 +59,7 @@ public class Main_Menu extends AppCompatActivity
     public Button show,show2,show3,show4;
     public LinearLayout lay;
     SQLiteManage db;
-    ImageView play;
+    ImageView play,picture;
     SoundPool soundPool;
 
     @Override
@@ -79,7 +81,7 @@ public class Main_Menu extends AppCompatActivity
         show4 = (Button)findViewById(R.id.showbtn4);
 
         play = (ImageView)findViewById(R.id.PlayButton2);
-
+        picture = (ImageView) findViewById(R.id.imageView);
         aud = (TextView) findViewById(R.id.textView);
 
         ViewAll();
@@ -126,30 +128,48 @@ public class Main_Menu extends AppCompatActivity
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private void playMp3() {
-        byte[] mp3SoundByteArray = null;
-        Cursor cursor = db.getFilesInfo();
-        if(cursor.moveToFirst()) { mp3SoundByteArray = cursor.getBlob(1); }
-
         try {
-            // create temp file that will hold byte array
-            File tempMp3 = File.createTempFile("test", "ogg");
-            tempMp3.deleteOnExit();
+            byte[] mp3SoundByteArray = new byte[8192];
+            byte[] img = null;
+
+            Cursor cursor = db.getFilesInfo();
+            if(cursor.moveToFirst()) { mp3SoundByteArray = cursor.getBlob(1); img = cursor.getBlob(2);}
+            Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
+            picture.setImageBitmap(bitmap);
+
+            File dir = getFilesDir();
+            String path = getFilesDir().getAbsolutePath();
+            File tempMp3 = File.createTempFile("test", ".mp3",dir);
+
             FileOutputStream fos = new FileOutputStream(tempMp3);
             fos.write(mp3SoundByteArray);
+            fos.flush();
             fos.close();
 
             // resetting mediaplayer instance to evade problems
             //mediaPlayer.reset();
-
+            mediaPlayer = MediaPlayer.create(Main_Menu.this, Uri.fromFile(dir));
             FileInputStream fis = new FileInputStream(tempMp3);
-            mediaPlayer.setDataSource(fis.getFD());
-            mediaPlayer.prepare();
+            System.out.print(path);
+            //mediaPlayer.setDataSource(fis.getFD());
+            mediaPlayer.setDataSource(path+"/test-66297781.mp3");
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                }
+            });
            // mediaPlayer.prepareAsync();
-            mediaPlayer.start();
-        } catch (IOException ex) {
-            String s = ex.toString();
-            ex.printStackTrace();
-        }
+
+        } catch (IOException ex) { String s = ex.toString();ex.printStackTrace(); }
+
+    }
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        mediaPlayer.release();
+        mediaPlayer = null;
+
     }
 
     @Override
@@ -301,11 +321,10 @@ public class Main_Menu extends AppCompatActivity
                 StringBuffer stringBuffer = new StringBuffer();
                 while(cursor.moveToNext())
                 {
-                    byte[] imgValue = cursor.getBlob(2);
                     byte[] audValue = cursor.getBlob(1);
+                    byte[] imgValue = cursor.getBlob(2);
 
                     stringBuffer.append("File ID: "+ cursor.getInt(0) + "\n");
-                    //stringBuffer.append("Word: "+ cursor.getString(1)+ "\n");
                     stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
                     stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
                 }

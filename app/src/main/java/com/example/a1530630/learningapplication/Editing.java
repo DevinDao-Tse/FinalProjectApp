@@ -98,7 +98,7 @@ public class Editing extends AppCompatActivity {
         FileInputStream imgFis =null; FileInputStream audFis = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-        byte[] byteAud = new byte[1024];
+        byte[] byteAud = new byte[8192];
         if (requestCode == 1000 && resultCode == RESULT_OK)
         {
             file1.setText(filePath);
