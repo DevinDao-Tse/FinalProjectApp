@@ -5,6 +5,10 @@ import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class AudioAndImages
 {
@@ -13,37 +17,32 @@ public class AudioAndImages
     public static final String AudandImg_WORD="Word";
     public static final String AudandImg_AUDIO_COLUMN="Audio";
     public static final String AudandImg_IMAGE_COLUMN="Image";
+    public static final String AudandImg_LESSON_COLUMN="Lesson";
 
     public static String CREATE_AudandImg_TABLE = "CREATE TABLE "+AudandImg_TABLE_NAME+" ("
             + AudandImg_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + AudandImg_WORD+ " TEXT, "
             + AudandImg_AUDIO_COLUMN+ " BLOB, "
-            + AudandImg_IMAGE_COLUMN+ " BLOB);";
+            + AudandImg_IMAGE_COLUMN+ " BLOB); ";
+            //+ AudandImg_LESSON_COLUMN+ "TEXT);";
 
-    // convert from bitmap to byte array
-    public static byte[] getBytes(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
-    }
-
-    // convert from byte array to bitmap
-    public static Bitmap getImage(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
-    }
 
     private Integer FileID;
-    private String word;
+    private String lesson;
     private byte[] bitmap,file;
 
 
     public AudioAndImages(){}
-    public AudioAndImages(String w,byte[] img, byte[] aud)
+    public AudioAndImages(byte[] img, byte[] aud)
     {
         this.FileID = null;
-        this.word = w;
         this.bitmap = img;
         this.file= aud;
+    }
+    public AudioAndImages( byte[] img)
+    {
+        this.FileID = null;
+        this.bitmap = null;
+        this.file = img;
     }
 
 
@@ -63,11 +62,11 @@ public class AudioAndImages
         this.bitmap = bitmap;
     }
 
-    public String getWord() { return word; }
-
-    public void setWord(String word) { this.word = word; }
-
     public byte[] getByteAud() { return file; }
 
     public void setByteAud(byte[] file) { this.file = file; }
+
+    public String getLesson() { return lesson; }
+
+    public void setLesson(String lesson) { this.lesson = lesson; }
 }

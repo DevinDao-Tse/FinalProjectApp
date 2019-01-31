@@ -44,7 +44,6 @@ public class SQLiteManage extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(AudioAndImages.AudandImg_WORD, files.getWord());
         values.put(AudioAndImages.AudandImg_IMAGE_COLUMN,files.getByteImg());
         values.put(AudioAndImages.AudandImg_AUDIO_COLUMN,files.getByteAud());
 
@@ -300,9 +299,17 @@ public class SQLiteManage extends SQLiteOpenHelper
     public Cursor getFilesInfo()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT * FROM "+ AudioAndImages.AudandImg_TABLE_NAME;
+        String sql = "SELECT * FROM "+ AudioAndImages.AudandImg_TABLE_NAME + " LIMIT 1" ;
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
+    }
+
+    public Cursor getAudioFile()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+AudioAndImages.AudandImg_ID+" FROM "+AudioAndImages.AudandImg_TABLE_NAME;
+        Cursor cursor = db.rawQuery(sql,null);
+        return  cursor;
     }
 
     @Override

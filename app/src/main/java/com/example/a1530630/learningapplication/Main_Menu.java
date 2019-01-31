@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
@@ -19,28 +23,42 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
+import com.example.a1530630.learningapplication.Models.AudioAndImages;
 import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.Modules;
 import com.example.a1530630.learningapplication.Models.User_Track;
+
+import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main_Menu extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
-    TextView w1;
+    TextView w1,aud;
     TextView less,mod;
     String moduleHolder;
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
-    public Button test,show,show2,show3,show4;
+    public Button show,show2,show3,show4;
     public LinearLayout lay;
     SQLiteManage db;
+    ImageView play;
+    SoundPool soundPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +70,17 @@ public class Main_Menu extends AppCompatActivity
         db = new SQLiteManage(this);
 
         pref = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
-        test = (Button)findViewById(R.id.Testbtn);
 
         lay = findViewById(R.id.Modules);
 
         show = (Button)findViewById(R.id.Showbtn);
         show2 = (Button)findViewById(R.id.Showbtn2);
-        show3 = (Button)findViewById(R.id.Showbtn3);
-        show4 = (Button)findViewById(R.id.Showbtn4);
+        show3 = (Button)findViewById(R.id.showbtn3);
+        show4 = (Button)findViewById(R.id.showbtn4);
+
+        play = (ImageView)findViewById(R.id.PlayButton2);
+
+        aud = (TextView) findViewById(R.id.textView);
 
         ViewAll();
         ViewAll2();
@@ -67,6 +88,14 @@ public class Main_Menu extends AppCompatActivity
         ViewAll4();
         readFromDB();
 
+        play.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playMp3();
+            }
+        });
+
+        idk = new Intent(getApplicationContext(), Session2.class);
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
@@ -93,56 +122,42 @@ public class Main_Menu extends AppCompatActivity
 
         NavigationView nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
-        idk = new Intent(getApplicationContext(), Session2.class);
     }
 
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private void playMp3() {
+        byte[] mp3SoundByteArray = null;
+        Cursor cursor = db.getFilesInfo();
+        if(cursor.moveToFirst()) { mp3SoundByteArray = cursor.getBlob(1); }
 
+        try {
+            // create temp file that will hold byte array
+            File tempMp3 = File.createTempFile("test", "ogg");
+            tempMp3.deleteOnExit();
+            FileOutputStream fos = new FileOutputStream(tempMp3);
+            fos.write(mp3SoundByteArray);
+            fos.close();
+
+            // resetting mediaplayer instance to evade problems
+            //mediaPlayer.reset();
+
+            FileInputStream fis = new FileInputStream(tempMp3);
+            mediaPlayer.setDataSource(fis.getFD());
+            mediaPlayer.prepare();
+           // mediaPlayer.prepareAsync();
+            mediaPlayer.start();
+        } catch (IOException ex) {
+            String s = ex.toString();
+            ex.printStackTrace();
+        }
+    }
 
     @Override
     public void onBackPressed(){
         //super.onBackPressed(); //comment out if you want back button to do something
     }
 
-/*
-    public void addnewFromDB(View v)
-    {
-        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        Cursor cursor = db.createNewModule();
-        if(cursor.moveToFirst())
-        {
-            int NewNum = cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER));
-            NewNum =NewNum+1;
-            Modules newOne = new Modules(NewNum);
-            db.createModules(newOne);
-            TextView textView = new TextView(this);
-            textView.setLayoutParams(lparams);
-            textView.setText("Module "+ NewNum+" ");
-            String con = String.valueOf(NewNum);
-            textView.setContentDescription(con);
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) { showLessons(view); }
-            });
-            lay.addView(textView);
-        }
-        else
-            {
-                int NewNum = 1;
-                Modules newOne = new Modules(NewNum);
-                db.createModules(newOne);
-                TextView textView = new TextView(this);
-                textView.setLayoutParams(lparams);
-                textView.setText("Module "+ NewNum+" ");
-                String con = String.valueOf(NewNum);
-                textView.setContentDescription(con);
-                textView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) { showLessons(view); }
-                });
-                lay.addView(textView);
-            }
-    }
-*/
+
     public void readFromDB()
     {
         final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -286,10 +301,13 @@ public class Main_Menu extends AppCompatActivity
                 StringBuffer stringBuffer = new StringBuffer();
                 while(cursor.moveToNext())
                 {
+                    byte[] imgValue = cursor.getBlob(2);
+                    byte[] audValue = cursor.getBlob(1);
+
                     stringBuffer.append("File ID: "+ cursor.getInt(0) + "\n");
-                    stringBuffer.append("Word: "+ cursor.getInt(1)+ "\n");
-                    stringBuffer.append("Image: "+ cursor.getInt(2)+ "%\n");
-                    stringBuffer.append("Word: "+ cursor.getInt(3)+ "%\n\n");
+                    //stringBuffer.append("Word: "+ cursor.getString(1)+ "\n");
+                    stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
+                    stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
                 builder.setCancelable(true);

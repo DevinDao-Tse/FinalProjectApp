@@ -84,12 +84,14 @@ public class Store extends AppCompatActivity {
     {
         LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         Cursor cursor = db.createNewModule();
+        Intent i = new Intent(this,Store.class);
         if(cursor.moveToFirst())
         {
             int NewNum = cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER));
             NewNum =NewNum+1;
             Modules newOne = new Modules(NewNum);
             db.createModules(newOne);
+            startActivity(i);
             Toast.makeText(getApplicationContext(),"Module "+NewNum+" created",Toast.LENGTH_LONG).show();
         }
         else
@@ -97,6 +99,7 @@ public class Store extends AppCompatActivity {
             int NewNum = 1;
             Modules newOne = new Modules(NewNum);
             db.createModules(newOne);
+            startActivity(i);
             Toast.makeText(getApplicationContext(),"Module 1 created",Toast.LENGTH_LONG).show();
         }
     }

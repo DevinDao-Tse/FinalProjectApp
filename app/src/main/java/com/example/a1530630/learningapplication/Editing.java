@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +27,8 @@ import org.w3c.dom.Text;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Editing extends AppCompatActivity {
 
@@ -47,9 +50,11 @@ public class Editing extends AppCompatActivity {
         }
 
         home = (ImageView)findViewById(R.id.HomeButton);
+
         pick1 = (Button) findViewById(R.id.Pickbtn);
         pick2 = (Button) findViewById(R.id.Pick2btn);
         save = (Button) findViewById(R.id.SaveBtn);
+
         file1 = (TextView)findViewById(R.id.FileText);
         file2 = (TextView)findViewById(R.id.File2Text);
 
@@ -68,29 +73,12 @@ public class Editing extends AppCompatActivity {
             public void onClick(View view) {
                 new MaterialFilePicker()
                         .withActivity(Editing.this)
-                        .withRequestCode(1002)
+                        .withRequestCode(2000)
                         .withHiddenFiles(true) // Show hidden files and folders
                         .start();
             }
         });
-
         homeButton();
-    }
-    public void SaveFiles()
-    {
-
-    }
-
-    private static byte[] FiletoByte(String path)
-    {
-        File file = new File(path);
-        byte[] byteFile = new byte[(int)file.length()];
-        return byteFile;
-    }
-    public static byte[] getBytes(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-        return stream.toByteArray();
     }
 
     private void homeButton(){home.setOnClickListener(new View.OnClickListener() {
@@ -108,37 +96,53 @@ public class Editing extends AppCompatActivity {
         String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
         File imgFile; File audFile;
         FileInputStream imgFis =null; FileInputStream audFis = null;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
+        byte[] byteAud = new byte[1024];
         if (requestCode == 1000 && resultCode == RESULT_OK)
         {
             file1.setText(filePath);
             audFile = new File(filePath);
             try
             {
-
+                audFis = new FileInputStream(audFile);
+                byteAud = new byte[(int)audFile.length()];
             }
-            catch(Exception e){ Log.e("Error", e.getMessage()); }
+            catch (Exception e){Log.e("Error", e.getMessage());}
         }
-        if (requestCode == 1002 && resultCode == RESULT_OK)
+        if (requestCode == 2000 && resultCode == RESULT_OK)
         {
             file2.setText(filePath);
             imgFile = new File(filePath);
+
             try
             {
                 imgFis = new FileInputStream(imgFile);
+
+                Bitmap bmImg = BitmapFactory.decodeStream(imgFis);
+                bmImg.compress(Bitmap.CompressFormat.JPEG,0,stream);
+
             }
             catch(Exception e){ Log.e("Error", e.getMessage()); }
-        }
-        Bitmap bmImg = BitmapFactory.decodeStream(imgFis);
 
-        /*final AudioAndImages allFiles = new AudioAndImages("",getBytes(bmImg),getBytes(bmImg));
+        }
+       /* ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        Bitmap bmImg = BitmapFactory.decodeStream(imgFis);
+        bmImg.compress(Bitmap.CompressFormat.JPEG,0,stream);*/
+        byte[] byteImg = stream.toByteArray();
+
+        final AudioAndImages allFiles = new AudioAndImages();
+        allFiles.setByteAud(byteAud);
+        allFiles.setByteImg(byteImg);
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db.createRowAud(allFiles);
+                Intent i = new Intent(Editing.this, Main_Menu.class);
+                startActivity(i);
             }
-        });*/
-
+        });
     }
 
     @Override
@@ -152,4 +156,19 @@ public class Editing extends AppCompatActivity {
                 { Toast.makeText(this,"Permission not granted",Toast.LENGTH_LONG).show();finish(); }
         }
     }
+
+
+    // convert from bitmap to byte array
+    public static byte[] getBytesImg(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+        return stream.toByteArray();
+    }
+
+    // convert from byte array to bitmap
+    public static Bitmap getImage(byte[] image) {
+        return BitmapFactory.decodeByteArray(image, 0, image.length);
+    }
+
+
 }
