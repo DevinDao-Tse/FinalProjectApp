@@ -38,15 +38,10 @@ public class Main_Menu extends AppCompatActivity
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
-    public Button test, show,show2,show3;
-    public int num=0;
+    public Button test,show,show2,show3,show4;
     public LinearLayout lay;
-    public int count=0;
-    public TextView textView;
-    public boolean textadded;
-
-    long ModResID= 0;
     SQLiteManage db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +59,12 @@ public class Main_Menu extends AppCompatActivity
         show = (Button)findViewById(R.id.Showbtn);
         show2 = (Button)findViewById(R.id.Showbtn2);
         show3 = (Button)findViewById(R.id.Showbtn3);
+        show4 = (Button)findViewById(R.id.Showbtn4);
 
         ViewAll();
         ViewAll2();
         ViewAll3();
+        ViewAll4();
         readFromDB();
 
 
@@ -124,9 +121,7 @@ public class Main_Menu extends AppCompatActivity
             textView.setContentDescription(con);
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    showLessons(view);
-                }
+                public void onClick(View view) { showLessons(view); }
             });
             lay.addView(textView);
         }
@@ -142,9 +137,7 @@ public class Main_Menu extends AppCompatActivity
                 textView.setContentDescription(con);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        showLessons(view);
-                    }
+                    public void onClick(View view) { showLessons(view); }
                 });
                 lay.addView(textView);
             }
@@ -153,7 +146,6 @@ public class Main_Menu extends AppCompatActivity
     public void readFromDB()
     {
         final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
         Cursor cursor = db.ReadModule();
         if(cursor.moveToFirst())
         {
@@ -167,16 +159,14 @@ public class Main_Menu extends AppCompatActivity
                 textView.setContentDescription(con);
                 textView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        showLessons(view);
-                    }
+                    public void onClick(View view) { showLessons(view); }
                 });
                 lay.addView(textView);
 
             }while(cursor.moveToNext());
         }
     }
-    
+
     //setting imageview/textview to onclick method
     //show box for lessons
     public void showLessons(View v)
@@ -215,9 +205,7 @@ public class Main_Menu extends AppCompatActivity
                     idk.putExtra("Module",moduleHolder);
                     idk.putExtra("Lesson",less.getContentDescription().toString());
                     startActivity(idk);
-
                 }
-
             }
         });
     }
@@ -287,6 +275,30 @@ public class Main_Menu extends AppCompatActivity
             }
         });
     }
+
+    public void ViewAll4()
+    {
+        show4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor cursor = db.getFilesInfo();
+                if(cursor.getCount() == 0) { return; }
+                StringBuffer stringBuffer = new StringBuffer();
+                while(cursor.moveToNext())
+                {
+                    stringBuffer.append("File ID: "+ cursor.getInt(0) + "\n");
+                    stringBuffer.append("Word: "+ cursor.getInt(1)+ "\n");
+                    stringBuffer.append("Image: "+ cursor.getInt(2)+ "%\n");
+                    stringBuffer.append("Word: "+ cursor.getInt(3)+ "%\n\n");
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
+                builder.setCancelable(true);
+                builder.setMessage(stringBuffer.toString());
+                builder.show();
+            }
+        });
+    }
+
 
 /////////////////////////DO NOT ERASE PLZ///////////////////////////////////////
     public TextView ViewIriterate(int txt) { final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);final TextView textView = new TextView(this);textView.setLayoutParams(lparams);textView.setText("Module " + txt+" ");String con = String.valueOf(txt);textView.setContentDescription(con);return textView; }

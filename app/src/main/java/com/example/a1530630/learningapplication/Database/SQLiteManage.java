@@ -39,6 +39,21 @@ public class SQLiteManage extends SQLiteOpenHelper
         return user;
     }
 
+    public AudioAndImages createRowAud(AudioAndImages files)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(AudioAndImages.AudandImg_WORD, files.getWord());
+        values.put(AudioAndImages.AudandImg_IMAGE_COLUMN,files.getByteImg());
+        values.put(AudioAndImages.AudandImg_AUDIO_COLUMN,files.getByteAud());
+
+        long id = db.insert(AudioAndImages.AudandImg_TABLE_NAME, null,values);
+        files.setFileID((int)id);
+        db.close();
+        return files;
+    }
+
     public Modules createModules(Modules mod)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -52,6 +67,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         return mod;
     }
 
+    //adds latest one
     public Cursor createNewModule()
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -281,6 +297,13 @@ public class SQLiteManage extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }
+    public Cursor getFilesInfo()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT * FROM "+ AudioAndImages.AudandImg_TABLE_NAME;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -288,7 +311,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         db.execSQL(Modules.CREATE_MODULE_TABLE);
         db.execSQL(Module_Results.CREATE_MODULE_RESULT);
         db.execSQL(User_Track.CREATE_USER_TRACK_TABLE);
-        //db.execSQL(AudioAndImages.CREATE_AudandImg_TABLE);
+        db.execSQL(AudioAndImages.CREATE_AudandImg_TABLE);
     }
 
 

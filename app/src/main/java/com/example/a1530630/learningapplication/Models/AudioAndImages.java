@@ -34,11 +34,11 @@ public class AudioAndImages
 
     private Integer FileID;
     private String word;
-    private Bitmap bitmap;
-    private File file;
+    private byte[] bitmap,file;
+
 
     public AudioAndImages(){}
-    public AudioAndImages(String w,Bitmap img, File aud)
+    public AudioAndImages(String w,byte[] img, byte[] aud)
     {
         this.FileID = null;
         this.word = w;
@@ -55,11 +55,11 @@ public class AudioAndImages
         FileID = fileID;
     }
 
-    public Bitmap getBitmap() {
+    public byte[] getByteImg() {
         return bitmap;
     }
 
-    public void setBitmap(Bitmap bitmap) {
+    public void setByteImg(byte[] bitmap) {
         this.bitmap = bitmap;
     }
 
@@ -67,7 +67,7 @@ public class AudioAndImages
 
     public void setWord(String word) { this.word = word; }
 
-    public File getFile() { return file; }
+    public byte[] getByteAud() { return file; }
 
-    public void setFile(File file) { this.file = file; }
+    public void setByteAud(byte[] file) { this.file = file; }
 }

@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="addnewFromDB"
-            android:text="Button" />
+            android:text="Add new Module" />
 
         <ImageButton
             android:id="@+id/HomeButton"
