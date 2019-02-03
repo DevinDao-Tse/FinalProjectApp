@@ -56,11 +56,11 @@ public class Main_Menu extends AppCompatActivity
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
-    public Button show,show2,show3,show4;
+    public Button show,show2,show3,show4,play2;
     public LinearLayout lay;
     SQLiteManage db;
     ImageView play,picture;
-    SoundPool soundPool;
+    String path2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,10 +79,13 @@ public class Main_Menu extends AppCompatActivity
         show2 = (Button)findViewById(R.id.Showbtn2);
         show3 = (Button)findViewById(R.id.showbtn3);
         show4 = (Button)findViewById(R.id.showbtn4);
+        play2 = (Button)findViewById(R.id.button2);
 
         play = (ImageView)findViewById(R.id.PlayButton2);
         picture = (ImageView) findViewById(R.id.imageView);
         aud = (TextView) findViewById(R.id.textView);
+        String path = getCacheDir().getAbsolutePath();
+        aud.setText(path);
 
         ViewAll();
         ViewAll2();
@@ -90,10 +93,23 @@ public class Main_Menu extends AppCompatActivity
         ViewAll4();
         readFromDB();
 
+
+
         play.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                playMp3();
+            public void onClick(View v) { playMp3(); }
+        });
+
+        play2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    mediaPlayer.setDataSource("/data/data/com.example.a1530630.learningapplication/cache/testing273537506.mp3");
+                    mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -129,36 +145,24 @@ public class Main_Menu extends AppCompatActivity
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private void playMp3() {
         try {
-            byte[] mp3SoundByteArray = new byte[8192];
+            byte[] mp3SoundByteArray = new byte[35000];
             byte[] img = null;
 
             Cursor cursor = db.getFilesInfo();
             if(cursor.moveToFirst()) { mp3SoundByteArray = cursor.getBlob(1); img = cursor.getBlob(2);}
-            Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
-            picture.setImageBitmap(bitmap);
+          //  Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
+           // picture.setImageBitmap(bitmap);
 
             File dir = getFilesDir();
             String path = getFilesDir().getAbsolutePath();
-            File tempMp3 = File.createTempFile("test", ".mp3",dir);
+            File tempMp3 = File.createTempFile("testing", ".mp3");
+            path2 = tempMp3.getAbsolutePath();
 
             FileOutputStream fos = new FileOutputStream(tempMp3);
             fos.write(mp3SoundByteArray);
             fos.flush();
             fos.close();
 
-            // resetting mediaplayer instance to evade problems
-            //mediaPlayer.reset();
-            mediaPlayer = MediaPlayer.create(Main_Menu.this, Uri.fromFile(dir));
-            FileInputStream fis = new FileInputStream(tempMp3);
-            System.out.print(path);
-            //mediaPlayer.setDataSource(fis.getFD());
-            mediaPlayer.setDataSource(path+"/test-66297781.mp3");
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                public void onPrepared(MediaPlayer mp) {
-                    mp.start();
-                }
-            });
-           // mediaPlayer.prepareAsync();
 
         } catch (IOException ex) { String s = ex.toString();ex.printStackTrace(); }
 
@@ -326,7 +330,7 @@ public class Main_Menu extends AppCompatActivity
 
                     stringBuffer.append("File ID: "+ cursor.getInt(0) + "\n");
                     stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
-                    stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
+                  //  stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
                 builder.setCancelable(true);

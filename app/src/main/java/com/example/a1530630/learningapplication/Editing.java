@@ -24,6 +24,7 @@ import com.nbsp.materialfilepicker.ui.FilePickerActivity;
 
 import org.w3c.dom.Text;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +33,7 @@ import java.io.IOException;
 
 public class Editing extends AppCompatActivity {
 
-    Button pick1,pick2,save;
+    Button pick1,pick2,save,load;
     ImageView home;
     TextView file1,file2;
     SQLiteManage db;
@@ -54,87 +55,88 @@ public class Editing extends AppCompatActivity {
         pick1 = (Button) findViewById(R.id.Pickbtn);
         pick2 = (Button) findViewById(R.id.Pick2btn);
         save = (Button) findViewById(R.id.SaveBtn);
+        load = (Button)findViewById(R.id.Loadbtn);
 
         file1 = (TextView)findViewById(R.id.FileText);
         file2 = (TextView)findViewById(R.id.File2Text);
 
+        load.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent fileChooser = new Intent(Intent.ACTION_GET_CONTENT);
+                fileChooser.setType("audio/*");
+                startActivityForResult(fileChooser,2);
+            }
+        });
+
+
         pick1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialFilePicker()
-                        .withActivity(Editing.this)
-                        .withRequestCode(1000)
-                        .withHiddenFiles(true) // Show hidden files and folders
-                        .start();
+                new MaterialFilePicker().withActivity(Editing.this).withRequestCode(1000).withHiddenFiles(true).start();
             }
         });
         pick2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MaterialFilePicker()
-                        .withActivity(Editing.this)
-                        .withRequestCode(2000)
-                        .withHiddenFiles(true) // Show hidden files and folders
-                        .start();
+                new MaterialFilePicker().withActivity(Editing.this).withRequestCode(2000).withHiddenFiles(true).start();
             }
         });
+
         homeButton();
     }
 
     private void homeButton(){home.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(Editing.this,Main_Menu.class);
-            startActivity(i);
-        }
+            Intent i = new Intent(Editing.this,Main_Menu.class);startActivity(i); }
     });}
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        final AudioAndImages allFiles = new AudioAndImages();
         String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
         File imgFile; File audFile;
         FileInputStream imgFis =null; FileInputStream audFis = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-        byte[] byteAud = new byte[8192];
         if (requestCode == 1000 && resultCode == RESULT_OK)
         {
-            file1.setText(filePath);
-            audFile = new File(filePath);
+            byte[] byteAud = new byte[30000];
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            //audFile = new File(filePath);
             try
             {
-                audFis = new FileInputStream(audFile);
-                byteAud = new byte[(int)audFile.length()];
+                audFis = new FileInputStream(filePath);
+                for(int read; (read = audFis.read(byteAud)) != -1;)
+                {
+                    bos.write(byteAud,0,read);
+                    file1.setText(String.valueOf(read));
+                }
+                // byteAud = new byte[(int)audFile.length()];
+
             }
             catch (Exception e){Log.e("Error", e.getMessage());}
+            byte[] set = bos.toByteArray();
+            allFiles.setByteAud(set);
         }
         if (requestCode == 2000 && resultCode == RESULT_OK)
         {
             file2.setText(filePath);
             imgFile = new File(filePath);
-
-            try
-            {
+            try {
                 imgFis = new FileInputStream(imgFile);
-
                 Bitmap bmImg = BitmapFactory.decodeStream(imgFis);
                 bmImg.compress(Bitmap.CompressFormat.JPEG,0,stream);
-
+                byte[] byteImg = stream.toByteArray();
+                allFiles.setByteImg(byteImg);
             }
             catch(Exception e){ Log.e("Error", e.getMessage()); }
 
         }
-       /* ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        Bitmap bmImg = BitmapFactory.decodeStream(imgFis);
-        bmImg.compress(Bitmap.CompressFormat.JPEG,0,stream);*/
-        byte[] byteImg = stream.toByteArray();
-
-        final AudioAndImages allFiles = new AudioAndImages();
-        allFiles.setByteAud(byteAud);
-        allFiles.setByteImg(byteImg);
-
+        
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
