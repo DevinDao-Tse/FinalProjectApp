@@ -48,6 +48,7 @@ public class Store extends AppCompatActivity {
     String filePath;
     SQLiteManage db;
     //LinearLayout lay;
+    Button edit;
 
     ZipOutputStream zOut = null;
 
@@ -63,6 +64,13 @@ public class Store extends AppCompatActivity {
 
         ListView listView = (ListView)findViewById(R.id.listView);
 
+
+        View inflatedView = getLayoutInflater().inflate(R.layout.module_adapter, null);
+        //TextView text = (TextView) inflatedView.findViewById(R.id.text_view);
+        edit = (Button)inflatedView.findViewById(R.id.EditBtn);
+
+
+
         ArrayList<Modules> list = new ArrayList<>();
         Cursor cursor = db.getModuleNum();
         if(cursor.moveToFirst())
@@ -77,7 +85,19 @@ public class Store extends AppCompatActivity {
 
         ModulesListAdapter adapter = new ModulesListAdapter(this, R.layout.module_adapter,list);
         listView.setAdapter(adapter);
+
+
+
+
+
         homeButton();
+    }
+
+    int getItemPosition(View view)
+    {
+        Object object =  view.getTag(view.getId());
+        int num = (Integer)object;
+        return num;
     }
 
     public void addnewFromDB(View v)

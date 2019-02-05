@@ -14,19 +14,21 @@ public class AudioAndImages
 {
     public static final String AudandImg_TABLE_NAME="FILES";
     public static final String AudandImg_ID="FilesID";
-    public static final String AudandImg_WORD="Word";
+    public static final String AudandImg_MODULE="ModuleNumber";
     public static final String AudandImg_AUDIO_COLUMN="Audio";
     public static final String AudandImg_IMAGE_COLUMN="Image";
-    public static final String AudandImg_LESSON_COLUMN="Lesson";
+    public static final String AudandImg_LESSON_COLUMN="LessonNumber";
 
     public static String CREATE_AudandImg_TABLE = "CREATE TABLE "+AudandImg_TABLE_NAME+" ("
             + AudandImg_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
+            +AudandImg_MODULE+ "INTEGER, "
             + AudandImg_AUDIO_COLUMN+ " BLOB, "
-            + AudandImg_IMAGE_COLUMN+ " BLOB); ";
+            + AudandImg_IMAGE_COLUMN+ " BLOB, "
+            + AudandImg_LESSON_COLUMN+" INTEGER); ";
             //+ AudandImg_LESSON_COLUMN+ "TEXT);";
 
 
-    private Integer FileID;
+    private Integer FileID,ModuleNum, LessonNum;
     private String lesson;
     private byte[] bitmap,file;
 
@@ -69,4 +71,12 @@ public class AudioAndImages
     public String getLesson() { return lesson; }
 
     public void setLesson(String lesson) { this.lesson = lesson; }
+
+    public Integer getModuleNum() { return ModuleNum; }
+
+    public void setModuleNum(Integer moduleNum) { ModuleNum = moduleNum; }
+
+    public Integer getLessonNum() { return LessonNum; }
+
+    public void setLessonNum(Integer lessonNum) { LessonNum = lessonNum; }
 }

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/LessonsHolder"
+    android:orientation="vertical"
+    tools:context=".Store_Lessons">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/AdaptLes1"
+            android:layout_width="319dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="Lesson 1"
+            android:contentDescription="Lesson1"
+            android:textSize="28sp" />
+        <Button
+            android:id="@+id/EditBtn1"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="2"
+            android:text="Edit" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/AdaptLes2"
+            android:layout_width="319dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="Lesson 2"
+            android:contentDescription="Lesson2"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/EditBtn2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="2"
+            android:text="Edit" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/AdaptLes3"
+            android:layout_width="319dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="Lesson 3"
+            android:contentDescription="Lesson3"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/EditBtn3"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="3"
+            android:text="Edit" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/AdaptLes4"
+            android:layout_width="319dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="Lesson 4"
+            android:contentDescription="Lesson4"
+            android:textSize="28sp" />
+
+        <Button
+            android:id="@+id/EditBtn4"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="4"
+            android:text="Edit" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/AdaptLes5"
+            android:layout_width="319dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:hint="Lesson 5"
+            android:contentDescription="Lesson5"
+            android:textSize="28sp" />
+        <Button
+            android:id="@+id/EditBtn5"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="5"
+            android:text="Edit" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/HomeButton"
+        android:layout_gravity="center"
+        android:layout_width="60dp"
+        android:layout_height="48dp"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:layout_weight="1"
+        android:text="TextView" />
+</LinearLayout>

@@ -80,11 +80,9 @@ public class Main_Menu extends AppCompatActivity
         show2 = (Button)findViewById(R.id.Showbtn2);
         show3 = (Button)findViewById(R.id.showbtn3);
         show4 = (Button)findViewById(R.id.showbtn4);
-        play2 = (Button)findViewById(R.id.button2);
 
         play = (ImageView)findViewById(R.id.PlayButton2);
         picture = (ImageView) findViewById(R.id.imageView);
-        aud = (TextView) findViewById(R.id.textView);
         String path = getCacheDir().getAbsolutePath();
         aud.setText(path);
 
@@ -101,18 +99,6 @@ public class Main_Menu extends AppCompatActivity
             public void onClick(View v) { playMp3(); }
         });
 
-        play2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    mediaPlayer.setDataSource("/data/data/com.example.a1530630.learningapplication/cache/testing273537506.mp3");
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
 
         idk = new Intent(getApplicationContext(), Session2.class);
 
@@ -166,14 +152,6 @@ public class Main_Menu extends AppCompatActivity
 
 
         } catch (IOException ex) { String s = ex.toString();ex.printStackTrace(); }
-
-    }
-    @Override
-    protected void onStop()
-    {
-        super.onStop();
-        mediaPlayer.release();
-        mediaPlayer = null;
 
     }
 

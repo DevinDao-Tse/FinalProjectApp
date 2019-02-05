@@ -37,6 +37,7 @@ public class Editing extends AppCompatActivity {
     ImageView home;
     TextView file1,file2;
     SQLiteManage db;
+    int les,mod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,10 @@ public class Editing extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED){
             requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1001);
         }
+
+        Intent i = getIntent();
+        mod = i.getIntExtra("Module",0);
+        les = Integer.parseInt(i.getStringExtra("Lesson"));
 
         home = (ImageView)findViewById(R.id.HomeButton);
 
@@ -72,15 +77,11 @@ public class Editing extends AppCompatActivity {
 
         pick1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                new MaterialFilePicker().withActivity(Editing.this).withRequestCode(1000).withHiddenFiles(true).start();
-            }
+            public void onClick(View v) { new MaterialFilePicker().withActivity(Editing.this).withRequestCode(1000).withHiddenFiles(true).start(); }
         });
         pick2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                new MaterialFilePicker().withActivity(Editing.this).withRequestCode(2000).withHiddenFiles(true).start();
-            }
+            public void onClick(View view) { new MaterialFilePicker().withActivity(Editing.this).withRequestCode(2000).withHiddenFiles(true).start(); }
         });
 
         homeButton();
@@ -89,7 +90,7 @@ public class Editing extends AppCompatActivity {
     private void homeButton(){home.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(Editing.this,Main_Menu.class);startActivity(i); }
+            Intent i = new Intent(Editing.this,Store_Lessons.class);startActivity(i); }
     });}
 
     @Override
@@ -98,25 +99,28 @@ public class Editing extends AppCompatActivity {
 
         final AudioAndImages allFiles = new AudioAndImages();
         String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
-        File imgFile; File audFile;
-        FileInputStream imgFis =null; FileInputStream audFis = null;
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        File imgFile; //get file from download path
+        File audFile; //get file from download path
+        FileInputStream imgFis =null; //read file for img
+        FileInputStream audFis = null; //read file for audio
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();//to byte for img
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(); //to byte for audio
 
         if (requestCode == 1000 && resultCode == RESULT_OK)
         {
-            byte[] byteAud = new byte[30000];
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            //audFile = new File(filePath);
+            byte[] byteAud= new byte[30000];
+            audFile = new File(filePath);
             try
             {
-                audFis = new FileInputStream(filePath);
+                audFis = new FileInputStream(audFile);
                 for(int read; (read = audFis.read(byteAud)) != -1;)
                 {
                     bos.write(byteAud,0,read);
                     file1.setText(String.valueOf(read));
                 }
+                bos.flush();
+                bos.close();
                 // byteAud = new byte[(int)audFile.length()];
-
             }
             catch (Exception e){Log.e("Error", e.getMessage());}
             byte[] set = bos.toByteArray();
@@ -134,14 +138,13 @@ public class Editing extends AppCompatActivity {
                 allFiles.setByteImg(byteImg);
             }
             catch(Exception e){ Log.e("Error", e.getMessage()); }
-
         }
         
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db.createRowAud(allFiles);
-                Intent i = new Intent(Editing.this, Main_Menu.class);
+                Intent i = new Intent(Editing.this, Store_Lessons.class);
                 startActivity(i);
             }
         });
