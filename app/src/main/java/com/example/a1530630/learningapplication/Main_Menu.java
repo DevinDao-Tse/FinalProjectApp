@@ -34,6 +34,7 @@ import com.example.a1530630.learningapplication.Models.AudioAndImages;
 import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.Modules;
 import com.example.a1530630.learningapplication.Models.User_Track;
+import com.example.a1530630.learningapplication.Models.User;
 
 import org.w3c.dom.Text;
 
@@ -378,6 +379,13 @@ public class Main_Menu extends AppCompatActivity
                 return true;
 
             }
+            case R.id.nav_summary:
+            {
+                i = new Intent(this,SummaryReport.class);
+                startActivity(i);
+                return true;
+            }
+
             case R.id.nav_exit:
             {
                 SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);

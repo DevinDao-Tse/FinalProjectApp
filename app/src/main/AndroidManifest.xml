@@ -14,10 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Editing"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+        <activity android:name=".SummaryReport"/>
+        <activity
+            android:name=".Editing"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Store" />
         <activity
             android:name=".Session2"
@@ -42,7 +42,7 @@
         <activity
             android:name=".Register"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".Profile"
             android:screenOrientation="portrait" />
