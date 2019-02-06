@@ -6,40 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".SummaryAdapter">
 
-    <LinearLayout
+
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/nameID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Name" />
+        <TableRow
+            android:id="@+id/TableData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp">
 
-        <TextView
-            android:id="@+id/userNameID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Username" />
+            <TextView
+                android:id="@+id/fullText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Full name"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/emailID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Email" />
+            <TextView
+                android:id="@+id/userText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Username"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/dateID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Date" />
+            <TextView
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Email"
+                android:textStyle="bold" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Date"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
 
 
 </RelativeLayout>

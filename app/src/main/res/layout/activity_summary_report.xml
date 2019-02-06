@@ -4,70 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".SummaryReport">
+
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listData"
-        android:padding="@dimen/_1sdp">
+        android:layout_height="match_parent">
+
 
         <TableRow
+            android:id="@+id/TableHeader"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#607D8B"
             android:padding="@dimen/_4sdp">
 
             <TextView
-                android:id="@+id/FullName"
+                android:id="@+id/FullNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Full Name"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/userNam13"
+                android:id="@+id/UserNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Username"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/emailAddress"
+                android:id="@+id/EmailHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Email Address"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/dateText"
+                android:id="@+id/DateHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date Registered"
-                android:textStyle="bold"/>
+                android:layout_weight="1"
+                android:text="Date Created"
+                android:textStyle="bold" />
 
         </TableRow>
-
     </TableLayout>
+
+    <ListView
+        android:id="@+id/SummaryList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_40sdp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-       android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/backBtn"
+            style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO"
+            android:onClick="backToMainMenu"
             app:srcCompat="?attr/actionModeCloseDrawable" />
+
     </LinearLayout>
 
 

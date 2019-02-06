@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -18,8 +20,9 @@ import java.util.ArrayList;
 public class SummaryReport extends AppCompatActivity
 {
     SQLiteManage db;
-    private TableLayout tableLayout;
-    ImageButton backMenu;
+    private ListView listView;
+    Button backMenu;
+
 
 
     @Override
@@ -27,48 +30,44 @@ public class SummaryReport extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_report);
-
         db = new SQLiteManage(this);
 
-        backMenu = (ImageButton) findViewById(R.id.backBtn);
 
-        tableLayout = (TableLayout)findViewById(R.id.listData);
+        listView = (ListView) findViewById(R.id.SummaryList);
+
+        ArrayList <User> summaryArray = new ArrayList<>();
 
         Cursor cursor = db.getUserListInfo();
 
-        //Fills in the table with rows and columns
+        //Fills in the list
         if(cursor.moveToFirst())
         {
-
-             do
+            do
             {
-                View tableRow = LayoutInflater.from(this).inflate(R.layout.activity_summary_adapter,null, false);
-                TextView name = tableRow.findViewById(R.id.FullName);
-                TextView userTitle = tableRow.findViewById(R.id.userNam13);
-                TextView emailTitle = tableRow.findViewById(R.id.emailAddress);
-                TextView dateTitle = tableRow.findViewById(R.id.dateText);
+                User users = new User();
+                users.setFullName(cursor.getString(cursor.getColumnIndex(users.COLUMN_FULL_NAME)));
+                users.setUsername(cursor.getString(cursor.getColumnIndex(users.COLUMN_USERNAME)));
+                users.setEmail(cursor.getString(cursor.getColumnIndex(users.COLUMN_EMAIL)));
+                users.setCreated(cursor.getString(cursor.getColumnIndex(users.COLUMN_CREATED)));
 
-                name.setText(cursor.getString(1));
-                userTitle.setText(cursor.getString(2));
-                emailTitle.setText(cursor.getString(3));
-                dateTitle.setText(cursor.getString(4));
-                tableLayout.addView(tableRow);
+                summaryArray.add(users);
+
             }
             while(cursor.moveToNext());
-
-
         }
+
+        //Sets the adapter
+        SummaryAdapter summaryAdapter = new SummaryAdapter(this, R.layout.activity_summary_adapter,summaryArray);
+        listView.setAdapter(summaryAdapter);
+
     }
 
-    private void backToMainMenu()
+
+    public void backToMainMenu(View view)
     {
-        backMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(SummaryReport.this, Main_Menu.class);
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(SummaryReport.this, Main_Menu.class);
+        startActivity(i);
+
     }
 
 

@@ -317,12 +317,14 @@ public class SQLiteManage extends SQLiteOpenHelper
         return  cursor;
     }
 
+
     //Created a new cursor method for summary report
     public Cursor getUserListInfo()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT "+User.COLUMN_FULL_NAME + User.COLUMN_USERNAME + User.COLUMN_EMAIL +
-         User.COLUMN_CREATED+" FROM "+User.USER_TABLE_NAME;
+        String sql = "SELECT "+User.COLUMN_FULL_NAME +","+User.COLUMN_USERNAME +","+User.COLUMN_EMAIL+","
+                +User.COLUMN_CREATED+ " FROM " +User.USER_TABLE_NAME;
+
         Cursor cursor = db.rawQuery(sql, null);
         return cursor;
     }

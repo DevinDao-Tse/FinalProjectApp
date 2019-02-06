@@ -28,7 +28,7 @@ public class SummaryAdapter extends ArrayAdapter<User>
 
     public SummaryAdapter(Context context, int resources, ArrayList<User> objects)
     {
-        super(context, resources,objects);
+        super(context, resources, objects);
         sumContext = context;
         sumResources = resources;
     }
@@ -51,15 +51,15 @@ public class SummaryAdapter extends ArrayAdapter<User>
         LayoutInflater inflater = LayoutInflater.from(sumContext);
         convertView = inflater.inflate(sumResources, parent, false);
 
-        TextView nameText = convertView.findViewById(R.id.nameID);
-        TextView userText = convertView.findViewById(R.id.userNameID);
-        TextView emailText = convertView.findViewById(R.id.emailID);
-        TextView dateText = convertView.findViewById(R.id.dateID);
+        TextView nameTextView = convertView.findViewById(R.id.fullText);
+        TextView userTextView = convertView.findViewById(R.id.userText);
+        TextView emailTextView = convertView.findViewById(R.id.emailText);
+        TextView dateTextView = convertView.findViewById(R.id.dateText);
 
-        nameText.setText(String.valueOf(fullNameCon));
-        userText.setText(String.valueOf(userNameCon));
-        emailText.setText(String.valueOf(emailCon));
-        dateText.setText(String.valueOf(dateCon));
+        nameTextView.setText(String.valueOf(fullNameCon));
+        userTextView.setText(String.valueOf(userNameCon));
+        emailTextView.setText(String.valueOf(emailCon));
+        dateTextView.setText(String.valueOf(dateCon));
 
 
         return convertView;
