@@ -35,7 +35,7 @@ public class Editing extends AppCompatActivity {
 
     Button pick1,pick2,save,load;
     ImageView home;
-    TextView file1,file2;
+    TextView file1,file2,less;
     SQLiteManage db;
     int les,mod;
 
@@ -57,22 +57,15 @@ public class Editing extends AppCompatActivity {
 
         home = (ImageView)findViewById(R.id.HomeButton);
 
+        less = (TextView)findViewById(R.id.textView);
+        less.setText(String.valueOf(les));
+
         pick1 = (Button) findViewById(R.id.Pickbtn);
         pick2 = (Button) findViewById(R.id.Pick2btn);
         save = (Button) findViewById(R.id.SaveBtn);
-        load = (Button)findViewById(R.id.Loadbtn);
 
         file1 = (TextView)findViewById(R.id.FileText);
         file2 = (TextView)findViewById(R.id.File2Text);
-
-        load.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent fileChooser = new Intent(Intent.ACTION_GET_CONTENT);
-                fileChooser.setType("audio/*");
-                startActivityForResult(fileChooser,2);
-            }
-        });
 
 
         pick1.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +132,10 @@ public class Editing extends AppCompatActivity {
             }
             catch(Exception e){ Log.e("Error", e.getMessage()); }
         }
-        
+
+        allFiles.setModuleNum(mod);
+        allFiles.setLessonNum(les);
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

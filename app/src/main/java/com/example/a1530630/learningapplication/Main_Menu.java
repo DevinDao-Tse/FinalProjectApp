@@ -84,7 +84,6 @@ public class Main_Menu extends AppCompatActivity
         play = (ImageView)findViewById(R.id.PlayButton2);
         picture = (ImageView) findViewById(R.id.imageView);
         String path = getCacheDir().getAbsolutePath();
-        aud.setText(path);
 
         ViewAll();
         ViewAll2();
@@ -92,13 +91,10 @@ public class Main_Menu extends AppCompatActivity
         ViewAll4();
         readFromDB();
 
-
-
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { playMp3(); }
         });
-
 
         idk = new Intent(getApplicationContext(), Session2.class);
 
@@ -140,16 +136,11 @@ public class Main_Menu extends AppCompatActivity
           //  Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
            // picture.setImageBitmap(bitmap);
 
-            File dir = getFilesDir();
-            String path = getFilesDir().getAbsolutePath();
-            File tempMp3 = File.createTempFile("testing", ".mp3");
-            path2 = tempMp3.getAbsolutePath();
+            File dir = getFilesDir();String path = getFilesDir().getAbsolutePath();
+            File tempMp3 = File.createTempFile("testing", ".mp3");path2 = tempMp3.getAbsolutePath();
 
             FileOutputStream fos = new FileOutputStream(tempMp3);
-            fos.write(mp3SoundByteArray);
-            fos.flush();
-            fos.close();
-
+            fos.write(mp3SoundByteArray);fos.flush();fos.close();
 
         } catch (IOException ex) { String s = ex.toString();ex.printStackTrace(); }
 
@@ -304,12 +295,17 @@ public class Main_Menu extends AppCompatActivity
                 StringBuffer stringBuffer = new StringBuffer();
                 while(cursor.moveToNext())
                 {
-                    byte[] audValue = cursor.getBlob(1);
-                    byte[] imgValue = cursor.getBlob(2);
+                   // byte[] audValue = cursor.getBlob(1);
+                    int mod = cursor.getInt(1);
+                    int les = cursor.getInt(2);
+                    byte[] imgValue = cursor.getBlob(4);
 
                     stringBuffer.append("File ID: "+ cursor.getInt(0) + "\n");
-                    stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
-                  //  stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
+                    stringBuffer.append("Module: "+ String.valueOf(mod)+" \n");
+                    stringBuffer.append("Lesson: "+ String.valueOf(les)+" \n");
+                   // stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
+                    stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
+
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
                 builder.setCancelable(true);

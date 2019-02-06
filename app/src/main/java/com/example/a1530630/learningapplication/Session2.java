@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -35,17 +36,17 @@ public class Session2 extends AppCompatActivity  {
     public int[] sm;
     public int counter,countAttempt; //variable to convert to string as we click next  or previous
     public String aud,mod,les; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
-    public ImageView CorrectOn,CorrectOff,IncorrectOn,IncorrectOff;
-   //  public ImageView imgWord = (ImageView)findViewById(R.id.ImageView);
+    public ImageView CorrectOn,CorrectOff,IncorrectOn,IncorrectOff,img;
     public TextView scoreCount,modRes;
     public MediaPlayer mediaPlayer;
-    public int score,userCon,modCon;
+    public int score,userCon,modCon,lesCon;
     public float Total;
     public long ModResID;
+    Bitmap bitmap;
 
+    private byte[][] imgData;
 
     SharedPreferences sharedPreferences;
-
     SQLiteManage db;
 
     @Override
@@ -63,8 +64,6 @@ public class Session2 extends AppCompatActivity  {
         mod = intent.getStringExtra("Module"); //passing module #
         les = intent.getStringExtra("Lesson"); //passing lesson#
         modCon = Integer.parseInt(mod);
-
-
 
         CorrectOn = (ImageView)findViewById(R.id.onCorrect);CorrectOff =(ImageView)findViewById(R.id.offCorrect);
         IncorrectOff = (ImageView)findViewById(R.id.offIncorrect);IncorrectOn = (ImageView)findViewById(R.id.onIncorrect);
@@ -94,35 +93,23 @@ public class Session2 extends AppCompatActivity  {
         mediaPlayer.setLooping(false);
         mediaPlayer.start();
 
+        
+        img = (ImageView)findViewById(R.id.ImageView);
+        Cursor cursor = db.getImageSession(modCon,getLesson(les));
+
         configureSounds(les,mod);
         initiliazeFiles();
         nextFile();
         previousFile();
         homeButton();//initiate();
         ClickBox();
-        test.setText(aud+" "+modCon+" "+les);
+        test.setText(aud+" "+modCon+" "+les+" "+getLesson(les));
     }
 
     @Override
     public void onBackPressed(){
         //super.onBackPressed(); //comment out if you want back button to do something
     }
-
-    private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }
-
-    //listener for play button
-    private View.OnClickListener playsound = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            String soundname = (String) view.getContentDescription().toString();
-            counter = Integer.parseInt(aud);
-            if(soundname.contentEquals("play1"))
-            {
-                soundPool.play(sm[counter],1,1,1,0,1.0f);
-            }
-        }
-    };
-
 
     private void homeButton(){homebtn.setOnClickListener(goHome);}
     private View.OnClickListener goHome = new View.OnClickListener() {
@@ -142,7 +129,6 @@ public class Session2 extends AppCompatActivity  {
             if(db.TestSet(ModResID,Total,les,modCon))
             {
                     db.updateTrack(userCon,modCon);
-
                     startActivity(i);
                     Toast.makeText(getApplicationContext(), " - "+Total+" - " + " \n- " , Toast.LENGTH_LONG).show();
            }
@@ -189,29 +175,6 @@ public class Session2 extends AppCompatActivity  {
         }
     };
 
-    private void configureSounds(String lesson,String module)
-    {
-        soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC,0);
-        sm = new int[5];
-        if(lesson.equals("Lesson1") && module.equals("1"))
-        {
-            sm[0] = soundPool.load(this, R.raw.mod1les1w1,1);
-            sm[1] = soundPool.load(this, R.raw.aud2,1);
-            sm[2] = soundPool.load(this, R.raw.aud3,1);
-            sm[3] = soundPool.load(this, R.raw.aud1,1);
-            sm[4] = soundPool.load(this, R.raw.aud2,1);
-
-        }
-        else if(lesson.equals("Lesson1")&& module.equals("2"))
-        {
-            sm[0] = soundPool.load(this, R.raw.aud6,1);
-            sm[1] = soundPool.load(this, R.raw.aud7,1);
-            sm[2] = soundPool.load(this, R.raw.aud1,1);
-            sm[3] = soundPool.load(this, R.raw.aud2,1);
-            sm[4] = soundPool.load(this, R.raw.aud3,1);
-        }
-    }
-
     private void ClickBox()
     {
         CorrectOn.setOnClickListener(chooseBox);
@@ -244,4 +207,31 @@ public class Session2 extends AppCompatActivity  {
         }
     };
 
+    private int getLesson(String lesson)
+    {
+        int les=0;
+        if(lesson.equals("Lesson1")){ les =1;}
+        else if (lesson.equals("Lesson2")){ les =2;}
+        else if (lesson.equals("Lesson3")){ les =3;}
+        else if (lesson.equals("Lesson4")){ les =4;}
+        else if (lesson.equals("Lesson5")){ les =5;}
+        return les;
+    }
+
+    private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }
+
+    //listener for play button
+    private View.OnClickListener playsound = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            String soundname = (String) view.getContentDescription().toString();counter = Integer.parseInt(aud);
+            if(soundname.contentEquals("play1")) { soundPool.play(sm[counter],1,1,1,0,1.0f); }
+        }
+    };
+    private void configureSounds(String lesson,String module)
+    {
+        soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC,0);sm = new int[5];
+        if(lesson.equals("Lesson1") && module.equals("1")) { sm[0] = soundPool.load(this, R.raw.mod1les1w1,1);sm[1] = soundPool.load(this, R.raw.aud2,1);sm[2] = soundPool.load(this, R.raw.aud3,1);sm[3] = soundPool.load(this, R.raw.aud1,1);sm[4] = soundPool.load(this, R.raw.aud2,1); }
+        else if(lesson.equals("Lesson1")&& module.equals("2")) { sm[0] = soundPool.load(this, R.raw.aud6,1);sm[1] = soundPool.load(this, R.raw.aud7,1);sm[2] = soundPool.load(this, R.raw.aud1,1);sm[3] = soundPool.load(this, R.raw.aud2,1);sm[4] = soundPool.load(this, R.raw.aud3,1);}
+    }
 }

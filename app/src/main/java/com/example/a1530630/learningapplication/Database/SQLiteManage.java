@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.MediaStore;
 
 import com.example.a1530630.learningapplication.Models.AudioAndImages;
 import com.example.a1530630.learningapplication.Models.Module_Results;
@@ -43,6 +44,10 @@ public class SQLiteManage extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+
+
+        values.put(AudioAndImages.AudandImg_MODULE,files.getModuleNum());
+        values.put(AudioAndImages.AudandImg_LESSON_COLUMN,files.getLessonNum());
 
         values.put(AudioAndImages.AudandImg_IMAGE_COLUMN,files.getByteImg());
         values.put(AudioAndImages.AudandImg_AUDIO_COLUMN,files.getByteAud());
@@ -299,7 +304,7 @@ public class SQLiteManage extends SQLiteOpenHelper
     public Cursor getFilesInfo()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT * FROM "+ AudioAndImages.AudandImg_TABLE_NAME + " LIMIT 1" ;
+        String sql = "SELECT * FROM "+ AudioAndImages.AudandImg_TABLE_NAME;// + " LIMIT 1" ;
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }
@@ -319,6 +324,16 @@ public class SQLiteManage extends SQLiteOpenHelper
         String sql = "SELECT "+User.COLUMN_FULL_NAME + User.COLUMN_USERNAME + User.COLUMN_EMAIL +
          User.COLUMN_CREATED+" FROM "+User.USER_TABLE_NAME;
         Cursor cursor = db.rawQuery(sql, null);
+        return cursor;
+    }
+
+    public Cursor getImageSession(int module, int lesson)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql="SELECT * FROM "+ AudioAndImages.AudandImg_TABLE_NAME
+                    + " WHERE "+ AudioAndImages.AudandImg_MODULE+ " = "+module
+                    +" AND "+ AudioAndImages.AudandImg_LESSON_COLUMN+" = "+lesson;
+        Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }
 

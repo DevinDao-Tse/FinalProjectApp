@@ -21,15 +21,15 @@ public class AudioAndImages
 
     public static String CREATE_AudandImg_TABLE = "CREATE TABLE "+AudandImg_TABLE_NAME+" ("
             + AudandImg_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
-            +AudandImg_MODULE+ "INTEGER, "
+            + AudandImg_MODULE+ " INTEGER, "
+            + AudandImg_LESSON_COLUMN+" INTEGER, "
             + AudandImg_AUDIO_COLUMN+ " BLOB, "
-            + AudandImg_IMAGE_COLUMN+ " BLOB, "
-            + AudandImg_LESSON_COLUMN+" INTEGER); ";
+            + AudandImg_IMAGE_COLUMN+ " BLOB); ";
+
             //+ AudandImg_LESSON_COLUMN+ "TEXT);";
 
 
     private Integer FileID,ModuleNum, LessonNum;
-    private String lesson;
     private byte[] bitmap,file;
 
 
@@ -45,6 +45,14 @@ public class AudioAndImages
         this.FileID = null;
         this.bitmap = null;
         this.file = img;
+    }
+    public AudioAndImages(int m, byte[] img, int l)
+    {
+        this.FileID = null;
+        this.ModuleNum = m;
+        this.file = null;
+        this.bitmap = img;
+        this.LessonNum = l;
     }
 
 
@@ -67,10 +75,6 @@ public class AudioAndImages
     public byte[] getByteAud() { return file; }
 
     public void setByteAud(byte[] file) { this.file = file; }
-
-    public String getLesson() { return lesson; }
-
-    public void setLesson(String lesson) { this.lesson = lesson; }
 
     public Integer getModuleNum() { return ModuleNum; }
 

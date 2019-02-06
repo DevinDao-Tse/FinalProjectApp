@@ -23,12 +23,13 @@
             android:hint="Lesson 1"
             android:contentDescription="Lesson1"
             android:textSize="28sp" />
+
         <Button
             android:id="@+id/EditBtn1"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:background="@android:color/darker_gray"
-            android:contentDescription="2"
+            android:contentDescription="1"
             android:text="Edit" />
     </LinearLayout>
     <LinearLayout
