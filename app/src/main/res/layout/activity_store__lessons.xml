@@ -24,13 +24,28 @@
             android:contentDescription="Lesson1"
             android:textSize="28sp" />
 
-        <Button
-            android:id="@+id/EditBtn1"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="1"
-            android:text="Edit" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/EditBtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="1"
+                android:text="Add" />
+
+            <Button
+                android:id="@+id/ViewBtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="1"
+                android:text="View" />
+        </LinearLayout>
+
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,13 +62,27 @@
             android:contentDescription="Lesson2"
             android:textSize="28sp" />
 
-        <Button
-            android:id="@+id/EditBtn2"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="2"
-            android:text="Edit" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/EditBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="2"
+                android:text="Add" />
+            <Button
+                android:id="@+id/ViewBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="2"
+                android:text="View" />
+
+        </LinearLayout>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,13 +99,28 @@
             android:contentDescription="Lesson3"
             android:textSize="28sp" />
 
-        <Button
-            android:id="@+id/EditBtn3"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="3"
-            android:text="Edit" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/EditBtn3"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="3"
+                android:text="Add" />
+            <Button
+                android:id="@+id/ViewBtn3"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="3"
+                android:text="View" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,13 +137,29 @@
             android:contentDescription="Lesson4"
             android:textSize="28sp" />
 
-        <Button
-            android:id="@+id/EditBtn4"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="4"
-            android:text="Edit" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/EditBtn4"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="4"
+                android:text="Add" />
+
+            <Button
+                android:id="@+id/ViewBtn4"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="4"
+                android:text="View" />
+
+        </LinearLayout>
+
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -115,13 +175,26 @@
             android:hint="Lesson 5"
             android:contentDescription="Lesson5"
             android:textSize="28sp" />
-        <Button
-            android:id="@+id/EditBtn5"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="5"
-            android:text="Edit" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/EditBtn5"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="5"
+                android:text="Add" />
+            <Button
+                android:id="@+id/ViewBtn5"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="5"
+                android:text="View" />
+        </LinearLayout>
     </LinearLayout>
 
     <ImageButton

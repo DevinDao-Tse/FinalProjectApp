@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Store_Lessons"></activity>
+        <activity android:name=".View_Lessons"></activity>
+        <activity android:name=".Store_Lessons" />
         <activity android:name=".SummaryReport" />
         <activity
             android:name=".Editing"

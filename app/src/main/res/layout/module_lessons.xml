@@ -39,6 +39,8 @@
         android:layout_width="69dp"
         android:layout_height="36dp"
         android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="goingtoLesson"
         android:contentDescription="Lesson4"
         android:text="Lesson4" />
 

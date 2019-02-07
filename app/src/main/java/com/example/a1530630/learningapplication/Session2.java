@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -26,6 +27,7 @@ import com.example.a1530630.learningapplication.Models.Module_Results;
 import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 
 public class Session2 extends AppCompatActivity  {
@@ -37,14 +39,18 @@ public class Session2 extends AppCompatActivity  {
     public int counter,countAttempt; //variable to convert to string as we click next  or previous
     public String aud,mod,les; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
     public ImageView CorrectOn,CorrectOff,IncorrectOn,IncorrectOff,img;
-    public TextView scoreCount,modRes;
+    public TextView scoreCount,modRes,viewCount;
     public MediaPlayer mediaPlayer;
     public int score,userCon,modCon,lesCon;
     public float Total;
     public long ModResID;
     Bitmap bitmap;
-
-    private byte[][] imgData;
+    int count;
+    int imgcount;
+  //  byte[][] imgHolder;
+    byte[] imgHolder;
+    int[] imgdata;
+    ArrayList<byte[]> stuff;
 
     SharedPreferences sharedPreferences;
     SQLiteManage db;
@@ -74,18 +80,14 @@ public class Session2 extends AppCompatActivity  {
         scoreCount.setText(scoreString);
         Total = Float.parseFloat(scoreString);
 
+        imgcount = intent.getIntExtra("Image",imgcount);
+
+        viewCount = (TextView) findViewById(R.id.CountView);
+
         nextbtn = (ImageButton) findViewById(R.id.NextButton);nextbtn.setEnabled(false); //disabled until passed
         backbtn = (ImageButton) findViewById(R.id.PreviousButton); //back button
         homebtn = (ImageButton)findViewById(R.id.HomeButton); //home button
         playbtn = (ImageButton) findViewById(R.id.PlayButton2);
-
-        //hide back button if start at word 1
-        if(aud.equalsIgnoreCase("0")) { backbtn.setVisibility(View.INVISIBLE); }
-        else { backbtn.setVisibility(View.VISIBLE);}
-
-        //hide next button if start at last word
-        if(aud.equalsIgnoreCase("4")){ nextbtn.setVisibility(View.INVISIBLE);}
-        else {nextbtn.setVisibility(View.VISIBLE);}
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(this, R.raw.aud1);
@@ -93,9 +95,35 @@ public class Session2 extends AppCompatActivity  {
         mediaPlayer.setLooping(false);
         mediaPlayer.start();
 
-        
         img = (ImageView)findViewById(R.id.ImageView);
+
+
         Cursor cursor = db.getImageSession(modCon,getLesson(les));
+        if(cursor.moveToFirst())
+        {
+            stuff = new ArrayList<>();
+            do
+            {
+                byte[] img = cursor.getBlob(4);
+                count = cursor.getCount();
+                byte[] imgstuff = img;
+                stuff.add(imgstuff);
+                Log.i("Img data", String.valueOf(img.length));
+            }while(cursor.moveToNext());
+        }
+
+        viewCount.setText(String.valueOf(imgcount)+ " / "+stuff.get(imgcount).length);
+        bitmap = BitmapFactory.decodeByteArray(stuff.get(imgcount),0,stuff.get(imgcount).length);
+        img.setImageBitmap(bitmap);
+
+        //hide back button if start at word 1
+        if(imgcount ==0) { backbtn.setVisibility(View.INVISIBLE); }
+        else { backbtn.setVisibility(View.VISIBLE);}
+
+        //hide next button if start at last word
+        if(imgcount == (count-1)){ nextbtn.setVisibility(View.INVISIBLE);}
+        else {nextbtn.setVisibility(View.VISIBLE);}
+
 
         configureSounds(les,mod);
         initiliazeFiles();
@@ -107,16 +135,14 @@ public class Session2 extends AppCompatActivity  {
     }
 
     @Override
-    public void onBackPressed(){
-        //super.onBackPressed(); //comment out if you want back button to do something
-    }
+    public void onBackPressed(){ }
 
     private void homeButton(){homebtn.setOnClickListener(goHome);}
     private View.OnClickListener goHome = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-            if(aud.equals("4") && CorrectOn.getVisibility() == View.VISIBLE)
+            if(imgcount == (count-1) && CorrectOn.getVisibility() == View.VISIBLE)
             { Total = Total + 1; } else { Total = Total +0; }
 
             Cursor cursor = db.getModuleResID(userCon,modCon);
@@ -125,7 +151,7 @@ public class Session2 extends AppCompatActivity  {
                 ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
             }
 
-            Total = (Total/5)*100;
+            Total = (Total/count)*100;
             if(db.TestSet(ModResID,Total,les,modCon))
             {
                     db.updateTrack(userCon,modCon);
@@ -148,8 +174,10 @@ public class Session2 extends AppCompatActivity  {
                 score = score +1;
             }
             else score = score +0;
+            imgcount = imgcount+1;
             String pass = String.valueOf(counter);
             //i.putExtra("ModResID", ModResID);
+            i.putExtra("Image",imgcount);
             i.putExtra("Score",score);
             i.putExtra("Audio", pass);
             i.putExtra("Module",mod);

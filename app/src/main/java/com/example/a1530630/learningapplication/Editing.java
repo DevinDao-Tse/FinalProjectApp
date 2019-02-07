@@ -35,7 +35,7 @@ public class Editing extends AppCompatActivity {
 
     Button pick1,pick2,save,load;
     ImageView home;
-    TextView file1,file2,less;
+    TextView file1,file2,less,modu;
     SQLiteManage db;
     int les,mod;
 
@@ -52,13 +52,16 @@ public class Editing extends AppCompatActivity {
         }
 
         Intent i = getIntent();
+
         mod = i.getIntExtra("Module",0);
         les = Integer.parseInt(i.getStringExtra("Lesson"));
 
         home = (ImageView)findViewById(R.id.HomeButton);
 
         less = (TextView)findViewById(R.id.textView);
-        less.setText(String.valueOf(les));
+        less.setText(String.valueOf(les)+ " / " +String.valueOf(mod));
+
+
 
         pick1 = (Button) findViewById(R.id.Pickbtn);
         pick2 = (Button) findViewById(R.id.Pick2btn);
@@ -140,7 +143,7 @@ public class Editing extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.createRowAud(allFiles);
-                Intent i = new Intent(Editing.this, Store_Lessons.class);
+                Intent i = new Intent(Editing.this, Store.class);
                 startActivity(i);
             }
         });

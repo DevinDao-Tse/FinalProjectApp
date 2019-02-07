@@ -3,6 +3,7 @@ package com.example.a1530630.learningapplication;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -51,7 +52,6 @@ public class Main_Menu extends AppCompatActivity
 
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
-    TextView w1,aud;
     TextView less,mod;
     String moduleHolder;
     Intent idk;
@@ -95,7 +95,6 @@ public class Main_Menu extends AppCompatActivity
             @Override
             public void onClick(View v) { playMp3(); }
         });
-
         idk = new Intent(getApplicationContext(), Session2.class);
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
@@ -151,7 +150,6 @@ public class Main_Menu extends AppCompatActivity
         //super.onBackPressed(); //comment out if you want back button to do something
     }
 
-
     public void readFromDB()
     {
         final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -188,6 +186,20 @@ public class Main_Menu extends AppCompatActivity
         BOX.show();
     }
 
+    public void noLessons(View v)
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder(Main_Menu.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("No Images set");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
+
     //selecting lessons and passing parameters in intent
     public void goingtoLesson(View v)
     {
@@ -197,27 +209,45 @@ public class Main_Menu extends AppCompatActivity
             public void onClick(View view) {
                 int useID = pref.getInt("UserID",0);
                 int num = Integer.parseInt(moduleHolder);
-                if(db.setModule(num,useID) && db.setTrack(num, useID))
+
+                Cursor cursor = db.getImageSession(Integer.parseInt(moduleHolder),
+                                    getLesson(less.getContentDescription().toString()));
+                if(cursor.moveToFirst())
                 {
-                    idk.putExtra("Audio", "0");
-                    idk.putExtra("Module",moduleHolder);
-                    idk.putExtra("Lesson",less.getContentDescription().toString());
-                    startActivity(idk);
+                    if(db.setModule(num,useID) && db.setTrack(num, useID))
+                    {
+                        idk.putExtra("Audio", "0");
+                        idk.putExtra("Module",moduleHolder);
+                        idk.putExtra("Lesson",less.getContentDescription().toString());
+                        startActivity(idk);
+                    }
+                    else
+                    {
+                        Module_Results res = new Module_Results(useID);
+                        User_Track track = new User_Track(useID);
+                        db.createResult(res,num);
+                        db.createTrack(track,num);
+                        idk.putExtra("Audio", "0");
+                        idk.putExtra("Module",moduleHolder);
+                        idk.putExtra("Lesson",less.getContentDescription().toString());
+                        startActivity(idk);
+                    }
                 }
-                else
-                {
-                    Module_Results res = new Module_Results(useID);
-                    User_Track track = new User_Track(useID);
-                    db.createResult(res,num);
-                    db.createTrack(track,num);
-                    idk.putExtra("Audio", "0");
-                    idk.putExtra("Module",moduleHolder);
-                    idk.putExtra("Lesson",less.getContentDescription().toString());
-                    startActivity(idk);
-                }
+                else { noLessons(view); }
             }
         });
     }
+    private int getLesson(String lesson)
+    {
+        int les=0;
+        if(lesson.equals("Lesson1")){ les =1;}
+        else if (lesson.equals("Lesson2")){ les =2;}
+        else if (lesson.equals("Lesson3")){ les =3;}
+        else if (lesson.equals("Lesson4")){ les =4;}
+        else if (lesson.equals("Lesson5")){ les =5;}
+        return les;
+    }
+
     public void ViewAll()
     {
         show.setOnClickListener(new View.OnClickListener() {
@@ -254,7 +284,10 @@ public class Main_Menu extends AppCompatActivity
                     stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
                     stringBuffer.append("ModuleResID "+ cursor.getInt(0) + "\n");
                     stringBuffer.append("Lesson1 "+ cursor.getInt(3)+ "%\n");
-                    stringBuffer.append("Lesson2 "+ cursor.getInt(4)+ "%\n\n");
+                    stringBuffer.append("Lesson2 "+ cursor.getInt(4)+ "%\n");
+                    stringBuffer.append("Lesson3 "+ cursor.getInt(5)+ "%\n");
+                    stringBuffer.append("Lesson4 "+ cursor.getInt(6)+ "%\n");
+                    stringBuffer.append("Lesson5 "+ cursor.getInt(7)+ "%\n\n");
                 }
                 AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
                 builder.setCancelable(true);
@@ -317,18 +350,15 @@ public class Main_Menu extends AppCompatActivity
 
 
 /////////////////////////DO NOT ERASE PLZ///////////////////////////////////////
-    public TextView ViewIriterate(int txt) { final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);final TextView textView = new TextView(this);textView.setLayoutParams(lparams);textView.setText("Module " + txt+" ");String con = String.valueOf(txt);textView.setContentDescription(con);return textView; }
+ //   public TextView ViewIriterate(int txt) { final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);final TextView textView = new TextView(this);textView.setLayoutParams(lparams);textView.setText("Module " + txt+" ");String con = String.valueOf(txt);textView.setContentDescription(con);return textView; }
     //Lessons dialog box when clicking the module
-    public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
+  //  public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
     //selecting word for audio
-    public void WordBox(final String le) { final Dialog WORD = new Dialog(Main_Menu.this);WORD.requestWindowFeature(Window.FEATURE_NO_TITLE);WORD.setContentView(R.layout.lessons_words);w1 = (TextView) WORD.findViewById(R.id.Word1);w1.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View view) { Intent i = new Intent(getApplicationContext(), Session.class);i.putExtra("Audio", w1.getContentDescription().toString());i.putExtra("Module",moduleHolder);i.putExtra("Lesson",le);startActivity(i); }});WORD.show(); }
+  //  public void WordBox(final String le) { final Dialog WORD = new Dialog(Main_Menu.this);WORD.requestWindowFeature(Window.FEATURE_NO_TITLE);WORD.setContentView(R.layout.lessons_words);w1 = (TextView) WORD.findViewById(R.id.Word1);w1.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View view) { Intent i = new Intent(getApplicationContext(), Session.class);i.putExtra("Audio", w1.getContentDescription().toString());i.putExtra("Module",moduleHolder);i.putExtra("Lesson",le);startActivity(i); }});WORD.show(); }
 //////////////////////////DO NOT ERASE PLEASE////////////////////////////////////
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(t.onOptionsItemSelected(item))
-            return true;
-        return super.onOptionsItemSelected(item);
-    }
+    public boolean onOptionsItemSelected(MenuItem item) { if(t.onOptionsItemSelected(item)) return true;return super.onOptionsItemSelected(item); }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Intent i;
@@ -351,7 +381,6 @@ public class Main_Menu extends AppCompatActivity
                 i = new Intent(this, User_setting.class);
                 startActivity(i);
                 return true;
-
             }
             case R.id.nav_summary:
             {
@@ -375,7 +404,6 @@ public class Main_Menu extends AppCompatActivity
                startActivity(i);
                return true;
         }
-
         return true;
     }
 }
