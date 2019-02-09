@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -59,16 +60,15 @@ public class Store extends AppCompatActivity {
         setContentView(R.layout.activity_store);
         db = new SQLiteManage(this);
 
+
         add = (Button)findViewById(R.id.Testbtn);
         homebtn = (ImageView) findViewById(R.id.HomeButton);
 
         ListView listView = (ListView)findViewById(R.id.listView);
 
 
-        View inflatedView = getLayoutInflater().inflate(R.layout.module_adapter, null);
+        //View inflatedView = getLayoutInflater().inflate(R.layout.module_adapter, null);
         //TextView text = (TextView) inflatedView.findViewById(R.id.text_view);
-        edit = (Button)inflatedView.findViewById(R.id.EditBtn);
-
 
 
         ArrayList<Modules> list = new ArrayList<>();
@@ -85,12 +85,9 @@ public class Store extends AppCompatActivity {
 
         ModulesListAdapter adapter = new ModulesListAdapter(this, R.layout.module_adapter,list);
         listView.setAdapter(adapter);
-
-
-
-
-
         homeButton();
+
+
     }
 
     int getItemPosition(View view)
