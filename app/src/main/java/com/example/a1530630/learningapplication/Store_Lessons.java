@@ -21,9 +21,10 @@ public class Store_Lessons extends AppCompatActivity {
 
     ImageButton homebtn;
     SQLiteManage db;
-    Button edit1,edit2,edit3,edit4,edit5;
+    Button edit1,edit2,edit3,edit4,edit5,buts;
+    Button view1,view2,view3,view4,view5,edits;
     TextView view;
-    Intent i;
+    Intent i,e;
     int num;
 
     @Override
@@ -39,57 +40,63 @@ public class Store_Lessons extends AppCompatActivity {
         edit4 = (Button)findViewById(R.id.EditBtn4);
         edit5 = (Button)findViewById(R.id.EditBtn5);
 
+        view1 = (Button)findViewById(R.id.viewBtn1);
+        view2 = (Button)findViewById(R.id.viewBtn2);
+        view3 = (Button)findViewById(R.id.viewBtn3);
+        view4 = (Button)findViewById(R.id.viewBtn4);
+        view5 = (Button)findViewById(R.id.viewBtn5);
+
         Intent before = getIntent();
         num = getIntent().getIntExtra("Module",0);
         i = new Intent(this, Editing.class);
+        e = new Intent(this,View_Lessons.class);
+
         view = (TextView)findViewById(R.id.textView2);
         view.setText(String.valueOf(num));
         homeButton();
 
         edit1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                i.putExtra("Module",num);
-                i.putExtra("Lesson", edit1.getContentDescription().toString());
-                startActivity(i);
+            public void onClick(View view) { //i.putExtra("Module",num);i.putExtra("Lesson", edit1.getContentDescription().toString());startActivity(i);
+                LessonEdit(view);
             }
         });
 
         edit2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                i.putExtra("Module",num);
-                i.putExtra("Lesson", edit2.getContentDescription().toString());
-                startActivity(i);
-            }
-        });
+            public void onClick(View view) { LessonEdit(view); }});
 
         edit3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                i.putExtra("Module",num);
-                i.putExtra("Lesson", edit3.getContentDescription().toString());
-                startActivity(i);
-            }
-        });
+            public void onClick(View view) { LessonEdit(view); }});
 
         edit4.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                i.putExtra("Module",num);
-                i.putExtra("Lesson", edit4.getContentDescription().toString());
-                startActivity(i);
-            }
-        });
+            public void onClick(View view) { LessonEdit(view); }});
 
         edit5.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                i.putExtra("Module",num);
-                i.putExtra("Lesson", edit5.getContentDescription().toString());
-                startActivity(i);
-            }
-        });
+            public void onClick(View view) { LessonEdit(view); }});
+
+        view1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { SeeLesson(view); }});
+
+        view2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { SeeLesson(view); }});
+
+        view3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { SeeLesson(view); }});
+
+        view4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { SeeLesson(view); }});
+
+        view5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) { SeeLesson(view); }});
 
     }
     private void homeButton(){homebtn.setOnClickListener(new View.OnClickListener() {
@@ -99,4 +106,30 @@ public class Store_Lessons extends AppCompatActivity {
             startActivity(i);
         }
     });}
+
+    private void LessonEdit(View v)
+    {
+        buts = (Button)v;
+        buts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                i.putExtra("Module",num);
+                i.putExtra("Lesson", buts.getContentDescription().toString());
+                startActivity(i);
+            }
+        });
+    }
+
+    private void SeeLesson(View v)
+    {
+        edits = (Button)v;
+        edits.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                e.putExtra("Module",num);
+                e.putExtra("Lesson", edits.getContentDescription().toString());
+                startActivity(e);
+            }
+        });
+    }
 }

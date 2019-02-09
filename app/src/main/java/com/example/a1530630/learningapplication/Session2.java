@@ -1,6 +1,7 @@
 package com.example.a1530630.learningapplication;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -47,7 +48,7 @@ public class Session2 extends AppCompatActivity  {
     Bitmap bitmap;
     int count;
     int imgcount;
-  //  byte[][] imgHolder;
+    //  byte[][] imgHolder;
     byte[] imgHolder;
     int[] imgdata;
     ArrayList<byte[]> stuff;
@@ -69,15 +70,16 @@ public class Session2 extends AppCompatActivity  {
         aud = intent.getStringExtra("Audio"); //passing audio#
         mod = intent.getStringExtra("Module"); //passing module #
         les = intent.getStringExtra("Lesson"); //passing lesson#
+        score = intent.getIntExtra("Score",score); //current score
         modCon = Integer.parseInt(mod);
 
         CorrectOn = (ImageView)findViewById(R.id.onCorrect);CorrectOff =(ImageView)findViewById(R.id.offCorrect);
         IncorrectOff = (ImageView)findViewById(R.id.offIncorrect);IncorrectOn = (ImageView)findViewById(R.id.onIncorrect);
 
-        score = intent.getIntExtra("Score",score);
+
         String scoreString = String.valueOf(score);
         scoreCount = (TextView)findViewById(R.id.scoreView);
-        scoreCount.setText(scoreString);
+
         Total = Float.parseFloat(scoreString);
 
         imgcount = intent.getIntExtra("Image",imgcount);
@@ -89,11 +91,12 @@ public class Session2 extends AppCompatActivity  {
         homebtn = (ImageButton)findViewById(R.id.HomeButton); //home button
         playbtn = (ImageButton) findViewById(R.id.PlayButton2);
 
+        //static audio file
         mediaPlayer = new MediaPlayer();
         mediaPlayer = MediaPlayer.create(this, R.raw.aud1);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setLooping(false);
-        mediaPlayer.start();
+        //mediaPlayer.start();
 
         img = (ImageView)findViewById(R.id.ImageView);
 
@@ -121,9 +124,10 @@ public class Session2 extends AppCompatActivity  {
         else { backbtn.setVisibility(View.VISIBLE);}
 
         //hide next button if start at last word
-        if(imgcount == (count-1)){ nextbtn.setVisibility(View.INVISIBLE);}
-        else {nextbtn.setVisibility(View.VISIBLE);}
+//        if(imgcount == (count-1)){ nextbtn.setVisibility(View.INVISIBLE);}
+//        else {nextbtn.setVisibility(View.VISIBLE);}
 
+        scoreCount.setText("Score: "+scoreString+"/"+count);
 
         configureSounds(les,mod);
         initiliazeFiles();
@@ -146,18 +150,15 @@ public class Session2 extends AppCompatActivity  {
             { Total = Total + 1; } else { Total = Total +0; }
 
             Cursor cursor = db.getModuleResID(userCon,modCon);
-            if(cursor.moveToFirst())
-            {
-                ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID));
-            }
+            if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
 
             Total = (Total/count)*100;
             if(db.TestSet(ModResID,Total,les,modCon))
             {
-                    db.updateTrack(userCon,modCon);
-                    startActivity(i);
-                    Toast.makeText(getApplicationContext(), " - "+Total+" - " + " \n- " , Toast.LENGTH_LONG).show();
-           }
+                db.updateTrack(userCon,modCon);
+                startActivity(i);
+                Toast.makeText(getApplicationContext(), " - "+Total+" - " + " \n- " , Toast.LENGTH_LONG).show();
+            }
         }
     };
 
@@ -166,24 +167,45 @@ public class Session2 extends AppCompatActivity  {
     private View.OnClickListener nextOne = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(getApplicationContext(), Session2.class);
-            counter = Integer.parseInt(aud);
-            counter = counter+1;
-            if(CorrectOn.getVisibility() == View.VISIBLE)
+            if(imgcount == (count-1))
             {
-                score = score +1;
+                if(CorrectOn.getVisibility() == View.VISIBLE)
+                { Total = Total + 1; } else { Total = Total +0; }
+
+                Intent back = new Intent(getApplicationContext(),Main_Menu.class);
+                Cursor cursor = db.getModuleResID(userCon,modCon);
+                if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
+
+                Total = (Total/count)*100;
+                if(db.TestSet(ModResID,Total,les,modCon))
+                {
+                    db.updateTrack(userCon,modCon);
+                    showEnd(view);
+                    //startActivity(back);
+                    Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
+                }
             }
-            else score = score +0;
-            imgcount = imgcount+1;
-            String pass = String.valueOf(counter);
-            //i.putExtra("ModResID", ModResID);
-            i.putExtra("Image",imgcount);
-            i.putExtra("Score",score);
-            i.putExtra("Audio", pass);
-            i.putExtra("Module",mod);
-            i.putExtra("Lesson",les);
-            i.putExtra("Score",score);
-            startActivity(i);
+            else
+            {
+                Intent i = new Intent(getApplicationContext(), Session2.class);
+                counter = Integer.parseInt(aud);
+                counter = counter+1;
+                if(CorrectOn.getVisibility() == View.VISIBLE)
+                {
+                    score = score +1;
+                }
+                else score = score +0;
+                imgcount = imgcount+1;
+                String pass = String.valueOf(counter);
+                //i.putExtra("ModResID", ModResID);
+                i.putExtra("Image",imgcount);
+                i.putExtra("Score",score);
+                i.putExtra("Audio", pass);
+                i.putExtra("Module",mod);
+                i.putExtra("Lesson",les);
+                i.putExtra("Score",score);
+                startActivity(i);
+            }
         }
     };
 
@@ -244,6 +266,24 @@ public class Session2 extends AppCompatActivity  {
         else if (lesson.equals("Lesson4")){ les =4;}
         else if (lesson.equals("Lesson5")){ les =5;}
         return les;
+    }
+
+    private void showEnd(View view)
+    {
+        Dialog ending = new Dialog(Session2.this);
+        ending.setContentView(R.layout.end_lesson);
+        ImageButton but = (ImageButton) ending.findViewById(R.id.EndingHomeButton);
+        TextView sc = (TextView)ending.findViewById(R.id.Scoring);
+        sc.setText("You scored ");
+        ending.show();
+
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                startActivity(i);
+            }
+        });
     }
 
     private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }

@@ -132,8 +132,8 @@ public class Main_Menu extends AppCompatActivity
 
             Cursor cursor = db.getFilesInfo();
             if(cursor.moveToFirst()) { mp3SoundByteArray = cursor.getBlob(1); img = cursor.getBlob(2);}
-          //  Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
-           // picture.setImageBitmap(bitmap);
+            //  Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
+            // picture.setImageBitmap(bitmap);
 
             File dir = getFilesDir();String path = getFilesDir().getAbsolutePath();
             File tempMp3 = File.createTempFile("testing", ".mp3");path2 = tempMp3.getAbsolutePath();
@@ -211,7 +211,7 @@ public class Main_Menu extends AppCompatActivity
                 int num = Integer.parseInt(moduleHolder);
 
                 Cursor cursor = db.getImageSession(Integer.parseInt(moduleHolder),
-                                    getLesson(less.getContentDescription().toString()));
+                        getLesson(less.getContentDescription().toString()));
                 if(cursor.moveToFirst())
                 {
                     if(db.setModule(num,useID) && db.setTrack(num, useID))
@@ -328,7 +328,7 @@ public class Main_Menu extends AppCompatActivity
                 StringBuffer stringBuffer = new StringBuffer();
                 while(cursor.moveToNext())
                 {
-                   // byte[] audValue = cursor.getBlob(1);
+                    // byte[] audValue = cursor.getBlob(1);
                     int mod = cursor.getInt(1);
                     int les = cursor.getInt(2);
                     byte[] imgValue = cursor.getBlob(4);
@@ -336,7 +336,7 @@ public class Main_Menu extends AppCompatActivity
                     stringBuffer.append("File ID: "+ cursor.getInt(0) + "\n");
                     stringBuffer.append("Module: "+ String.valueOf(mod)+" \n");
                     stringBuffer.append("Lesson: "+ String.valueOf(les)+" \n");
-                   // stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
+                    // stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
                     stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
 
                 }
@@ -350,11 +350,11 @@ public class Main_Menu extends AppCompatActivity
 
 
 /////////////////////////DO NOT ERASE PLZ///////////////////////////////////////
- //   public TextView ViewIriterate(int txt) { final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);final TextView textView = new TextView(this);textView.setLayoutParams(lparams);textView.setText("Module " + txt+" ");String con = String.valueOf(txt);textView.setContentDescription(con);return textView; }
+    //   public TextView ViewIriterate(int txt) { final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);final TextView textView = new TextView(this);textView.setLayoutParams(lparams);textView.setText("Module " + txt+" ");String con = String.valueOf(txt);textView.setContentDescription(con);return textView; }
     //Lessons dialog box when clicking the module
-  //  public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
+    //  public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
     //selecting word for audio
-  //  public void WordBox(final String le) { final Dialog WORD = new Dialog(Main_Menu.this);WORD.requestWindowFeature(Window.FEATURE_NO_TITLE);WORD.setContentView(R.layout.lessons_words);w1 = (TextView) WORD.findViewById(R.id.Word1);w1.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View view) { Intent i = new Intent(getApplicationContext(), Session.class);i.putExtra("Audio", w1.getContentDescription().toString());i.putExtra("Module",moduleHolder);i.putExtra("Lesson",le);startActivity(i); }});WORD.show(); }
+    //  public void WordBox(final String le) { final Dialog WORD = new Dialog(Main_Menu.this);WORD.requestWindowFeature(Window.FEATURE_NO_TITLE);WORD.setContentView(R.layout.lessons_words);w1 = (TextView) WORD.findViewById(R.id.Word1);w1.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View view) { Intent i = new Intent(getApplicationContext(), Session.class);i.putExtra("Audio", w1.getContentDescription().toString());i.putExtra("Module",moduleHolder);i.putExtra("Lesson",le);startActivity(i); }});WORD.show(); }
 //////////////////////////DO NOT ERASE PLEASE////////////////////////////////////
 
     public boolean onOptionsItemSelected(MenuItem item) { if(t.onOptionsItemSelected(item)) return true;return super.onOptionsItemSelected(item); }
@@ -400,9 +400,9 @@ public class Main_Menu extends AppCompatActivity
                 return true;
             }
             case R.id.nav_add:
-               i = new Intent(getApplicationContext(),Store.class);
-               startActivity(i);
-               return true;
+                i = new Intent(getApplicationContext(),Store.class);
+                startActivity(i);
+                return true;
         }
         return true;
     }

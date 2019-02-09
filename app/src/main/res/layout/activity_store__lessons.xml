@@ -37,7 +37,7 @@
                 android:text="Add" />
 
             <Button
-                android:id="@+id/ViewBtn1"
+                android:id="@+id/viewBtn1"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@android:color/darker_gray"
@@ -74,7 +74,7 @@
                 android:contentDescription="2"
                 android:text="Add" />
             <Button
-                android:id="@+id/ViewBtn2"
+                android:id="@+id/viewBtn2"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@android:color/darker_gray"
@@ -111,7 +111,7 @@
                 android:contentDescription="3"
                 android:text="Add" />
             <Button
-                android:id="@+id/ViewBtn3"
+                android:id="@+id/viewBtn3"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@android:color/darker_gray"
@@ -150,7 +150,7 @@
                 android:text="Add" />
 
             <Button
-                android:id="@+id/ViewBtn4"
+                android:id="@+id/viewBtn4"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@android:color/darker_gray"
@@ -188,7 +188,7 @@
                 android:contentDescription="5"
                 android:text="Add" />
             <Button
-                android:id="@+id/ViewBtn5"
+                android:id="@+id/viewBtn5"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@android:color/darker_gray"
