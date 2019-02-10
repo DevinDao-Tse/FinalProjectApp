@@ -74,6 +74,7 @@ public class Register extends AppCompatActivity {
                             editor.putString("Password", hash.hashPass(password));
                             editor.putString("Email", email);
                             editor.putString("FullName", name);
+                            editor.putBoolean("New User",true);
                             editor.commit();
 
 

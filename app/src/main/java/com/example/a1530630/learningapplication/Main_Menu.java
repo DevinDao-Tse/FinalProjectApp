@@ -78,6 +78,13 @@ public class Main_Menu extends AppCompatActivity
         db = new SQLiteManage(this);
 
         pref = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+        if(pref.getBoolean("New User",false) == true)
+        {
+            Intent i = new Intent(getApplicationContext(),Tutorial.class);
+            startActivity(i);
+        }
+
+
 
         lay = findViewById(R.id.Modules);
 

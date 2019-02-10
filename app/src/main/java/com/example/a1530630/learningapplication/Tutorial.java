@@ -1,6 +1,8 @@
 package com.example.a1530630.learningapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +46,12 @@ public class Tutorial extends AppCompatActivity {
             public void onClick(View view) {
                 if(next.getText().toString().equals("FINISH"))
                 {
+                    SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = settings.edit();
+
+                    editor.putBoolean("New User", false);
+                    editor.commit();
+
                     Intent i = new Intent(getApplicationContext(), Main_Menu.class);
                     startActivity(i);
                 }
