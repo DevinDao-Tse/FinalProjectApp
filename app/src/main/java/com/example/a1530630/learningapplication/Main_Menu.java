@@ -391,7 +391,9 @@ public class Main_Menu extends AppCompatActivity
                 startActivity(i);
                 return true;
             }
-            case R.id.nav_reports: {
+            case R.id.nav_tutorial: {
+                i = new Intent(getApplicationContext(), Tutorial.class);
+                startActivity(i);
                 return true;
             }
 

@@ -20,9 +20,9 @@
             android:id="@+id/nav_add"
             android:title="Add more"/>
         <item
-            android:id="@+id/nav_reports"
-            android:title="Reports"
-            android:actionLayout="@layout/spinner"
+            android:id="@+id/nav_tutorial"
+            android:title="Tutorial"
+
             />
     </group>
 </menu>
