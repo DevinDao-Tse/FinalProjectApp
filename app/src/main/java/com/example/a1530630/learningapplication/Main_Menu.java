@@ -24,11 +24,15 @@ import android.support.v7.widget.ContentFrameLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.AudioAndImages;
@@ -62,6 +66,7 @@ public class Main_Menu extends AppCompatActivity
     SQLiteManage db;
     ImageView play,picture;
     String path2;
+    NavigationView nv;  ArrayList<String> langs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +87,6 @@ public class Main_Menu extends AppCompatActivity
         show4 = (Button)findViewById(R.id.showbtn4);
 
         play = (ImageView)findViewById(R.id.PlayButton2);
-        picture = (ImageView) findViewById(R.id.imageView);
         String path = getCacheDir().getAbsolutePath();
 
         ViewAll();
@@ -91,12 +95,12 @@ public class Main_Menu extends AppCompatActivity
         ViewAll4();
         readFromDB();
 
-        play.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { playMp3(); }
-        });
-        idk = new Intent(getApplicationContext(), Session2.class);
+//        //play.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) { playMp3(); }
+//        });
 
+        idk = new Intent(getApplicationContext(), Session2.class);
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
         t.syncState(); //getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -120,34 +124,30 @@ public class Main_Menu extends AppCompatActivity
             public void onDrawerStateChanged(int i) {}
         });
 
-        NavigationView nv = findViewById(R.id.nav_view);
+        langs = new ArrayList<>();
+        langs.add("Details");
+
+        nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
+
     }
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private void playMp3() {
         try {
             byte[] mp3SoundByteArray = new byte[35000];
-            byte[] img = null;
-
             Cursor cursor = db.getFilesInfo();
-            if(cursor.moveToFirst()) { mp3SoundByteArray = cursor.getBlob(1); img = cursor.getBlob(2);}
-            //  Bitmap bitmap = BitmapFactory.decodeByteArray(img,0,img.length);
-            // picture.setImageBitmap(bitmap);
-
+            if(cursor.moveToFirst()) { mp3SoundByteArray = cursor.getBlob(1);}
             File dir = getFilesDir();String path = getFilesDir().getAbsolutePath();
             File tempMp3 = File.createTempFile("testing", ".mp3");path2 = tempMp3.getAbsolutePath();
-
-            FileOutputStream fos = new FileOutputStream(tempMp3);
-            fos.write(mp3SoundByteArray);fos.flush();fos.close();
+            FileOutputStream fos = new FileOutputStream(tempMp3);fos.write(mp3SoundByteArray);fos.flush();fos.close();
 
         } catch (IOException ex) { String s = ex.toString();ex.printStackTrace(); }
 
     }
 
     @Override
-    public void onBackPressed(){
-        //super.onBackPressed(); //comment out if you want back button to do something
+    public void onBackPressed(){ //super.onBackPressed(); //comment out if you want back button to do something
     }
 
     public void readFromDB()
@@ -349,14 +349,6 @@ public class Main_Menu extends AppCompatActivity
     }
 
 
-/////////////////////////DO NOT ERASE PLZ///////////////////////////////////////
-    //   public TextView ViewIriterate(int txt) { final LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);final TextView textView = new TextView(this);textView.setLayoutParams(lparams);textView.setText("Module " + txt+" ");String con = String.valueOf(txt);textView.setContentDescription(con);return textView; }
-    //Lessons dialog box when clicking the module
-    //  public void LessonBox(final String mod,View v) { BOX = new Dialog(Main_Menu.this);BOX.requestWindowFeature(Window.FEATURE_NO_TITLE);BOX.setContentView(R.layout.module_lessons);BOX.show(); }
-    //selecting word for audio
-    //  public void WordBox(final String le) { final Dialog WORD = new Dialog(Main_Menu.this);WORD.requestWindowFeature(Window.FEATURE_NO_TITLE);WORD.setContentView(R.layout.lessons_words);w1 = (TextView) WORD.findViewById(R.id.Word1);w1.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View view) { Intent i = new Intent(getApplicationContext(), Session.class);i.putExtra("Audio", w1.getContentDescription().toString());i.putExtra("Module",moduleHolder);i.putExtra("Lesson",le);startActivity(i); }});WORD.show(); }
-//////////////////////////DO NOT ERASE PLEASE////////////////////////////////////
-
     public boolean onOptionsItemSelected(MenuItem item) { if(t.onOptionsItemSelected(item)) return true;return super.onOptionsItemSelected(item); }
 
     @Override
@@ -376,12 +368,7 @@ public class Main_Menu extends AppCompatActivity
                 startActivity(i);
                 return true;
             }
-            case R.id.nav_settings:
-            {
-                i = new Intent(this, User_setting.class);
-                startActivity(i);
-                return true;
-            }
+
             case R.id.nav_summary:
             {
                 i = new Intent(this,SummaryReport.class);
@@ -399,10 +386,15 @@ public class Main_Menu extends AppCompatActivity
                 startActivity(i);
                 return true;
             }
-            case R.id.nav_add:
-                i = new Intent(getApplicationContext(),Store.class);
+            case R.id.nav_add: {
+                i = new Intent(getApplicationContext(), Store.class);
                 startActivity(i);
                 return true;
+            }
+            case R.id.nav_reports: {
+                return true;
+            }
+
         }
         return true;
     }

@@ -54,7 +54,8 @@ public class Editing extends AppCompatActivity {
         Intent i = getIntent();
 
         mod = i.getIntExtra("Module",0);
-        les = Integer.parseInt(i.getStringExtra("Lesson"));
+//        les = Integer.parseInt(i.getStringExtra("Lesson"));
+        les = i.getIntExtra("Lesson",0);
 
         home = (ImageView)findViewById(R.id.HomeButton);
 
@@ -143,7 +144,9 @@ public class Editing extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 db.createRowAud(allFiles);
-                Intent i = new Intent(Editing.this, Store.class);
+                Intent i = new Intent(Editing.this, Editing.class);
+                i.putExtra("Module",mod);
+                i.putExtra("Lesson",les);
                 startActivity(i);
             }
         });

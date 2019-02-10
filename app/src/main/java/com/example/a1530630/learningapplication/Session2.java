@@ -43,7 +43,7 @@ public class Session2 extends AppCompatActivity  {
     public TextView scoreCount,modRes,viewCount;
     public MediaPlayer mediaPlayer;
     public int score,userCon,modCon,lesCon;
-    public float Total;
+    public float Total,oldScore;
     public long ModResID;
     Bitmap bitmap;
     int count;
@@ -98,10 +98,10 @@ public class Session2 extends AppCompatActivity  {
         mediaPlayer.setLooping(false);
         //mediaPlayer.start();
 
+
         img = (ImageView)findViewById(R.id.ImageView);
-
-
         Cursor cursor = db.getImageSession(modCon,getLesson(les));
+        //cycle through database for images and add to arraylist
         if(cursor.moveToFirst())
         {
             stuff = new ArrayList<>();
@@ -123,9 +123,6 @@ public class Session2 extends AppCompatActivity  {
         if(imgcount ==0) { backbtn.setVisibility(View.INVISIBLE); }
         else { backbtn.setVisibility(View.VISIBLE);}
 
-        //hide next button if start at last word
-//        if(imgcount == (count-1)){ nextbtn.setVisibility(View.INVISIBLE);}
-//        else {nextbtn.setVisibility(View.VISIBLE);}
 
         scoreCount.setText("Score: "+scoreString+"/"+count);
 
@@ -152,12 +149,22 @@ public class Session2 extends AppCompatActivity  {
             Cursor cursor = db.getModuleResID(userCon,modCon);
             if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
 
+            Cursor getCurrentScore = db.getScore(ModResID);
+            if(getCurrentScore.moveToFirst())
+            { oldScore = getCurrentScore.getFloat(getCurrentScore.getColumnIndex(les)); }
+
             Total = (Total/count)*100;
-            if(db.TestSet(ModResID,Total,les,modCon))
+            if(Total > oldScore && db.TestSet(ModResID,Total,les,modCon))
             {
                 db.updateTrack(userCon,modCon);
-                startActivity(i);
-                Toast.makeText(getApplicationContext(), " - "+Total+" - " + " \n- " , Toast.LENGTH_LONG).show();
+                showEnd(view);
+                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                db.updateTrack(userCon,modCon);
+                showEnd(view);
+                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
             }
         }
     };
@@ -176,12 +183,21 @@ public class Session2 extends AppCompatActivity  {
                 Cursor cursor = db.getModuleResID(userCon,modCon);
                 if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
 
+                Cursor getCurrentScore = db.getScore(ModResID);
+                if(getCurrentScore.moveToFirst())
+                { oldScore = getCurrentScore.getFloat(getCurrentScore.getColumnIndex(les)); }
+
                 Total = (Total/count)*100;
-                if(db.TestSet(ModResID,Total,les,modCon))
+                if(Total > oldScore && db.TestSet(ModResID,Total,les,modCon))
                 {
                     db.updateTrack(userCon,modCon);
                     showEnd(view);
-                    //startActivity(back);
+                    Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    db.updateTrack(userCon,modCon);
+                    showEnd(view);
                     Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
                 }
             }
@@ -197,7 +213,6 @@ public class Session2 extends AppCompatActivity  {
                 else score = score +0;
                 imgcount = imgcount+1;
                 String pass = String.valueOf(counter);
-                //i.putExtra("ModResID", ModResID);
                 i.putExtra("Image",imgcount);
                 i.putExtra("Score",score);
                 i.putExtra("Audio", pass);
@@ -274,7 +289,7 @@ public class Session2 extends AppCompatActivity  {
         ending.setContentView(R.layout.end_lesson);
         ImageButton but = (ImageButton) ending.findViewById(R.id.EndingHomeButton);
         TextView sc = (TextView)ending.findViewById(R.id.Scoring);
-        sc.setText("You scored ");
+        sc.setText("You scored " +Total +"%");
         ending.show();
 
         but.setOnClickListener(new View.OnClickListener() {

@@ -6,4 +6,9 @@
     <string name="login">Login</string>
     <string name="nav_open">Nav Open</string>
     <string name="nav_close">Nav Close</string>
+    <string-array name="reports">
+        <item>Summary</item>
+        <item>Detail</item>
+        <item>Users progress</item>
+    </string-array>
 </resources>

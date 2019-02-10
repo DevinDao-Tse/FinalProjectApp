@@ -57,22 +57,27 @@ public class Register extends AppCompatActivity {
             }
             else
                 {
-                    User newUser = new User(user,password,name,email);
+                    MD5 hash = new MD5();
+                    User newUser = new User(user,hash.hashPass(password),name,email);
 
                     if(!db.User_Exist(email, user))
                     {
                         if(newUser != null) {
                             db.addNewUser(newUser);
 
+
+                            hash.hashPass(password);
+
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putInt("UserID", newUser.getUserID());
                             editor.putString("Username", user);
-                            editor.putString("Password", password);
+                            editor.putString("Password", hash.hashPass(password));
                             editor.putString("Email", email);
                             editor.putString("FullName", name);
                             editor.commit();
 
-                            Toast.makeText(this, "User Account created", Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(this, "User Account created\n"+hash.hashPass(password), Toast.LENGTH_LONG).show();
                             Intent i = new Intent(getApplicationContext(), Main_Menu.class);
                             startActivity(i);
                         }

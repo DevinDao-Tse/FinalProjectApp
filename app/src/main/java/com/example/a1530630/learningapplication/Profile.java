@@ -96,15 +96,12 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
             }
             case R.id.nav_profile:
             {
+                i = new Intent(this,Profile.class);
+                startActivity(i);
+                return true;
 
-                return true;
             }
-            case R.id.nav_settings:
-            {
-                i = new Intent(this, User_setting.class);
-               startActivity(i);
-                return true;
-            }
+
             case R.id.nav_exit:
             {
                 SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);

@@ -7,10 +7,11 @@ import java.security.MessageDigest;
 
 public class MD5
 {
+    public MD5(){}
+
     public String hashPass(String pass) throws IOException
     {
         String hashedPass= null;
-
         try
         {
             MessageDigest md =  MessageDigest.getInstance("MD5"); //instance for MD5

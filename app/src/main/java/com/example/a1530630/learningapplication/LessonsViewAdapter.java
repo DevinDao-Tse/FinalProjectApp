@@ -2,12 +2,15 @@ package com.example.a1530630.learningapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
@@ -20,6 +23,10 @@ public class LessonsViewAdapter extends ArrayAdapter<AudioAndImages> {
     private Context mcontext;
     int mresources;
     SQLiteManage db;
+    Bitmap bitmap;
+    byte[] images;
+    ImageView imgview;
+    int count;
 
     public LessonsViewAdapter(Context context, int resources, ArrayList<AudioAndImages> objects)
     {
@@ -32,9 +39,18 @@ public class LessonsViewAdapter extends ArrayAdapter<AudioAndImages> {
     public View getView(int position, View convertView, ViewGroup parent)
     {
         db = new SQLiteManage(mcontext);
+        count++;
+        byte[] images = getItem(position).getByteImg();
 
-        LayoutInflater inflater = LayoutInflater.from(mcontext);
-        convertView = inflater.inflate(mresources, parent, false);
+//        LayoutInflater inflater = LayoutInflater.from(mcontext);
+//        convertView = inflater.inflate(mresources, parent, false);
+
+        LayoutInflater inflater = (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = inflater.inflate(R.layout.lessons_view_adapter, parent, false);
+
+        imgview = (ImageView)convertView.findViewById(R.id.imageView2);
+        bitmap = BitmapFactory.decodeByteArray(images,0,images.length);
+        imgview.setImageBitmap(bitmap);
 
 
         return convertView;

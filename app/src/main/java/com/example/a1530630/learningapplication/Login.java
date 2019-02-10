@@ -46,7 +46,6 @@ public class Login extends AppCompatActivity {
         }
 
 
-
        /*String[] PERMISSIONS = {Manifest.permission.RECORD_AUDIO};
         if(!Permission.hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
@@ -85,12 +84,13 @@ public class Login extends AppCompatActivity {
             }
             else
             {
-                if(db.Login(username,password))
+                MD5 hash = new MD5();
+                if(db.Login(username,hash.hashPass(password)))
                 {
 
                     User user = new User();
                     user.setUsername(username);
-                    user.setPassword(password);
+                    user.setPassword(hash.hashPass(password));
 
 
                     if(db.getUserInfo(user) !=null) {

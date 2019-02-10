@@ -203,6 +203,15 @@ public class SQLiteManage extends SQLiteOpenHelper
                 +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID + " = ?",new String[]{idConvert, modConvert});
         return true;
     }
+
+    public Cursor getScore(long rowID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT * FROM "+Module_Results.MODULE_RESULT_TABLE_NAME+ " WHERE "+Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID +" = " +rowID;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+
     //verify if a user exist through email,full name
     public boolean User_Exist(String email,String username)
     {
@@ -267,9 +276,15 @@ public class SQLiteManage extends SQLiteOpenHelper
     public boolean DeleteModule(int num)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-
         String numCon = String.valueOf(num);
         db.delete(Modules.MODULE_TABLE_NAME,  Modules.MODULE_COLUMN_NUMBER + " = ? ",new String[]{numCon});
+        return  true;
+    }
+    public  boolean DeleteModImages(int num)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String numCon = String.valueOf(num);
+        db.delete(AudioAndImages.AudandImg_TABLE_NAME,  AudioAndImages.AudandImg_MODULE + " = ? ",new String[]{numCon});
         return  true;
     }
 
@@ -308,6 +323,23 @@ public class SQLiteManage extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }
+    public Cursor getImgsInfo(int mod,int les)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+AudioAndImages.AudandImg_IMAGE_COLUMN+" FROM "+ AudioAndImages.AudandImg_TABLE_NAME+ " WHERE "
+                        +AudioAndImages.AudandImg_MODULE+" = "+mod+" AND "
+                        + AudioAndImages.AudandImg_LESSON_COLUMN+" = "+les;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+    public Cursor DeniedImgsInfo(int mod)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+AudioAndImages.AudandImg_IMAGE_COLUMN+" FROM "+ AudioAndImages.AudandImg_TABLE_NAME+ " WHERE "
+                +AudioAndImages.AudandImg_MODULE+" = "+mod;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
 
     public Cursor getAudioFile()
     {
@@ -316,6 +348,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(sql,null);
         return  cursor;
     }
+
 
 
     //Created a new cursor method for summary report

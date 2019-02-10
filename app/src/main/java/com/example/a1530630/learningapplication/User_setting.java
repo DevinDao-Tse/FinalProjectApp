@@ -45,10 +45,6 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
         String passWord = settings.getString("Password",null);
         String email = settings.getString("Email",null);
 
-        Fullname.setText(fullName);
-        Username.setText(userName);
-        Password.setText(passWord);
-        Email.setText(email);
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);
@@ -100,11 +96,6 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
                 startActivity(i);
                 return true;
             }
-            case R.id.nav_settings:
-            {
-
-                return true;
-            }
             case R.id.nav_exit:
             {
                 SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
@@ -121,9 +112,9 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
     }
 
 
-
     public void UpdateUser(View view)
     {
+        MD5 hash = new MD5();
         SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         Integer id = settings.getInt("UserID",0);
@@ -145,7 +136,7 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
             User user = new User();
             user.setFullName(fullName);
             user.setUsername(userName);
-            user.setPassword(passWord);
+            user.setPassword(hash.hashPass(passWord));
             user.setEmail(email);
 
             db.UpdateProfile(user, id);

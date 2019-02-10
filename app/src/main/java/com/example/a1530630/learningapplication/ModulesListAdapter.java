@@ -84,8 +84,9 @@ public class ModulesListAdapter extends ArrayAdapter<Modules> {
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if(db.DeleteModule(numcon)) {
+                Integer n = (Integer) editbtn.getTag(R.integer.btn_edit_view);
+                n =n+1;
+                if(db.DeleteModule(n) && db.DeleteModImages(n)) {
                     Intent i = new Intent(mcontext, Store.class);
                     mcontext.startActivity(i);
                 }

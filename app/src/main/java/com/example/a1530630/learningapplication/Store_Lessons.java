@@ -1,6 +1,9 @@
 package com.example.a1530630.learningapplication;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -80,23 +83,23 @@ public class Store_Lessons extends AppCompatActivity {
 
         view1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { SeeLesson(view); }});
+            public void onClick(View view) { SeeLesson(view,Integer.parseInt(view1.getContentDescription().toString())); }});
 
         view2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { SeeLesson(view); }});
+            public void onClick(View view) { SeeLesson(view,Integer.parseInt(view2.getContentDescription().toString())); }});
 
         view3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { SeeLesson(view); }});
+            public void onClick(View view) { SeeLesson(view,Integer.parseInt(view3.getContentDescription().toString())); }});
 
         view4.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { SeeLesson(view); }});
+            public void onClick(View view) { SeeLesson(view,Integer.parseInt(view4.getContentDescription().toString())); }});
 
         view5.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { SeeLesson(view); }});
+            public void onClick(View view) { SeeLesson(view,Integer.parseInt(view5.getContentDescription().toString())); }});
 
     }
     private void homeButton(){homebtn.setOnClickListener(new View.OnClickListener() {
@@ -114,22 +117,44 @@ public class Store_Lessons extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 i.putExtra("Module",num);
-                i.putExtra("Lesson", buts.getContentDescription().toString());
+                i.putExtra("Lesson", Integer.parseInt(buts.getContentDescription().toString()));
                 startActivity(i);
             }
         });
     }
 
-    private void SeeLesson(View v)
+    private void SeeLesson(View v, final int lesson)
     {
         edits = (Button)v;
         edits.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                e.putExtra("Module",num);
-                e.putExtra("Lesson", edits.getContentDescription().toString());
-                startActivity(e);
+
+                Cursor cursor = db.getImgsInfo(num,lesson);
+                if(cursor.moveToFirst())
+                {
+                    e.putExtra("Module",num);
+                    e.putExtra("Lesson", Integer.parseInt(edits.getContentDescription().toString()));
+                    startActivity(e);
+                }
+                else
+                    {
+                       noLessons(view);
+                    }
             }
         });
+    }
+    public void noLessons(View v)
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder(Store_Lessons.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("No Images set");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 }
