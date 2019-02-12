@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="99dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -17,11 +17,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/ImgFile"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:text="TextView" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="175dp"
+
+            android:layout_marginRight="40dp"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/back" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
