@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ContentFrameLayout;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -77,14 +78,13 @@ public class Main_Menu extends AppCompatActivity
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
 
+        //new user will go straight to tutorial
         pref = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
         if(pref.getBoolean("New User",false) == true)
         {
             Intent i = new Intent(getApplicationContext(),Tutorial.class);
             startActivity(i);
         }
-
-
 
         lay = findViewById(R.id.Modules);
 
@@ -136,7 +136,7 @@ public class Main_Menu extends AppCompatActivity
 
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
-
+        
     }
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
@@ -403,6 +403,7 @@ public class Main_Menu extends AppCompatActivity
                 startActivity(i);
                 return true;
             }
+
 
         }
         return true;

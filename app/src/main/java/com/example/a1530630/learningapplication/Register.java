@@ -87,8 +87,6 @@ public class Register extends AppCompatActivity {
                     {
                         Toast.makeText(getApplicationContext(),"Account already exist",Toast.LENGTH_LONG).show();
                     }
-
-
             }
 
         }

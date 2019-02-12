@@ -164,6 +164,9 @@ public class Editing extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() { }
+
 
     // convert from bitmap to byte array
     public static byte[] getBytesImg(Bitmap bitmap) {
@@ -172,10 +175,6 @@ public class Editing extends AppCompatActivity {
         return stream.toByteArray();
     }
 
-    // convert from byte array to bitmap
-    public static Bitmap getImage(byte[] image) {
-        return BitmapFactory.decodeByteArray(image, 0, image.length);
-    }
 
 
 }

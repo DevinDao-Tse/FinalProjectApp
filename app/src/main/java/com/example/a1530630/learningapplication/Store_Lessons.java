@@ -144,6 +144,9 @@ public class Store_Lessons extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() { }
+    
     public void noLessons(View v)
     {
         AlertDialog alertDialog = new AlertDialog.Builder(Store_Lessons.this).create();

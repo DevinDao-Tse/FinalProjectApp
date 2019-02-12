@@ -142,30 +142,7 @@ public class Session2 extends AppCompatActivity  {
     private View.OnClickListener goHome = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-            if(imgcount == (count-1) && CorrectOn.getVisibility() == View.VISIBLE)
-            { Total = Total + 1; } else { Total = Total +0; }
-
-            Cursor cursor = db.getModuleResID(userCon,modCon);
-            if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
-
-            Cursor getCurrentScore = db.getScore(ModResID);
-            if(getCurrentScore.moveToFirst())
-            { oldScore = getCurrentScore.getFloat(getCurrentScore.getColumnIndex(les)); }
-
-            Total = (Total/count)*100;
-            if(Total > oldScore && db.TestSet(ModResID,Total,les,modCon))
-            {
-                db.updateTrack(userCon,modCon);
-                showEnd(view);
-                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                db.updateTrack(userCon,modCon);
-                showEnd(view);
-                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
-            }
+            showQuit(view);
         }
     };
 
@@ -179,7 +156,6 @@ public class Session2 extends AppCompatActivity  {
                 if(CorrectOn.getVisibility() == View.VISIBLE)
                 { Total = Total + 1; } else { Total = Total +0; }
 
-                Intent back = new Intent(getApplicationContext(),Main_Menu.class);
                 Cursor cursor = db.getModuleResID(userCon,modCon);
                 if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
 
@@ -272,7 +248,7 @@ public class Session2 extends AppCompatActivity  {
         }
     };
 
-    private int getLesson(String lesson)
+    private int getLesson(String lesson) //return int of lesson number
     {
         int les=0;
         if(lesson.equals("Lesson1")){ les =1;}
@@ -283,11 +259,12 @@ public class Session2 extends AppCompatActivity  {
         return les;
     }
 
-    private void showEnd(View view)
+    private void showEnd(View view) //show popup when user reaches end
     {
         Dialog ending = new Dialog(Session2.this);
         ending.setContentView(R.layout.end_lesson);
         ImageButton but = (ImageButton) ending.findViewById(R.id.EndingHomeButton);
+        ImageButton restart = (ImageButton) ending.findViewById(R.id.RestartButton);
         TextView sc = (TextView)ending.findViewById(R.id.Scoring);
         sc.setText("You scored " +Total +"%");
         ending.show();
@@ -299,6 +276,66 @@ public class Session2 extends AppCompatActivity  {
                 startActivity(i);
             }
         });
+
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Session2.class);
+                i.putExtra("Image",0);
+                i.putExtra("Score",0);
+                i.putExtra("Audio", 0);
+                i.putExtra("Module",mod);
+                i.putExtra("Lesson",les);
+                i.putExtra("Score",0);
+                startActivity(i);
+            }
+        });
+    }
+
+    private void showQuit(View view)//shows popup to check if they want to quit, will save current score of where they quit
+    {
+        final Dialog quit = new Dialog(Session2.this);
+        quit.setContentView(R.layout.end_session);
+        Button no = (Button)quit.findViewById(R.id.quitNo);
+        Button yes = (Button)quit.findViewById(R.id.quitYes);
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                quit.dismiss();
+            }
+        });
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+            if(imgcount == (count-1) && CorrectOn.getVisibility() == View.VISIBLE)
+            { Total = Total + 1; } else { Total = Total +0; }
+
+            Cursor cursor = db.getModuleResID(userCon,modCon);
+            if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
+
+            Cursor getCurrentScore = db.getScore(ModResID);
+            if(getCurrentScore.moveToFirst())
+            { oldScore = getCurrentScore.getFloat(getCurrentScore.getColumnIndex(les)); }
+
+            Total = (Total/count)*100;
+            if(Total > oldScore && db.TestSet(ModResID,Total,les,modCon))
+            {
+                db.updateTrack(userCon,modCon);
+                startActivity(i);
+                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                db.updateTrack(userCon,modCon);
+                startActivity(i);
+                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
+            }
+            }
+        });
+
+        quit.show();
     }
 
     private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }

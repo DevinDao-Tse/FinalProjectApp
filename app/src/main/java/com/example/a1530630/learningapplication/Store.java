@@ -90,12 +90,8 @@ public class Store extends AppCompatActivity {
 
     }
 
-    int getItemPosition(View view)
-    {
-        Object object =  view.getTag(view.getId());
-        int num = (Integer)object;
-        return num;
-    }
+    @Override
+    public void onBackPressed() { }
 
     public void addnewFromDB(View v)
     {

@@ -20,24 +20,13 @@ public class TutorialAdapter extends PagerAdapter
         this.context = context;
     }
 
-    public int[] sliderImages =
-    {
-        R.drawable.ic_settings, R.drawable.ic_document_box, R.drawable.ic_settings
-    };
+    public int[] sliderImages = {R.drawable.ic_settings, R.drawable.ic_document_box, R.drawable.ic_image_box};
 
-    public String[] sliderHeader =
-    {
-       "Page 1","Page 2","Page 3"
-    };
+    public String[] sliderHeader = {"Page 1","Page 2","Page 3"};
 
-    public String[] sliderText =
-    {
-        "This is text for page 1",
-        "This is text for page 2",
-        "This is text for page 3",
-    };
-
-
+    public String[] sliderText = {"This is text for page 1",
+                                    "This is text for page 2",
+                                    "This is text for page 3"};
 
     @Override
     public int getCount() {

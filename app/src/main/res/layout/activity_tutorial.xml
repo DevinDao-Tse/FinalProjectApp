@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:alpha="0.50"
     android:background="@android:color/darker_gray"
     tools:context=".Tutorial">
 
@@ -18,36 +19,46 @@
     <LinearLayout
         android:id="@+id/dotsLinear"
         android:layout_width="104dp"
-        android:layout_height="56dp"
+        android:layout_height="46dp"
         android:layout_below="@+id/sliders"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="155dp"
         android:layout_centerHorizontal="true"
+
+        android:layout_marginStart="152dp"
+        android:layout_marginEnd="155dp"
         android:gravity="center"
         android:orientation="horizontal"></LinearLayout>
 
     <Button
         android:id="@+id/SlideBack"
-        android:layout_marginLeft="25dp"
+        android:layout_alignParentLeft="true"
         android:layout_below="@id/sliders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
         android:background="@color/transparent"
         android:text="Back"
         android:visibility="invisible"/>
 
     <Button
+
         android:id="@+id/SlideNext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/sliders"
-        android:layout_alignLeft="@id/dotsLinear"
-        android:layout_marginLeft="157dp"
-        android:layout_marginTop="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="50dp"
         android:background="@color/transparent"
         android:text="Next" />
+
+    <Button
+        android:id="@+id/skipBtn"
+        android:layout_width="75dp"
+        android:layout_height="37dp"
+        android:layout_below="@id/dotsLinear"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:background="@color/transparent"
+        android:textSize="15dp"
+        android:text="Skip" />
 
 </RelativeLayout>

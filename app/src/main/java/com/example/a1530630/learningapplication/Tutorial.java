@@ -19,7 +19,7 @@ public class Tutorial extends AppCompatActivity {
     private LinearLayout dotLayout;
     private  TutorialAdapter tutorialAdapter;
     private TextView[] dots;
-    private Button next,back;
+    private Button next,back,skip;
     private int currentPage;
 
 
@@ -34,6 +34,7 @@ public class Tutorial extends AppCompatActivity {
 
         next = (Button)findViewById(R.id.SlideNext);
         back = (Button)findViewById(R.id.SlideBack);
+        skip = (Button)findViewById(R.id.skipBtn);
 
         tutorialAdapter = new TutorialAdapter(this);
         viewPager.setAdapter(tutorialAdapter);
@@ -46,19 +47,16 @@ public class Tutorial extends AppCompatActivity {
             public void onClick(View view) {
                 if(next.getText().toString().equals("FINISH"))
                 {
+                    //change new user setting to false
                     SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = settings.edit();
-
                     editor.putBoolean("New User", false);
                     editor.commit();
-
                     Intent i = new Intent(getApplicationContext(), Main_Menu.class);
                     startActivity(i);
                 }
                 else
                 viewPager.setCurrentItem(currentPage+1);
-
-
             }
         });
         back.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +66,18 @@ public class Tutorial extends AppCompatActivity {
             }
         });
 
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                startActivity(i);
+            }
+        });
+
     }
+
+    @Override
+    public void onBackPressed() { }
 
     public void addDots(int position)
     {
@@ -84,6 +93,7 @@ public class Tutorial extends AppCompatActivity {
         }
         if(dots.length>0)
         {
+            //setting dot to white based on position/page
             dots[position].setTextColor(getResources().getColor(R.color.colorWhite));
         }
     }
@@ -97,7 +107,7 @@ public class Tutorial extends AppCompatActivity {
             addDots(position);
             currentPage = position;
 
-            if(position ==0)
+            if(position ==0) //starting slider page
             {
                 next.setEnabled(true);
                 back.setEnabled(false);
@@ -106,7 +116,7 @@ public class Tutorial extends AppCompatActivity {
                 next.setText("NEXT");
                 back.setText("");
             }
-            else if(position == dots.length-1)
+            else if(position == dots.length-1) //ending slider page
             {
                 next.setEnabled(true);
                 back.setEnabled(true);
@@ -115,7 +125,7 @@ public class Tutorial extends AppCompatActivity {
                 next.setText("FINISH");
                 back.setText("BACK");
             }
-            else
+            else //middle slider pages
                 {
                     next.setEnabled(true);
                     back.setEnabled(true);
