@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class Session2 extends AppCompatActivity  {
@@ -52,6 +54,7 @@ public class Session2 extends AppCompatActivity  {
     byte[] imgHolder;
     int[] imgdata;
     ArrayList<byte[]> stuff;
+    TextToSpeech textToSpeech;
 
     SharedPreferences sharedPreferences;
     SQLiteManage db;
@@ -62,6 +65,7 @@ public class Session2 extends AppCompatActivity  {
         setContentView(R.layout.activity_session2);
         getSupportActionBar().hide();
         db = new SQLiteManage(this);
+
         sharedPreferences = this.getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
         userCon = sharedPreferences.getInt("UserID",0);
 
@@ -126,13 +130,42 @@ public class Session2 extends AppCompatActivity  {
 
         scoreCount.setText("Score: "+scoreString+"/"+count);
 
-        configureSounds(les,mod);
-        initiliazeFiles();
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i != TextToSpeech.ERROR){
+                    textToSpeech.setLanguage(Locale.FRANCE);
+                    String whatisthis ="qu'est-ce que c'est";
+                    textToSpeech.speak(whatisthis,TextToSpeech.QUEUE_FLUSH,null);
+                }
+            }
+        });
+
+        playbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String whatisthis ="qu'est-ce que c'est";
+                textToSpeech.speak(whatisthis,TextToSpeech.QUEUE_FLUSH,null);
+            }
+        });
+
+        //configureSounds(les,mod);
+        //initiliazeFiles();
         nextFile();
         previousFile();
         homeButton();//initiate();
         ClickBox();
         test.setText(aud+" "+modCon+" "+les+" "+getLesson(les));
+    }
+
+
+    public void onPause() {
+        if(textToSpeech!=null)
+        {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onPause();
     }
 
     @Override
@@ -266,7 +299,8 @@ public class Session2 extends AppCompatActivity  {
         ImageButton but = (ImageButton) ending.findViewById(R.id.EndingHomeButton);
         ImageButton restart = (ImageButton) ending.findViewById(R.id.RestartButton);
         TextView sc = (TextView)ending.findViewById(R.id.Scoring);
-        sc.setText("You scored " +Total +"%");
+        int convert = (int)Total;
+        sc.setText("You scored " +convert +"%");
         ending.show();
 
         but.setOnClickListener(new View.OnClickListener() {
@@ -283,7 +317,7 @@ public class Session2 extends AppCompatActivity  {
                 Intent i = new Intent(getApplicationContext(), Session2.class);
                 i.putExtra("Image",0);
                 i.putExtra("Score",0);
-                i.putExtra("Audio", 0);
+                i.putExtra("Audio", String.valueOf(0));
                 i.putExtra("Module",mod);
                 i.putExtra("Lesson",les);
                 i.putExtra("Score",0);
@@ -309,36 +343,36 @@ public class Session2 extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-            if(imgcount == (count-1) && CorrectOn.getVisibility() == View.VISIBLE)
-            { Total = Total + 1; } else { Total = Total +0; }
+                if(imgcount == (count-1) && CorrectOn.getVisibility() == View.VISIBLE)
+                { Total = Total + 1; } else { Total = Total +0; }
 
-            Cursor cursor = db.getModuleResID(userCon,modCon);
-            if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
+                Cursor cursor = db.getModuleResID(userCon,modCon);
+                if(cursor.moveToFirst()) { ModResID = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID)); }
 
-            Cursor getCurrentScore = db.getScore(ModResID);
-            if(getCurrentScore.moveToFirst())
-            { oldScore = getCurrentScore.getFloat(getCurrentScore.getColumnIndex(les)); }
+                Cursor getCurrentScore = db.getScore(ModResID);
+                if(getCurrentScore.moveToFirst())
+                { oldScore = getCurrentScore.getFloat(getCurrentScore.getColumnIndex(les)); }
 
-            Total = (Total/count)*100;
-            if(Total > oldScore && db.TestSet(ModResID,Total,les,modCon))
-            {
-                db.updateTrack(userCon,modCon);
-                startActivity(i);
-                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
-            }
-            else
-            {
-                db.updateTrack(userCon,modCon);
-                startActivity(i);
-                Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
-            }
+                Total = (Total/count)*100;
+                if(Total > oldScore && db.TestSet(ModResID,Total,les,modCon))
+                {
+                    db.updateTrack(userCon,modCon);
+                    startActivity(i);
+                    Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    db.updateTrack(userCon,modCon);
+                    startActivity(i);
+                    Toast.makeText(getApplicationContext(), " - "+Total, Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         quit.show();
     }
 
-    private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }
+   /* private void initiliazeFiles() { playbtn.setOnClickListener(playsound); }
 
     //listener for play button
     private View.OnClickListener playsound = new View.OnClickListener() {
@@ -353,5 +387,5 @@ public class Session2 extends AppCompatActivity  {
         soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC,0);sm = new int[5];
         if(lesson.equals("Lesson1") && module.equals("1")) { sm[0] = soundPool.load(this, R.raw.mod1les1w1,1);sm[1] = soundPool.load(this, R.raw.aud2,1);sm[2] = soundPool.load(this, R.raw.aud3,1);sm[3] = soundPool.load(this, R.raw.aud1,1);sm[4] = soundPool.load(this, R.raw.aud2,1); }
         else if(lesson.equals("Lesson1")&& module.equals("2")) { sm[0] = soundPool.load(this, R.raw.aud6,1);sm[1] = soundPool.load(this, R.raw.aud7,1);sm[2] = soundPool.load(this, R.raw.aud1,1);sm[3] = soundPool.load(this, R.raw.aud2,1);sm[4] = soundPool.load(this, R.raw.aud3,1);}
-    }
+    }*/
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,76 +13,55 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ImageView" />
+        android:text="TextView" />
 
     <ImageButton
         android:id="@+id/PlayButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="248dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="260dp"
         android:contentDescription="play1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        app:srcCompat="@android:drawable/ic_media_play"/>
 
 
     <ImageButton
         android:id="@+id/NextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
         android:layout_marginTop="612dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.814"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_next" />
+        android:layout_marginRight="100dp"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@android:drawable/ic_media_next"
+        />
 
     <ImageButton
         android:id="@+id/PreviousButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
         android:layout_marginTop="612dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.147"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_previous" />
+        android:layout_marginLeft="100dp"
+        android:layout_alignParentLeft="true"
+        app:srcCompat="@android:drawable/ic_media_previous"
+
+         />
 
     <ImageView
         android:id="@+id/ImageView"
-        android:layout_width="138dp"
-        android:layout_height="144dp"
+        android:layout_width="220dp"
+        android:layout_height="197dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="?attr/colorAccent" />
+        android:layout_marginEnd="8dp" />
 
     <ImageButton
         android:id="@+id/HomeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="78dp"
         app:srcCompat="?attr/homeAsUpIndicator" />
 
 
@@ -90,13 +69,10 @@
         android:id="@+id/scoreView"
         android:layout_width="65dp"
         android:layout_height="33dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="384dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.125"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/ModRes"
@@ -104,11 +80,7 @@
         android:layout_height="26dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="336dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/CountView"
@@ -117,98 +89,70 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="264dp"
         android:layout_marginEnd="8dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/TextWrong"
         android:layout_width="93dp"
         android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="468dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="450dp"
+        android:layout_marginRight="225px"
         android:gravity="center"
         android:text="Incorrect"
         android:textColor="@color/colorWrong"
         android:textSize="22dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.675"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="italic" />
 
     <TextView
         android:id="@+id/TextRight"
         android:layout_width="85dp"
         android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="468dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="225px"
         android:gravity="center"
         android:text="Correct"
         android:textColor="@color/colorRight"
         android:textSize="22dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.241"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textStyle="italic" />
 
     <ImageView
         android:id="@+id/onCorrect"
         android:layout_width="52dp"
         android:layout_height="46dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="164dp"
+        android:layout_marginTop="499dp"
+        android:layout_marginLeft="276px"
+        android:layout_alignParentLeft="true"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.268"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_session_correct" />
+        app:srcCompat="@drawable/ic_session_correct"/>
 
     <ImageView
         android:id="@+id/onIncorrect"
         android:layout_width="42dp"
         android:layout_height="42dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="168dp"
+        android:layout_marginTop="499dp"
+        android:layout_marginRight="300px"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.634"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_alignParentRight="true"
         app:srcCompat="@drawable/ic_session_incorrect" />
 
     <ImageView
         android:id="@+id/offCorrect"
         android:layout_width="58dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="168dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.255"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_session_box" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="499dp"
+        android:layout_marginLeft="276px"
+        app:srcCompat="@drawable/ic_session_box"/>
 
     <ImageView
         android:id="@+id/offIncorrect"
         android:layout_width="58dp"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="168dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.643"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_session_box" />
+        android:layout_marginTop="500dp"
+        android:layout_marginRight="276px"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_session_box"/>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
