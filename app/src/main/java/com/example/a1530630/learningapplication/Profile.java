@@ -71,6 +71,8 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
 
     }
 
+
+
             //Goes to user setting
             public void profileEdit(View view)
             {

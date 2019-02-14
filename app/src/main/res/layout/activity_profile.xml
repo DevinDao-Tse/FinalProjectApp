@@ -60,52 +60,6 @@
 
 
                 <LinearLayout
-                    android:id="@+id/topNav"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/general1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_270sdp"
-                        android:layout_weight="0"
-                        android:text="General"
-                        android:textSize="@dimen/_13sdp"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/Process1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_40sdp"
-                        android:layout_marginTop="@dimen/_270sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_weight="0"
-                        android:text=" Process"
-                        android:textSize="@dimen/_13sdp"
-                        android:textStyle="bold" />
-
-
-                    <TextView
-                        android:id="@+id/Purchase1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_30sdp"
-                        android:layout_marginTop="@dimen/_270sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_weight="0"
-                        android:text=" Purchase"
-                        android:textSize="@dimen/_13sdp"
-                        android:textStyle="bold" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/buttonLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

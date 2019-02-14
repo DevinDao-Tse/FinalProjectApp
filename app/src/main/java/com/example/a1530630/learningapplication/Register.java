@@ -17,11 +17,12 @@ import com.example.a1530630.learningapplication.Models.User;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SQLiteManage db;
-
+   String EMAIL_PATTERN = "[@#$%^&+=]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +52,17 @@ public class Register extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Enter user details",Toast.LENGTH_LONG).show();
             }
 
+            if(!email.matches(EMAIL_PATTERN))
+            {
+                Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_LONG).show();
+            }
+
             if(!password.equalsIgnoreCase(confirmpassword))
             {
                 Toast.makeText(getApplicationContext(),"Passwords are not the same",Toast.LENGTH_LONG).show();
             }
+
+
             else
                 {
                     MD5 hash = new MD5();

@@ -355,6 +355,22 @@ public class Main_Menu extends AppCompatActivity
         });
     }
 
+         //Roles based
+        public void accessPages(View view)
+        {
+            /* I have no idea if this is even right!!!
+
+                String adminUser = "admin";
+            *  String adminPass = "admin";
+            *  */
+
+            SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+            String userName = settings.getString("Username",null);
+
+
+        }
+
+
 
     public boolean onOptionsItemSelected(MenuItem item) { if(t.onOptionsItemSelected(item)) return true;return super.onOptionsItemSelected(item); }
 

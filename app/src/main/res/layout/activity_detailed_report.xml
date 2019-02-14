@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailedReport">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:id="@+id/TableHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#607D8B"
+                    android:padding="@dimen/_2sdp">
+
+                    <TextView
+                        android:id="@+id/UserIDHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="UserID"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/UserNameHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Username"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/PassHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Password"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/FullNameHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Full Name"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/EmailHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Email Address"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/DateHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Date Created"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ModuleHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="ModuleID"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/Lesson1Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Lesson 1"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/Lesson2Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Lesson 2"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/Lesson3Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Lesson 3"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/Lesson4Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Lesson 4"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/Lesson5Header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="Lesson 5"
+                        android:textStyle="bold" />
+
+                </TableRow>
+            </TableLayout>
+
+
+        </HorizontalScrollView>
+    </ScrollView>
+
+    <ListView
+        android:id="@+id/DetailedView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_30sdp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/_40sdp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
+    </LinearLayout>
+
+</RelativeLayout>
