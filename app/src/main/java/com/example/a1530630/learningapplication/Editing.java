@@ -1,6 +1,9 @@
 package com.example.a1530630.learningapplication;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -29,7 +32,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class Editing extends AppCompatActivity {
 
@@ -38,6 +45,7 @@ public class Editing extends AppCompatActivity {
     TextView file1,file2,less,modu;
     SQLiteManage db;
     int les,mod;
+    String[] extensions ={"jpg","jpeg","png","tif"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +70,6 @@ public class Editing extends AppCompatActivity {
         less = (TextView)findViewById(R.id.textView);
         less.setText(String.valueOf(les)+ " / " +String.valueOf(mod));
 
-
-
         pick1 = (Button) findViewById(R.id.Pickbtn);
         pick2 = (Button) findViewById(R.id.Pick2btn);
         save = (Button) findViewById(R.id.SaveBtn);
@@ -87,7 +93,9 @@ public class Editing extends AppCompatActivity {
     private void homeButton(){home.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent i = new Intent(Editing.this,Store_Lessons.class);startActivity(i); }
+            Intent i = new Intent(Editing.this,Store_Lessons.class);
+            i.putExtra("Module",mod);
+            startActivity(i); }
     });}
 
     @Override
@@ -106,26 +114,43 @@ public class Editing extends AppCompatActivity {
         if (requestCode == 1000 && resultCode == RESULT_OK)
         {
             byte[] byteAud= new byte[30000];
-            audFile = new File(filePath);
+            file1.setText(filePath);
+            String filename = filePath.substring(filePath.lastIndexOf("/")+1);
+            String path = getApplication().getCacheDir().getAbsolutePath();
+            File dir = new File(path,"myDir");
+            if(!dir.exists()){dir.mkdir();}
+
             try
             {
+                audFile = new File(filePath);
+                Log.i("audio",filePath.substring(filePath.lastIndexOf("/")+1));
+
                 audFis = new FileInputStream(audFile);
-                for(int read; (read = audFis.read(byteAud)) != -1;)
-                {
-                    bos.write(byteAud,0,read);
-                    file1.setText(String.valueOf(read));
-                }
-                bos.flush();
-                bos.close();
-                // byteAud = new byte[(int)audFile.length()];
+                OutputStream outputStream = new FileOutputStream(audFile);
+                byte[] arr = new byte[audFis.available()];
+                audFis.read(arr);
+                outputStream.write(arr);
+                audFis.close();
+                outputStream.close();
             }
             catch (Exception e){Log.e("Error", e.getMessage());}
-            byte[] set = bos.toByteArray();
-            allFiles.setByteAud(set);
+
+
         }
         if (requestCode == 2000 && resultCode == RESULT_OK)
         {
             file2.setText(filePath);
+            String extend = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
+
+            if(!Arrays.asList(extensions).contains(extend))
+            {
+                IncorrectFileType(findViewById(R.id.filetypes));
+                Toast.makeText(this,extend,Toast.LENGTH_SHORT).show();
+                Log.i("Extenstion",extend);
+                save.setEnabled(false);
+            }
+            else { save.setEnabled(true); }
+
             imgFile = new File(filePath);
             try {
                 imgFis = new FileInputStream(imgFile);
@@ -175,6 +200,19 @@ public class Editing extends AppCompatActivity {
         return stream.toByteArray();
     }
 
+    public void IncorrectFileType(View view)
+    {
+        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Editing.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Wrong File type");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+    }
 
 
 }

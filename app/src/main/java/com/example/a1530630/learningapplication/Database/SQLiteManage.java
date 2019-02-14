@@ -334,8 +334,6 @@ public class SQLiteManage extends SQLiteOpenHelper
 
     }
 
-
-
     //Created a new cursor method for summary report
     public Cursor getUserListInfo()
     {
@@ -353,6 +351,13 @@ public class SQLiteManage extends SQLiteOpenHelper
         String sql="SELECT * FROM "+ AudioAndImages.AudandImg_TABLE_NAME
                     + " WHERE "+ AudioAndImages.AudandImg_MODULE+ " = "+module
                     +" AND "+ AudioAndImages.AudandImg_LESSON_COLUMN+" = "+lesson;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+    public Cursor getScore(long rowID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT * FROM "+Module_Results.MODULE_RESULT_TABLE_NAME+ " WHERE "+Module_Results.MODULE_RESULT_COLUMN_MODULE_RES_ID +" = " +rowID;
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }

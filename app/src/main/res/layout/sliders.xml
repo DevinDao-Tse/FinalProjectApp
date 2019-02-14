@@ -8,32 +8,22 @@
 
     <ImageView
         android:id="@+id/sliderImage"
-        android:layout_width="144dp"
-        android:layout_height="139dp"
-        android:layout_marginLeft="133dp"
-        android:layout_marginTop="70dp"
+        android:layout_width="234dp"
+        android:layout_height="454dp"
         android:layout_centerHorizontal="true"
-        app:srcCompat="?attr/colorAccent"/>
+        android:layout_marginLeft="133dp"
+        android:layout_marginTop="50dp"
+        app:srcCompat="?attr/colorAccent" />
 
     <TextView
         android:id="@+id/sliderHeader"
-        android:layout_width="175dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="280dp"
+        android:layout_width="184dp"
+        android:layout_height="42dp"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
         android:layout_marginLeft="175dp"
-        android:text="TextView"
-        android:textSize="24dp"/>
-
-    <TextView
-        android:id="@+id/sliderText"
-        android:layout_width="325dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="520dp"
         android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_height="100dp"
-        android:textSize="20dp"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="24dp" />
 
 </RelativeLayout>
