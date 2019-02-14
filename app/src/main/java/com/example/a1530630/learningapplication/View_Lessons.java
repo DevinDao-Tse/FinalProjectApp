@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
@@ -19,6 +20,7 @@ public class View_Lessons extends AppCompatActivity {
     TextView module,lesson;
     int mod,les;
     SQLiteManage db;
+    TableRow header;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

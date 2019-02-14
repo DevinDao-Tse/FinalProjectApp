@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.AudioAndImages;
 import com.example.a1530630.learningapplication.Models.Modules;
+import com.example.a1530630.learningapplication.Models.User;
 
 import java.util.ArrayList;
 
@@ -27,6 +28,7 @@ public class LessonsViewAdapter extends ArrayAdapter<AudioAndImages> {
     byte[] images;
     ImageView imgview;
     int count;
+    TextView imgNum;
 
     public LessonsViewAdapter(Context context, int resources, ArrayList<AudioAndImages> objects)
     {
@@ -42,9 +44,6 @@ public class LessonsViewAdapter extends ArrayAdapter<AudioAndImages> {
         count++;
         byte[] images = getItem(position).getByteImg();
 
-//        LayoutInflater inflater = LayoutInflater.from(mcontext);
-//        convertView = inflater.inflate(mresources, parent, false);
-
         LayoutInflater inflater = (LayoutInflater) mcontext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.lessons_view_adapter, parent, false);
 
@@ -52,6 +51,8 @@ public class LessonsViewAdapter extends ArrayAdapter<AudioAndImages> {
         bitmap = BitmapFactory.decodeByteArray(images,0,images.length);
         imgview.setImageBitmap(bitmap);
 
+        imgNum = (TextView)convertView.findViewById(R.id.ImgFile);
+        imgNum.setText("Image number: "+ position);
 
         return convertView;
     }

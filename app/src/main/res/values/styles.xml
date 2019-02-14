@@ -7,5 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    e="sessionFont" parent="@android:style/TextAppearance.Small"
+        />
 
 </resources>

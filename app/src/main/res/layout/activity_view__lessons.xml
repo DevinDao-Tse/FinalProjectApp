@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".View_Lessons">
 
+
+
     <LinearLayout
         android:id="@+id/Title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_70sdp"
+        android:layout_height="110dp"
         android:orientation="vertical">
 
         <TextView
@@ -22,6 +24,7 @@
 
         <TextView
             android:id="@+id/textView4"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="49dp"
             android:gravity="center"
@@ -32,14 +35,17 @@
     <ListView
         android:id="@+id/Images"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_80sdp"
-        android:layout_marginBottom="@dimen/_80sdp"/>
+        android:layout_height="478dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="@dimen/_80sdp"
+        android:dividerHeight="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
+        android:layout_alignBottom="@id/Images"
         android:layout_marginTop="640dp"
+        android:layout_marginBottom="-80dp"
         android:gravity="center">
 
         <ImageButton

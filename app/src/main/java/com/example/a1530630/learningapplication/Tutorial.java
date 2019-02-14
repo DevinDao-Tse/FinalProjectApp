@@ -69,6 +69,10 @@ public class Tutorial extends AppCompatActivity {
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("New User", false);
+                editor.commit();
                 Intent i = new Intent(getApplicationContext(), Main_Menu.class);
                 startActivity(i);
             }
