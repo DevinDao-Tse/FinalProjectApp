@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".View_Lessons"></activity>
+        <activity android:name=".Tutorial"></activity>
         <activity android:name=".Store_Lessons" />
         <activity android:name=".SummaryReport" />
         <activity

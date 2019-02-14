@@ -361,6 +361,30 @@ public class SQLiteManage extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }
+    public  boolean DeleteModImages(int num)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String numCon = String.valueOf(num);
+        db.delete(AudioAndImages.AudandImg_TABLE_NAME,  AudioAndImages.AudandImg_MODULE + " = ? ",new String[]{numCon});
+        return  true;
+    }
+    public Cursor getImgsInfo(int mod,int les)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+AudioAndImages.AudandImg_IMAGE_COLUMN+" FROM "+ AudioAndImages.AudandImg_TABLE_NAME+ " WHERE "
+                +AudioAndImages.AudandImg_MODULE+" = "+mod+" AND "
+                + AudioAndImages.AudandImg_LESSON_COLUMN+" = "+les;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+    public Cursor DeniedImgsInfo(int mod)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT "+AudioAndImages.AudandImg_IMAGE_COLUMN+" FROM "+ AudioAndImages.AudandImg_TABLE_NAME+ " WHERE "
+                +AudioAndImages.AudandImg_MODULE+" = "+mod;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {

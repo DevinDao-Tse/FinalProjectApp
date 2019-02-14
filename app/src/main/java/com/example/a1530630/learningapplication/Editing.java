@@ -190,7 +190,7 @@ public class Editing extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() { }
+    public void onBackPressed() { super.onBackPressed(); }
 
 
     // convert from bitmap to byte array
