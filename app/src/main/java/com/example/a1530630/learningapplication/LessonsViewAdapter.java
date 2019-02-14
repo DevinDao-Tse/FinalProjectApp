@@ -52,7 +52,7 @@ public class LessonsViewAdapter extends ArrayAdapter<AudioAndImages> {
         imgview.setImageBitmap(bitmap);
 
         imgNum = (TextView)convertView.findViewById(R.id.ImgFile);
-        imgNum.setText("Image number: "+ position);
+        imgNum.setText("Image number: "+ (position+1));
 
         return convertView;
     }

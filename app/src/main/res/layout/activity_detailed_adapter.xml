@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailedAdapter">
+
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:id="@+id/TableData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp">
+
+            <TextView
+                android:id="@+id/userIDText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="UserID"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Username"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/passText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Password"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fullText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Full name"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/emailText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Email"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Date"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/moduleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="ModuleID"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lession1Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Lesson 1"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lession2Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Lesson 2"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lession3Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Lesson 3"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lession4Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Lesson 4"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lession5Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:hint="Lesson 5"
+                android:textStyle="bold" />
+
+
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

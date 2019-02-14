@@ -241,10 +241,14 @@ public class Session2 extends AppCompatActivity  {
             Intent i = new Intent(getApplicationContext(), Session2.class);
             counter = Integer.parseInt(aud);
             counter = counter-1;
+            imgcount = imgcount-1;
             String pass = String.valueOf(counter);
+            i.putExtra("Image",imgcount);
+            i.putExtra("Score",score);
             i.putExtra("Audio", pass);
             i.putExtra("Module",mod);
             i.putExtra("Lesson",les);
+            i.putExtra("Score",score);
             startActivity(i);
         }
     };

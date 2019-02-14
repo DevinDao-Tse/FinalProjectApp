@@ -70,7 +70,6 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         nv.setNavigationItemSelectedListener(this);
 
     }
-
             //Goes to user setting
             public void profileEdit(View view)
             {
