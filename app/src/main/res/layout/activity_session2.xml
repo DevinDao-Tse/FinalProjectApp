@@ -62,7 +62,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="78dp"
-        app:srcCompat="?attr/homeAsUpIndicator" />
+        app:srcCompat="@drawable/ic_home_icon" />
 
 
     <TextView

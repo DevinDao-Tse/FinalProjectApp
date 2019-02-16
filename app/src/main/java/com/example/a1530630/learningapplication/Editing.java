@@ -10,6 +10,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,41 +26,33 @@ import com.example.a1530630.learningapplication.Database.SQLiteManage;
 import com.example.a1530630.learningapplication.Models.AudioAndImages;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
-
-import org.w3c.dom.Text;
-
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Editing extends AppCompatActivity {
 
+    private static final int REQ_PERMISSION = 120;
     Button pick1,pick2,save,load;
     ImageView home;
     TextView file1,file2,less,modu;
     SQLiteManage db;
     int les,mod;
     String[] extensions ={"jpg","jpeg","png","tif"};
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editing);
 
+        reqPermission();
+
         db = new SQLiteManage(this);
-
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1001);
-        }
-
         Intent i = getIntent();
 
         mod = i.getIntExtra("Module",0);
@@ -68,7 +62,7 @@ public class Editing extends AppCompatActivity {
         home = (ImageView)findViewById(R.id.HomeButton);
 
         less = (TextView)findViewById(R.id.textView);
-        less.setText(String.valueOf(les)+ " / " +String.valueOf(mod));
+        less.setText("Module "+String.valueOf(mod)+"\nLesson "+String.valueOf(les));
 
         pick1 = (Button) findViewById(R.id.Pickbtn);
         pick2 = (Button) findViewById(R.id.Pick2btn);
@@ -88,6 +82,27 @@ public class Editing extends AppCompatActivity {
         });
 
         homeButton();
+    }
+
+   public void reqPermission()
+   {
+       int reqEx = ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE);
+       if(reqEx != PackageManager.PERMISSION_GRANTED)
+       {
+           ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQ_PERMISSION);
+       }
+   }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQ_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            Toast.makeText(this, "granted",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "not",Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void homeButton(){home.setOnClickListener(new View.OnClickListener() {
@@ -177,17 +192,7 @@ public class Editing extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch(requestCode)
-        {
-            case 1001:
-                if(grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                { Toast.makeText(this, "Permission granted", Toast.LENGTH_LONG).show(); }
-                else
-                { Toast.makeText(this,"Permission not granted",Toast.LENGTH_LONG).show();finish(); }
-        }
-    }
+
 
     @Override
     public void onBackPressed() { super.onBackPressed(); }
