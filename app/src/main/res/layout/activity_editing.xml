@@ -1,41 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filetypes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
-    android:id="@+id/filetypes"
     tools:context=".Editing">
 
 
     <Button
         android:id="@+id/SaveBtn"
+        android:layout_below="@id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="384dp"
-        android:layout_marginEnd="8dp"
-        android:text="Save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Save" />
+
+    <ImageButton
+        android:id="@+id/HomeButton"
+        android:layout_width="60dp"
+        android:layout_height="48dp"
+        android:layout_below="@id/SaveBtn"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_home_icon"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="313dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="240dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.39"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/FileText"
@@ -54,24 +53,15 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="320dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="289dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linearLayout"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/File2Text"
-            android:layout_width="143dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="file path" />
+
 
         <Button
             android:id="@+id/Pick2btn"
@@ -81,30 +71,25 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/HomeButton"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SaveBtn"
-        app:srcCompat="?attr/homeAsUpIndicator" />
-
     <TextView
         android:id="@+id/textView"
-        android:layout_width="91dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="292dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="259dp"
+        android:layout_height="98dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="95dp"
+        android:gravity="center"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/File2Text"
+        android:layout_width="346dp"
+        android:layout_height="57dp"
+        android:layout_below="@id/HomeButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="file path" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

@@ -47,56 +47,53 @@ public class Register extends AppCompatActivity {
             String password = Password.getText().toString();
             String confirmpassword = ConfirmPassword.getText().toString();
 
-            if(name.isEmpty() || user.isEmpty()  || email.isEmpty() || password.isEmpty() || confirmpassword.isEmpty())
+            if(!name.isEmpty() || !user.isEmpty()  || !email.isEmpty() || !password.isEmpty() || !confirmpassword.isEmpty())
             {
-                Toast.makeText(getApplicationContext(),"Enter user details",Toast.LENGTH_LONG).show();
-            }
-
-            if(!email.matches(EMAIL_PATTERN))
-            {
-                Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_LONG).show();
-            }
-
-            if(!password.equalsIgnoreCase(confirmpassword))
-            {
-                Toast.makeText(getApplicationContext(),"Passwords are not the same",Toast.LENGTH_LONG).show();
-            }
-
-
-            else
+                if(!email.matches(EMAIL_PATTERN))
                 {
-                    MD5 hash = new MD5();
-                    User newUser = new User(user,hash.hashPass(password),name,email);
-
-                    if(!db.User_Exist(email, user))
+                    if(password.equalsIgnoreCase(confirmpassword))
                     {
-                        if(newUser != null) {
-                            db.addNewUser(newUser);
+                        MD5 hash = new MD5();
+                        User newUser = new User(user,hash.hashPass(password),name,email);
 
+                        if(!db.User_Exist(email, user))
+                        {
+                            if(newUser != null) {
+                                db.addNewUser(newUser);
+                                hash.hashPass(password);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt("UserID", newUser.getUserID());
+                                editor.putString("Username", user);
+                                editor.putString("Password", hash.hashPass(password));
+                                editor.putString("Email", email);
+                                editor.putString("FullName", name);
+                                editor.putBoolean("New User",true);
+                                editor.commit();
 
-                            hash.hashPass(password);
-
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt("UserID", newUser.getUserID());
-                            editor.putString("Username", user);
-                            editor.putString("Password", hash.hashPass(password));
-                            editor.putString("Email", email);
-                            editor.putString("FullName", name);
-                            editor.putBoolean("New User",true);
-                            editor.commit();
-
-
-                            Toast.makeText(this, "User Account created\n"+hash.hashPass(password), Toast.LENGTH_LONG).show();
-                            Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-                            startActivity(i);
+                                Toast.makeText(this, "User Account created\n"+hash.hashPass(password), Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                                startActivity(i);
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(),"Account already exist",Toast.LENGTH_LONG).show();
                         }
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(),"Account already exist",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Passwords are not the same",Toast.LENGTH_LONG).show();
                     }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_LONG).show();
+                }
             }
-
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Enter user details",Toast.LENGTH_LONG).show();
+            }
         }
         catch(Exception e)
         {
