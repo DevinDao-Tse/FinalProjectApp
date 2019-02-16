@@ -22,7 +22,6 @@ import java.util.regex.Pattern;
 public class Register extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SQLiteManage db;
-   String EMAIL_PATTERN = "[@#$%^&+=]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +51,7 @@ public class Register extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Enter user details",Toast.LENGTH_LONG).show();
             }
 
-            if(!email.matches(EMAIL_PATTERN))
+           if(email.matches(".+@.+\\\\.[a-z]+"))
             {
                 Toast.makeText(getApplicationContext(),"Invalid email address", Toast.LENGTH_LONG).show();
             }
