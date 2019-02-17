@@ -79,6 +79,8 @@ public class Main_Menu extends AppCompatActivity
         setContentView(R.layout.activity_main__menu);
         getSupportActionBar().hide();
 
+
+
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
 
@@ -360,73 +362,99 @@ public class Main_Menu extends AppCompatActivity
         });
     }
 
-         //Roles based
-        public void accessPages(View view)
-        {
-            /* I have no idea if this is even right!!!
-
-                String adminUser = "admin";
-            *  String adminPass = "admin";
-            *  */
-
-            SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
-            String userName = settings.getString("Username",null);
-
-
-        }
-
-
-
     public boolean onOptionsItemSelected(MenuItem item) { if(t.onOptionsItemSelected(item)) return true;return super.onOptionsItemSelected(item); }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+    {
         Intent i;
-        switch (menuItem.getItemId())
+
+        //Checking to see if username has admin or not
+        SharedPreferences preferences = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+        String adminUser = preferences.getString("Username",null);
+
+        if(adminUser.contains("admin"))
         {
-            case R.id.nav_menu:
+            switch (menuItem.getItemId())
             {
-                i = new Intent(this,Main_Menu.class);
-                startActivity(i);
-                return true;
-            }
-            case R.id.nav_profile:
-            {
-                i = new Intent(this,Profile.class);
-                startActivity(i);
-                return true;
-            }
 
-            case R.id.nav_summary:
-            {
-                i = new Intent(this,SummaryReport.class);
-                startActivity(i);
-                return true;
-            }
+                case R.id.nav_menu: {
+                    i = new Intent(this, Main_Menu.class);
+                    startActivity(i);
+                    return true;
+                }
+                case R.id.nav_profile: {
+                    i = new Intent(this, Profile.class);
+                    startActivity(i);
+                    return true;
+                }
 
-            case R.id.nav_exit:
-            {
-                SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.clear();
-                editor.commit();
-                i = new Intent(getApplicationContext(),Login.class);
-                startActivity(i);
-                return true;
-            }
-            case R.id.nav_add: {
-                i = new Intent(getApplicationContext(), Store.class);
-                startActivity(i);
-                return true;
-            }
-            case R.id.nav_tutorial: {
-                i = new Intent(getApplicationContext(), Tutorial.class);
-                startActivity(i);
-                return true;
-            }
+                case R.id.nav_summary: {
+                    i = new Intent(this, SummaryReport.class);
+                    startActivity(i);
+                    return true;
+                }
 
+                case R.id.nav_exit: {
+                    SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.clear();
+                    editor.commit();
+                    i = new Intent(getApplicationContext(), Login.class);
+                    startActivity(i);
+                    return true;
+                }
+                case R.id.nav_add: {
+                    i = new Intent(getApplicationContext(), Store.class);
+                    startActivity(i);
+                    return true;
+                }
+                case R.id.nav_tutorial: {
+                    i = new Intent(getApplicationContext(), Tutorial.class);
+                    startActivity(i);
+                    return true;
+                }
 
+            }
         }
-        return true;
-    }
+        else
+        {
+            switch (menuItem.getItemId())
+            {
+
+                case R.id.nav_menu: {
+                    i = new Intent(this, Main_Menu.class);
+                    startActivity(i);
+                    return true;
+                }
+                case R.id.nav_profile: {
+                    i = new Intent(this, Profile.class);
+                    startActivity(i);
+                    return true;
+                }
+
+
+                case R.id.nav_exit: {
+                    SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.clear();
+                    editor.commit();
+                    i = new Intent(getApplicationContext(), Login.class);
+                    startActivity(i);
+                    return true;
+                }
+
+                case R.id.nav_tutorial: {
+                    i = new Intent(getApplicationContext(), Tutorial.class);
+                    startActivity(i);
+                    return true;
+                }
+
+
+            }
+        }
+
+            return true;
+        }
+
 }
