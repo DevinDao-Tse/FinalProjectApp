@@ -130,31 +130,37 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
         String fullName = Username.getText().toString();
         String passWord = Password.getText().toString();
         String email = Email.getText().toString();
-
-        try
+        if(db.User_Exist(email, userName))
         {
-            User user = new User();
-            user.setFullName(fullName);
-            user.setUsername(userName);
-            user.setPassword(hash.hashPass(passWord));
-            user.setEmail(email);
-
-            db.UpdateProfile(user, id);
-
-            editor.putInt("UserID",id);
-            editor.putString("Username",user.getUsername());
-            editor.putString("Password",user.getPassword());
-            editor.putString("Email",user.getEmail());
-            editor.putString("FullName",user.getFullName());
-            editor.commit();
-
-            Toast.makeText(this, "Profile Updated",Toast.LENGTH_LONG).show();
-            Intent i = new Intent(getApplicationContext(), Main_Menu.class);
-            startActivity(i);
+            Toast.makeText(this,"Username already used",Toast.LENGTH_SHORT).show();
         }
-        catch(Exception e)
+        else
         {
-            Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            try
+            {
+                User user = new User();
+                user.setFullName(fullName);
+                user.setUsername(userName);
+                user.setPassword(hash.hashPass(passWord));
+                user.setEmail(email);
+
+                db.UpdateProfile(user, id);
+
+                editor.putInt("UserID",id);
+                editor.putString("Username",user.getUsername());
+                editor.putString("Password",user.getPassword());
+                editor.putString("Email",user.getEmail());
+                editor.putString("FullName",user.getFullName());
+                editor.commit();
+
+                Toast.makeText(this, "Profile Updated",Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getApplicationContext(), Main_Menu.class);
+                startActivity(i);
+            }
+            catch(Exception e)
+            {
+                Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

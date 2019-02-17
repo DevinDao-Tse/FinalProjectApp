@@ -386,6 +386,17 @@ public class SQLiteManage extends SQLiteOpenHelper
         return cursor;
     }
 
+    public Cursor trackUpdateUser(int userID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql="SELECT * FROM " +User_Track.USER_TRACK_TABLE_NAME + " WHERE "+ User_Track.USER_TRACK_COLUMN_USERID+ " = "+userID;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+
+
+
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(User.CREATE_TABLE);

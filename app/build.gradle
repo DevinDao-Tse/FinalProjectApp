@@ -34,4 +34,5 @@ dependencies {
     implementation 'com.nbsp:library:1.8'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.github.PhilJay:MPAndroidchart:v3.0.3'
 }

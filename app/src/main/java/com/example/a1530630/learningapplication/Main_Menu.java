@@ -66,20 +66,18 @@ public class Main_Menu extends AppCompatActivity
     Intent idk;
     SharedPreferences pref;
     public Dialog BOX;
-    public Button show,show2,show3,show4,play2;
+    public Button show,show2,show3,show4;
     public LinearLayout lay;
     SQLiteManage db;
     ImageView play,picture;
     String path2;
-    NavigationView nv;  ArrayList<String> langs;
+    NavigationView nv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
         getSupportActionBar().hide();
-
-
 
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         db = new SQLiteManage(this);
@@ -139,6 +137,7 @@ public class Main_Menu extends AppCompatActivity
 
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
+
         
     }
 
