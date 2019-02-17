@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_start"
     android:id="@+id/LessonsHolder"
     android:orientation="vertical"
     tools:context=".Store_Lessons">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="61dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="@color/colorWhite"
+        android:text="TextView"
+        android:textSize="35dp" />
 
     <LinearLayout
+        android:id="@+id/linear1"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_weight="1"
+        android:layout_below="@id/textView2"
+        android:layout_marginTop="20dp"
+
         android:orientation="horizontal">
 
         <TextView
@@ -27,7 +40,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:orientation="vertical">
 
             <Button
@@ -47,9 +59,13 @@
                 android:text="View" />
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/linear2"
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:layout_below="@id/linear1"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -87,6 +103,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:id="@+id/linear3"
+        android:layout_below="@id/linear2"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -125,6 +144,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:id="@+id/linear4"
+        android:layout_below="@+id/linear3"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -164,6 +186,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="75dp"
+        android:id="@+id/linear5"
+        android:layout_below="@+id/linear4"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -202,12 +227,10 @@
         android:layout_gravity="center"
         android:layout_width="60dp"
         android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/linear5"
+        android:layout_centerHorizontal="true"
         app:srcCompat="?attr/homeAsUpIndicator" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_weight="1"
-        android:text="TextView" />
-</LinearLayout>
+
+</RelativeLayout>

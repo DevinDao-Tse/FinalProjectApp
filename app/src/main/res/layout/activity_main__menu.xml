@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_start"
     android:id="@+id/drawer_layout"
     tools:context=".Main_Menu">
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/content_frame"
         android:layout_width="358dp"
         android:layout_height="409dp"
@@ -17,17 +18,15 @@
 
         <LinearLayout
             android:id="@+id/Modules"
-            android:layout_width="365dp"
+            android:layout_width="362dp"
             android:layout_height="76dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="92dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+            android:layout_marginTop="200dp"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
 
-<!--
+        </LinearLayout>
+
+        <!--
         <TextView
             android:id="@+id/textView1"
             android:layout_width="0dp"
@@ -63,70 +62,36 @@
             android:id="@+id/Showbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="108dp"
-            android:layout_marginTop="228dp"
-            android:layout_marginEnd="8dp"
-            android:text="ShowUserTrack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.146"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="360dp"
+            android:text="ShowUserTrack" />
 
         <Button
             android:id="@+id/Showbtn2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="308dp"
-            android:layout_marginEnd="88dp"
-            android:text="ShowModRes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.702"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="420dp"
+            android:text="ShowModRes" />
 
         <Button
             android:id="@+id/showbtn3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="388dp"
-            android:layout_marginEnd="88dp"
-            android:text="ShowModules"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.694"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="480dp"
+            android:text="ShowModules" />
 
         <Button
             android:id="@+id/showbtn4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="484dp"
-            android:layout_marginEnd="8dp"
-            android:text="ShowFiles"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/PlayButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="552dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="play1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_media_play" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="540dp"
+            android:text="ShowFiles" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

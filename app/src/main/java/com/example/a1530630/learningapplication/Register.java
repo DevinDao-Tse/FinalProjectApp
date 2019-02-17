@@ -29,6 +29,7 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         db = new SQLiteManage(this);
+        getSupportActionBar().hide();
     }
     public void RegisterUser(View view)
     {

@@ -4,27 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#c7e8fb"
+    android:background="@drawable/gradient_start"
     tools:context=".Register">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/welcomeID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_103sdp"
                 android:layout_marginTop="@dimen/_40sdp"
-                android:layout_marginRight="@dimen/_95sdp"
-                android:textColor="@android:color/black"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_26sdp"
                 android:text="Welcome" />
 
@@ -32,11 +22,10 @@
                 android:id="@+id/createID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_103sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:layout_marginRight="@dimen/_95sdp"
-                android:textColor="@android:color/black"
+                android:layout_below="@id/welcomeID"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_20sdp"
                 android:text="Create Account" />
 
@@ -45,10 +34,9 @@
                 android:id="@+id/fullNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_103sdp"
                 android:layout_marginTop="@dimen/_18sdp"
-                android:layout_marginRight="@dimen/_95sdp"
+                android:layout_centerHorizontal="true"
+                android:textColorHint="@color/colorWhite"
                 android:layout_below="@+id/createID"
                 android:ems="10"
                 android:textSize="@dimen/_15sdp"
@@ -59,10 +47,9 @@
                 android:id="@+id/nameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_103sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:layout_marginRight="@dimen/_95sdp"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:textColorHint="@color/colorWhite"
                 android:layout_below="@+id/fullNameText"
                 android:ems="10"
                 android:textSize="@dimen/_15sdp"
@@ -73,10 +60,9 @@
                 android:id="@+id/emailText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_103sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:layout_marginRight="@dimen/_95sdp"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:textColorHint="@color/colorWhite"
                 android:layout_below="@+id/nameText"
                 android:ems="10"
                 android:textSize="@dimen/_15sdp"
@@ -87,10 +73,9 @@
                 android:id="@+id/passwordText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_103sdp"
-                android:layout_marginTop="@dimen/_18sdp"
-                android:layout_marginRight="@dimen/_95sdp"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:textColorHint="@color/colorWhite"
                 android:layout_below="@+id/emailText"
                 android:ems="10"
                 android:textSize="@dimen/_15sdp"
@@ -101,39 +86,34 @@
                 android:id="@+id/confirmPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_104sdp"
-                android:layout_marginTop="@dimen/_22sdp"
-                android:layout_marginRight="@dimen/_94sdp"
-                android:layout_below="@+id/passwordText"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:textColorHint="@color/colorWhite"
+                android:layout_below="@id/passwordText"
                 android:ems="10"
                 android:textSize="@dimen/_15sdp"
                 android:hint="Confirm password"
                 android:inputType="textPassword" />
 
-            <CheckBox
-                android:id="@+id/termServiceBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_80sdp"
-                android:layout_marginLeft="@dimen/_103sdp"
-                android:layout_marginTop="@dimen/_23sdp"
-                android:layout_marginRight="@dimen/_80sdp"
-                android:textSize="@dimen/_12sdp"
-                android:text="Agree with Terms and Services" />
+    <CheckBox
+        android:id="@+id/termServiceBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/confirmPass"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Agree with Terms and Services"
+        android:textSize="@dimen/_12sdp" />
 
             <Button
                 android:id="@+id/createBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_90sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_40sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/termServiceBox"
+                android:layout_marginTop="25dp"
                 android:textSize="@dimen/_14sdp"
                 android:onClick="RegisterUser"
                 android:text="@string/create_account" />
-        </LinearLayout>
-    </ScrollView>
 
 </RelativeLayout>

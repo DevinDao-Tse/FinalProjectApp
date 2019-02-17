@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:alpha="0.70"
-    android:background="@color/colorPager"
+    android:background="@drawable/gradient_start"
     tools:context=".Tutorial">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/sliders"
         android:layout_width="match_parent"
         android:layout_height="580dp">
-
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
@@ -22,7 +21,6 @@
         android:layout_height="46dp"
         android:layout_below="@+id/sliders"
         android:layout_centerHorizontal="true"
-
         android:layout_marginStart="152dp"
         android:layout_marginEnd="155dp"
         android:gravity="center"

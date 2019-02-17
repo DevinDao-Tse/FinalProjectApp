@@ -13,9 +13,11 @@ import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.speech.tts.TextToSpeech;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -42,7 +44,7 @@ public class Session2 extends AppCompatActivity  {
     public int counter,countAttempt; //variable to convert to string as we click next  or previous
     public String aud,mod,les; //aud is the word in the lesson of 0-4 due to array, mod is the module number, les is the lesson#
     public ImageView CorrectOn,CorrectOff,IncorrectOn,IncorrectOff,img;
-    public TextView scoreCount,modRes,viewCount;
+    public TextView scoreCount,modRes;
     public MediaPlayer mediaPlayer;
     public int score,userCon,modCon,lesCon;
     public float Total,oldScore;
@@ -50,9 +52,6 @@ public class Session2 extends AppCompatActivity  {
     Bitmap bitmap;
     int count;
     int imgcount;
-    //  byte[][] imgHolder;
-    byte[] imgHolder;
-    int[] imgdata;
     ArrayList<byte[]> stuff;
     TextToSpeech textToSpeech;
 
@@ -88,10 +87,8 @@ public class Session2 extends AppCompatActivity  {
 
         imgcount = intent.getIntExtra("Image",imgcount);
 
-        viewCount = (TextView) findViewById(R.id.CountView);
-
         nextbtn = (ImageButton) findViewById(R.id.NextButton);nextbtn.setEnabled(false); //disabled until passed
-        backbtn = (ImageButton) findViewById(R.id.PreviousButton); //back button
+       // backbtn = (ImageButton) findViewById(R.id.PreviousButton); //back button
         homebtn = (ImageButton)findViewById(R.id.HomeButton); //home button
         playbtn = (ImageButton) findViewById(R.id.PlayButton2);
 
@@ -119,15 +116,15 @@ public class Session2 extends AppCompatActivity  {
             }while(cursor.moveToNext());
         }
 
-        viewCount.setText(String.valueOf(imgcount)+ " / "+stuff.get(imgcount).length);
         bitmap = BitmapFactory.decodeByteArray(stuff.get(imgcount),0,stuff.get(imgcount).length);
         img.setImageBitmap(bitmap);
 
         //hide back button if start at word 1
-        if(imgcount ==0) { backbtn.setVisibility(View.INVISIBLE); }
-        else { backbtn.setVisibility(View.VISIBLE);}
+//        if(imgcount ==0) { backbtn.setVisibility(View.INVISIBLE); }
+//        else { backbtn.setVisibility(View.VISIBLE);}
 
-
+        scoreCount.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+        scoreCount.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorWhite));
         scoreCount.setText("Score: "+scoreString+"/"+count);
 
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -153,7 +150,7 @@ public class Session2 extends AppCompatActivity  {
         //initiliazeFiles();
         nextFile();
         previousFile();
-        homeButton();//initiate();
+        homeButton();
         ClickBox();
         test.setText(aud+" "+modCon+" "+les+" "+getLesson(les));
     }
@@ -234,7 +231,7 @@ public class Session2 extends AppCompatActivity  {
     };
 
     //previous lesson
-    private void previousFile(){ backbtn.setOnClickListener(backOne); }
+    private void previousFile(){ /*backbtn.setOnClickListener(backOne); */}
     private View.OnClickListener backOne = new View.OnClickListener() {
         @Override
         public void onClick(View view) {

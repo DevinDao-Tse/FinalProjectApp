@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    android:background="#c7e8fb"
+    android:background="@drawable/gradient_start"
     tools:context=".Profile">
 
 
@@ -44,6 +44,7 @@
             android:id="@+id/UserFull"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/colorWhite"
             android:layout_marginStart="@dimen/_80sdp"
             android:layout_marginLeft="@dimen/_103sdp"
             android:layout_marginTop="@dimen/_30sdp"
@@ -58,6 +59,7 @@
             android:id="@+id/UserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColorHint="@color/colorWhite"
             android:layout_marginStart="@dimen/_80sdp"
             android:layout_marginLeft="@dimen/_103sdp"
             android:layout_marginTop="@dimen/_16sdp"
@@ -73,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_80sdp"
+            android:textColorHint="@color/colorWhite"
             android:layout_marginLeft="@dimen/_103sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginRight="@dimen/_95sdp"
@@ -88,6 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_80sdp"
             android:layout_marginLeft="@dimen/_103sdp"
+            android:textColorHint="@color/colorWhite"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginRight="@dimen/_95sdp"
             android:layout_below="@id/UserEmail"

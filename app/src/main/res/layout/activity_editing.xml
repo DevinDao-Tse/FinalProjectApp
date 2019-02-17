@@ -1,95 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/filetypes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:id="@+id/drawer_layout"
     tools:context=".Editing">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/filetypes">
 
-    <Button
-        android:id="@+id/SaveBtn"
-        android:layout_below="@id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="Save" />
 
-    <ImageButton
-        android:id="@+id/HomeButton"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_below="@id/SaveBtn"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
-        app:srcCompat="@drawable/ic_home_icon"/>
+        <Button
+            android:id="@+id/SaveBtn"
+            android:layout_below="@id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:text="Save" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="289dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="horizontal">
+        <ImageButton
+            android:id="@+id/HomeButton"
+            android:layout_width="60dp"
+            android:layout_height="48dp"
+            android:layout_below="@id/SaveBtn"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            app:srcCompat="@drawable/ic_home_icon"/>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="240dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/FileText"
+                android:layout_width="141dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="file path" />
+
+            <Button
+                android:id="@+id/Pickbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick Audio" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="289dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayout"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+
+            <Button
+                android:id="@+id/Pick2btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick Image" />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/FileText"
-            android:layout_width="141dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/textView"
+            android:layout_width="259dp"
+            android:layout_height="98dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="95dp"
             android:gravity="center"
-            android:text="file path" />
+            android:text="TextView"
+            android:textSize="40dp" />
 
-        <Button
-            android:id="@+id/Pickbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pick Audio" />
+        <TextView
+            android:id="@+id/File2Text"
+            android:layout_width="346dp"
+            android:layout_height="57dp"
+            android:layout_below="@id/HomeButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="289dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayout"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-
-
-        <Button
-            android:id="@+id/Pick2btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pick Image" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="259dp"
-        android:layout_height="98dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="95dp"
-        android:gravity="center"
-        android:text="TextView"
-        android:textSize="40dp" />
-
-    <TextView
-        android:id="@+id/File2Text"
-        android:layout_width="346dp"
-        android:layout_height="57dp"
-        android:layout_below="@id/HomeButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text="file path" />
+    </RelativeLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer"
+        app:headerLayout="@layout/drawer_nav" />
 
 
-</RelativeLayout>
+
+</android.support.v4.widget.DrawerLayout>

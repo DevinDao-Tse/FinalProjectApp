@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -16,11 +17,14 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ContentFrameLayout;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -93,7 +97,7 @@ public class Main_Menu extends AppCompatActivity
         show3 = (Button)findViewById(R.id.showbtn3);
         show4 = (Button)findViewById(R.id.showbtn4);
 
-        play = (ImageView)findViewById(R.id.PlayButton2);
+       // play = (ImageView)findViewById(R.id.PlayButton2);
         String path = getCacheDir().getAbsolutePath();
 
         ViewAll();
@@ -131,9 +135,6 @@ public class Main_Menu extends AppCompatActivity
             public void onDrawerStateChanged(int i) {}
         });
 
-        langs = new ArrayList<>();
-        langs.add("Details");
-
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
         
@@ -166,9 +167,13 @@ public class Main_Menu extends AppCompatActivity
             do
             {
                 int txt = cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER));
+                //TypedValue typedValue = ResourcesCompat.getFont(getApplicationContext())
                 TextView textView = new TextView(this);
+                //textView.setTypeface(typeface);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 textView.setLayoutParams(lparams);
                 textView.setText("Module "+ txt+" ");
+                textView.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.colorWhite));
                 String con = String.valueOf(txt);
                 textView.setContentDescription(con);
                 textView.setOnClickListener(new View.OnClickListener() {

@@ -82,5 +82,4 @@
             android:text="Don't Have a account? \nClick here to register"
             android:textSize="@dimen/_16sdp" />
 
-
 </RelativeLayout>

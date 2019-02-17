@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +62,8 @@ public class ModulesListAdapter extends ArrayAdapter<Modules> {
 
         modText = (TextView)convertView.findViewById(R.id.AdaptMod);
         modText.setContentDescription(n);
+        modText.setTextColor(ContextCompat.getColor(mcontext,R.color.colorWhite));
+        modText.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
         modText.setText("Module "+ String.valueOf(num));
 
         final Button editbtn = (Button)convertView.findViewById(R.id.EditBtn);
