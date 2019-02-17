@@ -47,7 +47,7 @@ public class Editing extends AppCompatActivity
     public DrawerLayout dl;
     public ActionBarDrawerToggle t;
     Button pick1,pick2,save,load;
-    ImageView home;
+    ImageView home,imagepreview;
     TextView file1,file2,less,modu;
     SQLiteManage db;
     int les,mod;
@@ -78,7 +78,9 @@ public class Editing extends AppCompatActivity
         pick2 = (Button) findViewById(R.id.Pick2btn);
         save = (Button) findViewById(R.id.SaveBtn);
 
-        file1 = (TextView)findViewById(R.id.FileText);
+        imagepreview = (ImageView)findViewById(R.id.imageViewSelect);
+
+        //file1 = (TextView)findViewById(R.id.FileText);
         file2 = (TextView)findViewById(R.id.File2Text);
 
         pick1.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +120,141 @@ public class Editing extends AppCompatActivity
 
 
         homeButton();
+    }
+
+
+
+
+   public void reqPermission()
+   {
+       int reqEx = ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE);
+       if(reqEx != PackageManager.PERMISSION_GRANTED)
+       {
+           ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQ_PERMISSION);
+       }
+   }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQ_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+        {
+            Toast.makeText(this, "granted",Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this, "not",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void homeButton(){home.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(Editing.this,Store_Lessons.class);
+            i.putExtra("Module",mod);
+            startActivity(i); }
+    });}
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        final AudioAndImages allFiles = new AudioAndImages();
+        String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
+        File imgFile; //get file from download path
+        File audFile; //get file from download path
+        FileInputStream imgFis =null; //read file for img
+        FileInputStream audFis = null; //read file for audio
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();//to byte for img
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(); //to byte for audio
+
+        if (requestCode == 1000 && resultCode == RESULT_OK)
+        {
+            byte[] byteAud= new byte[30000];
+            //file1.setText(filePath);
+            String filename = filePath.substring(filePath.lastIndexOf("/")+1);
+            String path = getApplication().getCacheDir().getAbsolutePath();
+            File dir = new File(path,"myDir");
+            if(!dir.exists()){dir.mkdir();}
+
+            try
+            {
+                audFile = new File(filePath);
+                Log.i("audio",filePath.substring(filePath.lastIndexOf("/")+1));
+
+                audFis = new FileInputStream(audFile);
+                OutputStream outputStream = new FileOutputStream(audFile);
+                byte[] arr = new byte[audFis.available()];
+                audFis.read(arr);
+                outputStream.write(arr);
+                audFis.close();
+                outputStream.close();
+            }
+            catch (Exception e){Log.e("Error", e.getMessage());}
+
+
+        }
+        if (requestCode == 2000 && resultCode == RESULT_OK)
+        {
+            file2.setText(filePath);
+            String extend = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
+
+            if(!Arrays.asList(extensions).contains(extend))
+            {
+                IncorrectFileType(findViewById(R.id.filetypes));
+                Toast.makeText(this,extend,Toast.LENGTH_SHORT).show();
+                Log.i("Extenstion",extend);
+                save.setEnabled(false);
+            }
+            else {
+                save.setEnabled(true);
+            }
+
+            imgFile = new File(filePath);
+            try {
+                imgFis = new FileInputStream(imgFile);
+                Bitmap bmImg = BitmapFactory.decodeStream(imgFis);
+                bmImg.compress(Bitmap.CompressFormat.JPEG,0,stream);
+                byte[] byteImg = stream.toByteArray();
+                allFiles.setByteImg(byteImg);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(byteImg,0,byteImg.length);
+                imagepreview.setImageBitmap(bitmap);
+
+
+            }
+            catch(Exception e){ Log.e("Error", e.getMessage()); }
+        }
+
+        allFiles.setModuleNum(mod);
+        allFiles.setLessonNum(les);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db.createRowAud(allFiles);
+                Intent i = new Intent(Editing.this, Editing.class);
+                i.putExtra("Module",mod);
+                i.putExtra("Lesson",les);
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() { super.onBackPressed(); }
+
+
+    public void IncorrectFileType(View view)
+    {
+        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Editing.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("Wrong File type");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) { if(t.onOptionsItemSelected(item)) return true;return super.onOptionsItemSelected(item); }
@@ -167,147 +304,8 @@ public class Editing extends AppCompatActivity
                 startActivity(i);
                 return true;
             }
-
-
         }
         return true;
     }
-
-
-   public void reqPermission()
-   {
-       int reqEx = ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE);
-       if(reqEx != PackageManager.PERMISSION_GRANTED)
-       {
-           ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},REQ_PERMISSION);
-       }
-   }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == REQ_PERMISSION && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-        {
-            Toast.makeText(this, "granted",Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(this, "not",Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void homeButton(){home.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent i = new Intent(Editing.this,Store_Lessons.class);
-            i.putExtra("Module",mod);
-            startActivity(i); }
-    });}
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        final AudioAndImages allFiles = new AudioAndImages();
-        String filePath = data.getStringExtra(FilePickerActivity.RESULT_FILE_PATH);
-        File imgFile; //get file from download path
-        File audFile; //get file from download path
-        FileInputStream imgFis =null; //read file for img
-        FileInputStream audFis = null; //read file for audio
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();//to byte for img
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(); //to byte for audio
-
-        if (requestCode == 1000 && resultCode == RESULT_OK)
-        {
-            byte[] byteAud= new byte[30000];
-            file1.setText(filePath);
-            String filename = filePath.substring(filePath.lastIndexOf("/")+1);
-            String path = getApplication().getCacheDir().getAbsolutePath();
-            File dir = new File(path,"myDir");
-            if(!dir.exists()){dir.mkdir();}
-
-            try
-            {
-                audFile = new File(filePath);
-                Log.i("audio",filePath.substring(filePath.lastIndexOf("/")+1));
-
-                audFis = new FileInputStream(audFile);
-                OutputStream outputStream = new FileOutputStream(audFile);
-                byte[] arr = new byte[audFis.available()];
-                audFis.read(arr);
-                outputStream.write(arr);
-                audFis.close();
-                outputStream.close();
-            }
-            catch (Exception e){Log.e("Error", e.getMessage());}
-
-
-        }
-        if (requestCode == 2000 && resultCode == RESULT_OK)
-        {
-            file2.setText(filePath);
-            String extend = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
-
-            if(!Arrays.asList(extensions).contains(extend))
-            {
-                IncorrectFileType(findViewById(R.id.filetypes));
-                Toast.makeText(this,extend,Toast.LENGTH_SHORT).show();
-                Log.i("Extenstion",extend);
-                save.setEnabled(false);
-            }
-            else { save.setEnabled(true); }
-
-            imgFile = new File(filePath);
-            try {
-                imgFis = new FileInputStream(imgFile);
-                Bitmap bmImg = BitmapFactory.decodeStream(imgFis);
-                bmImg.compress(Bitmap.CompressFormat.JPEG,0,stream);
-                byte[] byteImg = stream.toByteArray();
-                allFiles.setByteImg(byteImg);
-            }
-            catch(Exception e){ Log.e("Error", e.getMessage()); }
-        }
-
-        allFiles.setModuleNum(mod);
-        allFiles.setLessonNum(les);
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.createRowAud(allFiles);
-                Intent i = new Intent(Editing.this, Editing.class);
-                i.putExtra("Module",mod);
-                i.putExtra("Lesson",les);
-                startActivity(i);
-            }
-        });
-    }
-
-
-
-    @Override
-    public void onBackPressed() { super.onBackPressed(); }
-
-
-    // convert from bitmap to byte array
-    public static byte[] getBytesImg(Bitmap bitmap) {
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-        return stream.toByteArray();
-    }
-
-    public void IncorrectFileType(View view)
-    {
-        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(Editing.this).create();
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Wrong File type");
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-        alertDialog.show();
-    }
-
 
 }

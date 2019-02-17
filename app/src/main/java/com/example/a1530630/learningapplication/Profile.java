@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -71,6 +72,10 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
                 res += cursor1.getInt(cursor1.getColumnIndex(User_Track.USER_TRACK_COLUMN_RESULT));
             }while(cursor1.moveToNext());
         }
+        else
+            {
+                res =0;
+            }
 
 
         if(cursor2.moveToFirst())
@@ -87,21 +92,20 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         int sub= (100-(int)resPercent);
 
         List<PieEntry> value = new ArrayList<>();
-        value.add(new PieEntry(resPercent,"user"));
-        value.add(new PieEntry(sub,"incomplete"));
+        value.add(new PieEntry(resPercent,"Completed"));
+        value.add(new PieEntry(sub,"Incomplete"));
 
         PieDataSet pieDataSet = new PieDataSet(value,"Progression");
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
 
-        pieDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.argb(1,99,149,249));
+        colors.add(Color.GRAY);
 
-
-
-
-
-
-
+        pieChart.setHoleRadius(50);
+        //pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        pieDataSet.setColors(colors);
 
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
         dl.addDrawerListener(t);

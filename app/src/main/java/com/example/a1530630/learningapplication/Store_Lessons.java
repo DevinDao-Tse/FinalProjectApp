@@ -55,7 +55,7 @@ public class Store_Lessons extends AppCompatActivity {
         e = new Intent(this,View_Lessons.class);
 
         view = (TextView)findViewById(R.id.textView2);
-        view.setText(String.valueOf(num));
+        view.setText("Module "+String.valueOf(num));
         homeButton();
 
         edit1.setOnClickListener(new View.OnClickListener() {

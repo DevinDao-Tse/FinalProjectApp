@@ -168,9 +168,8 @@ public class Main_Menu extends AppCompatActivity
             do
             {
                 int txt = cursor.getInt(cursor.getColumnIndex(Modules.MODULE_COLUMN_NUMBER));
-                //TypedValue typedValue = ResourcesCompat.getFont(getApplicationContext())
+
                 TextView textView = new TextView(this);
-                //textView.setTypeface(typeface);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
                 textView.setLayoutParams(lparams);
                 textView.setText("Module "+ txt+" ");

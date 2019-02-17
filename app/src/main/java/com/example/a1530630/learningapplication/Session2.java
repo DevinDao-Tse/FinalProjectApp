@@ -133,7 +133,7 @@ public class Session2 extends AppCompatActivity  {
                 if(i != TextToSpeech.ERROR){
                     textToSpeech.setLanguage(Locale.FRANCE);
                     String whatisthis ="qu'est-ce que c'est";
-                    textToSpeech.speak(whatisthis,TextToSpeech.QUEUE_FLUSH,null);
+                    //textToSpeech.speak(whatisthis,TextToSpeech.QUEUE_FLUSH,null);
                 }
             }
         });
