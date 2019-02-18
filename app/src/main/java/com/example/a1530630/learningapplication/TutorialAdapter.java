@@ -20,9 +20,13 @@ public class TutorialAdapter extends PagerAdapter
         this.context = context;
     }
 
-    public int[] sliderImages = {R.drawable.cap5, R.drawable.ic_document_box, R.drawable.ic_image_box};
+    public int[] sliderImages = {R.drawable.cap2n3, R.drawable.cap1,R.drawable.ic_settings,R.drawable.cap4};
 
-    public String[] sliderHeader = {"Page 1","Page 2","Page 3"};
+    public String[] sliderHeader = {
+            "Swipe screen to open side bar menu",
+            "View your overall progression",
+            "Click on module and choose lesson",
+            "Check off Correct or Incorrect box to continue. Click play button to play audio."};
 
 
 

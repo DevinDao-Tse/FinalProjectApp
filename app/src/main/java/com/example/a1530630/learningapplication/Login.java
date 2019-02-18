@@ -96,7 +96,6 @@ public class Login extends AppCompatActivity {
                     user.setUsername(username);
                     user.setPassword(hash.hashPass(password));
 
-
                     if(db.getUserInfo(user) !=null) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                          check = false;

@@ -10,21 +10,23 @@
     <ImageView
         android:id="@+id/sliderImage"
         android:layout_width="234dp"
-        android:layout_height="454dp"
+        android:layout_height="440dp"
+        android:background="@drawable/imageborder"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="133dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         app:srcCompat="?attr/colorAccent" />
 
     <TextView
         android:id="@+id/sliderHeader"
-        android:layout_width="184dp"
-        android:layout_height="42dp"
+        android:layout_width="256dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/sliderImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="175dp"
-        android:layout_marginTop="520dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="24dp" />
+        android:textColor="@color/colorWhite"
+        android:textSize="18dp" />
 
 </RelativeLayout>

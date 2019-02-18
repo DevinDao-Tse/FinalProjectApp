@@ -85,7 +85,7 @@ public class Tutorial extends AppCompatActivity {
 
     public void addDots(int position)
     {
-        dots = new TextView[3];
+        dots = new TextView[4];
         dotLayout.removeAllViews();
         for(int i =0; i<dots.length;i++)
         {
