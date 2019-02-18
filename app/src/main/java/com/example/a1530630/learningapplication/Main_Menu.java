@@ -92,24 +92,11 @@ public class Main_Menu extends AppCompatActivity
 
         lay = findViewById(R.id.Modules);
 
-        show = (Button)findViewById(R.id.Showbtn);
-        show2 = (Button)findViewById(R.id.Showbtn2);
-        show3 = (Button)findViewById(R.id.showbtn3);
-        show4 = (Button)findViewById(R.id.showbtn4);
-
        // play = (ImageView)findViewById(R.id.PlayButton2);
         String path = getCacheDir().getAbsolutePath();
 
-        ViewAll();
-        ViewAll2();
-        ViewAll3();
-        ViewAll4();
         readFromDB();
 
-//        //play.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) { playMp3(); }
-//        });
 
         idk = new Intent(getApplicationContext(), Session2.class);
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
@@ -137,6 +124,9 @@ public class Main_Menu extends AppCompatActivity
 
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
+
+
+
 
         
     }
@@ -258,106 +248,6 @@ public class Main_Menu extends AppCompatActivity
         else if (lesson.equals("Lesson4")){ les =4;}
         else if (lesson.equals("Lesson5")){ les =5;}
         return les;
-    }
-
-    public void ViewAll()
-    {
-        show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Cursor cursor = db.trackUpdate();
-                if(cursor.getCount() == 0) { return; }
-                StringBuffer stringBuffer = new StringBuffer();
-                while(cursor.moveToNext())
-                {
-                    stringBuffer.append("UserID "+ cursor.getInt(0) + "\n");
-                    stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
-                    stringBuffer.append("Results "+ cursor.getInt(2)+ "%\n\n");
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
-                builder.setCancelable(true);
-                builder.setMessage(stringBuffer.toString());
-                builder.show();
-            }
-        });
-    }
-
-    public void ViewAll2()
-    {
-        show2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Cursor cursor = db.trackModuleRes();
-                if(cursor.getCount() == 0) { return; }
-                StringBuffer stringBuffer = new StringBuffer();
-                while(cursor.moveToNext())
-                {
-                    stringBuffer.append("UserID "+ cursor.getInt(2)+ "\n");
-                    stringBuffer.append("ModuleID "+ cursor.getInt(1)+ "\n");
-                    stringBuffer.append("ModuleResID "+ cursor.getInt(0) + "\n");
-                    stringBuffer.append("Lesson1 "+ cursor.getInt(3)+ "%\n");
-                    stringBuffer.append("Lesson2 "+ cursor.getInt(4)+ "%\n");
-                    stringBuffer.append("Lesson3 "+ cursor.getInt(5)+ "%\n");
-                    stringBuffer.append("Lesson4 "+ cursor.getInt(6)+ "%\n");
-                    stringBuffer.append("Lesson5 "+ cursor.getInt(7)+ "%\n\n");
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
-                builder.setCancelable(true);
-                builder.setMessage(stringBuffer.toString());
-                builder.show();
-            }
-        });
-    }
-
-    public void ViewAll3()
-    {
-        show3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Cursor cursor = db.trackModule();
-                if(cursor.getCount() == 0) { return; }
-                StringBuffer stringBuffer = new StringBuffer();
-                while(cursor.moveToNext())
-                {
-                    stringBuffer.append("ModuleID "+ cursor.getInt(0) + "\n");
-                    stringBuffer.append("ModuleNum "+ cursor.getInt(1)+ "\n\n");
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
-                builder.setCancelable(true);
-                builder.setMessage(stringBuffer.toString());
-                builder.show();
-            }
-        });
-    }
-
-    public void ViewAll4()
-    {
-        show4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Cursor cursor = db.getFilesInfo();
-                if(cursor.getCount() == 0) { return; }
-                StringBuffer stringBuffer = new StringBuffer();
-                while(cursor.moveToNext())
-                {
-                    // byte[] audValue = cursor.getBlob(1);
-                    int mod = cursor.getInt(1);
-                    int les = cursor.getInt(2);
-                    byte[] imgValue = cursor.getBlob(4);
-
-                    stringBuffer.append("File ID: "+ cursor.getInt(0) + "\n");
-                    stringBuffer.append("Module: "+ String.valueOf(mod)+" \n");
-                    stringBuffer.append("Lesson: "+ String.valueOf(les)+" \n");
-                    // stringBuffer.append("Audio: "+audValue.length+ " || "+audValue.toString()+ "\n");
-                    stringBuffer.append("Image: "+ imgValue.length+ " || "+imgValue.toString()+" \n\n");
-
-                }
-                AlertDialog.Builder builder = new AlertDialog.Builder(Main_Menu.this);
-                builder.setCancelable(true);
-                builder.setMessage(stringBuffer.toString());
-                builder.show();
-            }
-        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) { if(t.onOptionsItemSelected(item)) return true;return super.onOptionsItemSelected(item); }

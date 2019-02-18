@@ -20,7 +20,7 @@ public class TutorialAdapter extends PagerAdapter
         this.context = context;
     }
 
-    public int[] sliderImages = {R.drawable.tutor1, R.drawable.ic_document_box, R.drawable.ic_image_box};
+    public int[] sliderImages = {R.drawable.cap5, R.drawable.ic_document_box, R.drawable.ic_image_box};
 
     public String[] sliderHeader = {"Page 1","Page 2","Page 3"};
 

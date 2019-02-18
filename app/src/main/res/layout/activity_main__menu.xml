@@ -20,11 +20,22 @@
             android:id="@+id/Modules"
             android:layout_width="362dp"
             android:layout_height="76dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="60dp"
+            android:layout_below="@id/imageView"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="20dp"
+            android:background="@color/transparent"
+            app:srcCompat="@drawable/back" />
 
         <!--
         <TextView
@@ -57,7 +68,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 -->
 
-
+<!--
         <Button
             android:id="@+id/Showbtn"
             android:layout_width="wrap_content"
@@ -89,7 +100,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="540dp"
             android:text="ShowFiles" />
-
+-->
 
     </RelativeLayout>
 

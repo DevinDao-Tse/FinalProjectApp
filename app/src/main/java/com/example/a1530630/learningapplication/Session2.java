@@ -153,6 +153,7 @@ public class Session2 extends AppCompatActivity  {
         homeButton();
         ClickBox();
         test.setText(aud+" "+modCon+" "+les+" "+getLesson(les));
+        test.setVisibility(View.INVISIBLE);
     }
 
 

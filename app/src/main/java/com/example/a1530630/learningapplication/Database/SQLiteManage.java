@@ -342,7 +342,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         String sql = "SELECT "+User.COLUMN_ID+","+User.COLUMN_FULL_NAME +","+User.COLUMN_USERNAME +","+User.COLUMN_EMAIL+","
                 +User.COLUMN_CREATED+ " FROM " +User.USER_TABLE_NAME;
 
-        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(User.COLUMN_ID)});
+        Cursor cursor = db.rawQuery(sql, null);
         return cursor;
     }
 

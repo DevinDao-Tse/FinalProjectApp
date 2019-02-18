@@ -65,8 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="80dp"
-            android:layout_alignParentBottom="true"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/RegisterView"
             android:onClick="LoginBtn"
             android:text="@string/login"
             android:textSize="@dimen/_15sdp" />
@@ -77,8 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorWhite"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="170dp"
+            android:layout_below="@id/rememberMe"
+            android:layout_marginTop="20dp"
             android:text="Don't Have a account? \nClick here to register"
             android:textSize="@dimen/_16sdp" />
 

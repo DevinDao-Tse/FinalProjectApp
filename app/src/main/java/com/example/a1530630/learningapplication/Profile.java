@@ -60,6 +60,8 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         PieChart pieChart = (PieChart)findViewById(R.id.userPieChart);
         //pieChart.setUsePercentValues(true);
         pieChart.setDescription(description);
+        pieChart.setDrawHoleEnabled(true);
+        //pieChart.setHoleColor(R.color.transparent);
 
         int id = settings.getInt("UserID",0);
 
@@ -84,7 +86,7 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         }
         else
             {
-                total =0;
+                total =100;
             }
 
         int totalPercent = (int)total;
@@ -100,7 +102,7 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         pieChart.setData(pieData);
 
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.argb(1,99,149,249));
+        colors.add(R.color.userProgress);
         colors.add(Color.GRAY);
 
         pieChart.setHoleRadius(50);
