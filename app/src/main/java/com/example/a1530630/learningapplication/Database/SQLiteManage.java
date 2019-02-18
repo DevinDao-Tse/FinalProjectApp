@@ -321,16 +321,17 @@ public class SQLiteManage extends SQLiteOpenHelper
     public Cursor getUserModuleProcess()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT "+User.COLUMN_ID+","+User.COLUMN_USERNAME +","+User.COLUMN_PASSWORD+","+
-                User.COLUMN_FULL_NAME +","+User.COLUMN_EMAIL+"," +User.COLUMN_CREATED+","+
-                Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_ONE
-                +","+Module_Results.MODULE_RESULT_COLUMN_LESSON_TWO+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_THREE+
-                ","+Module_Results.MODULE_RESULT_COLUMN_LESSON_FOUR+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_FIVE+
-                " FROM "+User.USER_TABLE_NAME+ " INNER JOIN "+Module_Results.MODULE_RESULT_TABLE_NAME+
-                " ON "+Module_Results.MODULE_RESULT_COLUMN_USER_ID + "=" + User.COLUMN_ID;
+        String sql = "SELECT "+User.COLUMN_ID+" AS "+"_id"+","+User.COLUMN_USERNAME+","+User.COLUMN_PASSWORD+
+                ","+User.COLUMN_FULL_NAME+","+User.COLUMN_EMAIL+","+User.COLUMN_CREATED+ " ,"
+                +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_ONE+","+
+                Module_Results.MODULE_RESULT_COLUMN_LESSON_TWO+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_THREE+ ","+
+                Module_Results.MODULE_RESULT_COLUMN_LESSON_FOUR+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_FIVE+
+                " FROM "+ User.USER_TABLE_NAME+ " INNER JOIN "+Module_Results.MODULE_RESULT_TABLE_NAME
+                + " ON "+User.COLUMN_ID + " = "+Module_Results.MODULE_RESULT_COLUMN_USER_ID+
+                " WHERE "+(User.COLUMN_ID+" = "+"?");
 
-        Cursor c = db.rawQuery(sql,null);
-        return c;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
 
     }
 
@@ -338,10 +339,10 @@ public class SQLiteManage extends SQLiteOpenHelper
     public Cursor getUserListInfo()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT "+User.COLUMN_FULL_NAME +","+User.COLUMN_USERNAME +","+User.COLUMN_EMAIL+","
+        String sql = "SELECT "+User.COLUMN_ID+","+User.COLUMN_FULL_NAME +","+User.COLUMN_USERNAME +","+User.COLUMN_EMAIL+","
                 +User.COLUMN_CREATED+ " FROM " +User.USER_TABLE_NAME;
 
-        Cursor cursor = db.rawQuery(sql, null);
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(User.COLUMN_ID)});
         return cursor;
     }
 

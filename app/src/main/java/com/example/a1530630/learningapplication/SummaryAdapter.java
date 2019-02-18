@@ -21,6 +21,7 @@ public class SummaryAdapter extends ArrayAdapter<User>
     private Context sumContext;
     int sumResources;
     SQLiteManage db;
+    int userIDCon;
     String userNameCon;
     String fullNameCon;
     String emailCon;
@@ -38,11 +39,13 @@ public class SummaryAdapter extends ArrayAdapter<User>
     public View getView(int position, View convertView, ViewGroup parent)
     {
         db = new SQLiteManage(sumContext);
+        int idNum = getItem(position).getUserID();
         String name = getItem(position).getFullName();
         String user = getItem(position).getUsername();
         String email = getItem(position).getEmail();
         String dateSigned = getItem(position).getCreated();
 
+        userIDCon = idNum;
         fullNameCon = name;
         userNameCon = user;
         emailCon = email;
@@ -51,11 +54,13 @@ public class SummaryAdapter extends ArrayAdapter<User>
         LayoutInflater inflater = LayoutInflater.from(sumContext);
         convertView = inflater.inflate(sumResources, parent, false);
 
+        TextView idTextView = convertView.findViewById(R.id.usersText);
         TextView nameTextView = convertView.findViewById(R.id.fullText);
         TextView userTextView = convertView.findViewById(R.id.userText);
         TextView emailTextView = convertView.findViewById(R.id.emailText);
         TextView dateTextView = convertView.findViewById(R.id.dateText);
 
+        idTextView.setText(String.valueOf(userIDCon));
         nameTextView.setText(String.valueOf(fullNameCon));
         userTextView.setText(String.valueOf(userNameCon));
         emailTextView.setText(String.valueOf(emailCon));

@@ -17,6 +17,9 @@
             android:id="@+id/nav_summary"
             android:title="Summary Report" />
         <item
+            android:id="@+id/nav_detail"
+            android:title="Detailed Report" />
+        <item
             android:id="@+id/nav_add"
             android:title="Add more"/>
         <item

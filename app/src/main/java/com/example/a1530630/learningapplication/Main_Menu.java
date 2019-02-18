@@ -393,6 +393,12 @@ public class Main_Menu extends AppCompatActivity
                     return true;
                 }
 
+                case R.id.nav_detail:{
+                    i = new Intent(this, DetailedReport.class);
+                    startActivity(i);
+                    return true;
+                }
+
                 case R.id.nav_exit: {
                     SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = settings.edit();

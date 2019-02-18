@@ -18,6 +18,7 @@
         <activity android:name=".Tutorial"></activity>
         <activity android:name=".Store_Lessons" />
         <activity android:name=".SummaryReport" />
+        <activity android:name=".DetailedReport"/>
         <activity
             android:name=".Editing"
             android:windowSoftInputMode="stateHidden" />

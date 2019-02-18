@@ -45,6 +45,7 @@ public class SummaryReport extends AppCompatActivity
             do
             {
                 User users = new User();
+                users.setUserID(cursor.getInt(cursor.getColumnIndex(users.COLUMN_ID)));
                 users.setFullName(cursor.getString(cursor.getColumnIndex(users.COLUMN_FULL_NAME)));
                 users.setUsername(cursor.getString(cursor.getColumnIndex(users.COLUMN_USERNAME)));
                 users.setEmail(cursor.getString(cursor.getColumnIndex(users.COLUMN_EMAIL)));

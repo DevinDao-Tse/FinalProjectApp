@@ -18,6 +18,14 @@
             android:layout_margin="25dp">
 
             <TextView
+                android:id="@+id/usersText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="UserID"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/fullText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

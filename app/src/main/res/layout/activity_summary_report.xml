@@ -21,6 +21,14 @@
             android:padding="@dimen/_4sdp">
 
             <TextView
+                android:id="@+id/UserIDHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="UserID"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/FullNameHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
