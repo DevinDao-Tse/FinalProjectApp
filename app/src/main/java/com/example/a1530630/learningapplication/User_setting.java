@@ -3,6 +3,7 @@ package com.example.a1530630.learningapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -64,13 +65,6 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
                 String userName = settings.getString("Username",null);
                 TextView user = findViewById(R.id.nav_header_textView);
                 user.setText(userName);
-
-                if(!userName.contains("admin"))
-                {
-                    nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
-                    nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
-                    nv.getMenu().findItem(R.id.nav_add).setVisible(false);
-                }
             }
             @Override
             public void onDrawerClosed(@NonNull View view) {}
@@ -80,6 +74,14 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
 
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
+
+        if(!userName.contains("admin"))
+        {
+            nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
+            nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
+            nv.getMenu().findItem(R.id.nav_add).setVisible(false);
+        }
+
 
     }
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -169,10 +171,29 @@ public class User_setting extends Main_Menu implements NavigationView.OnNavigati
             try
             {
                 User user = new User();
-                user.setFullName(fullName);
-                user.setUsername(userName);
-                user.setPassword(hash.hashPass(passWord));
-                user.setEmail(email);
+                String oldEmail="";
+                String oldName = "";
+                String oldUser ="";
+                String oldPass = "";
+                Cursor cursor = db.getUserInfo(id);
+                if(cursor.moveToFirst())
+                {
+                    oldEmail = cursor.getString(cursor.getColumnIndex(User.COLUMN_EMAIL));
+                    oldName = cursor.getString(cursor.getColumnIndex(User.COLUMN_FULL_NAME));
+                    oldUser = cursor.getString(cursor.getColumnIndex(User.COLUMN_USERNAME));
+                    oldPass = cursor.getString(cursor.getColumnIndex(User.COLUMN_PASSWORD));
+                }
+                if(email.isEmpty()) { user.setEmail(oldEmail); }
+                else { user.setEmail(email); }
+
+                if(fullName.isEmpty()){ user.setFullName( oldName);}
+                else { user.setFullName(fullName);}
+
+                if(userName.isEmpty()){ user.setUsername(oldUser);}
+                else{user.setUsername(userName);}
+
+                if(passWord.isEmpty()){user.setPassword(oldPass);}
+                else {user.setPassword(hash.hashPass(passWord));}
 
                 db.UpdateProfile(user, id);
 

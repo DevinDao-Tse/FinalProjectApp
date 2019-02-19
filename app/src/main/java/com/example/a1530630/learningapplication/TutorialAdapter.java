@@ -20,7 +20,7 @@ public class TutorialAdapter extends PagerAdapter
         this.context = context;
     }
 
-    public int[] sliderImages = {R.drawable.cap2n3, R.drawable.cap1,R.drawable.ic_settings,R.drawable.cap4};
+    public int[] sliderImages = {R.drawable.cap, R.drawable.cap1,R.drawable.cap2n3,R.drawable.cap4};
 
     public String[] sliderHeader = {
             "Swipe screen to open side bar menu",

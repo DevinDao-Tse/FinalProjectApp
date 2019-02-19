@@ -128,13 +128,6 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
                 TextView user = findViewById(R.id.nav_header_textView);
                 user.setText(userName);
 
-                if(!userName.contains("admin"))
-                {
-                    nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
-                    nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
-                    nv.getMenu().findItem(R.id.nav_add).setVisible(false);
-
-                }
             }
             @Override
             public void onDrawerClosed(@NonNull View view) {}
@@ -144,6 +137,14 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
 
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
+
+        if(!userName.contains("admin"))
+        {
+            nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
+            nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
+            nv.getMenu().findItem(R.id.nav_add).setVisible(false);
+
+        }
 
     }
             //Goes to user setting

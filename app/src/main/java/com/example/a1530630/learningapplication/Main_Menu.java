@@ -94,9 +94,7 @@ public class Main_Menu extends AppCompatActivity
 
        // play = (ImageView)findViewById(R.id.PlayButton2);
         String path = getCacheDir().getAbsolutePath();
-
         readFromDB();
-
 
         idk = new Intent(getApplicationContext(), Session2.class);
         t = new ActionBarDrawerToggle(this, dl,R.string.nav_open, R.string.nav_close);
@@ -115,15 +113,6 @@ public class Main_Menu extends AppCompatActivity
                 String userName = settings.getString("Username",null);
                 TextView user = findViewById(R.id.nav_header_textView);
                 user.setText(userName);
-
-                if(!userName.contains("admin"))
-                {
-                    nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
-                    nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
-                    nv.getMenu().findItem(R.id.nav_add).setVisible(false);
-
-                }
-
             }
             @Override
             public void onDrawerClosed(@NonNull View view) {}
@@ -135,8 +124,15 @@ public class Main_Menu extends AppCompatActivity
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
 
+        String userName = pref.getString("Username",null).toLowerCase();
 
+        if(!userName.contains("admin"))
+        {
+            nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
+            nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
+            nv.getMenu().findItem(R.id.nav_add).setVisible(false);
 
+        }
 
         
     }

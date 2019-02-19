@@ -388,6 +388,13 @@ public class SQLiteManage extends SQLiteOpenHelper
         return cursor;
     }
 
+    public Cursor getUserInfo(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "SELECT * FROM "+User.USER_TABLE_NAME+ " WHERE "+User.COLUMN_ID + " = "+id;
+        Cursor cursor = db.rawQuery(sql,null);
+        return cursor;
+    }
+
 
 
 

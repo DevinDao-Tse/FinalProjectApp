@@ -24,7 +24,6 @@ public class Register extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SQLiteManage db;
     Pattern pattern = Patterns.EMAIL_ADDRESS;
-   //String EMAIL_PATTERN = "[@#$%^&+=]";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

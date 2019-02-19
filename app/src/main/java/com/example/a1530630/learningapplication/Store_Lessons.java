@@ -35,6 +35,7 @@ public class Store_Lessons extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store__lessons);
         db = new SQLiteManage(this);
+        getSupportActionBar().hide();
         homebtn = (ImageButton)findViewById(R.id.HomeButton);
 
         edit1 = (Button)findViewById(R.id.EditBtn1);

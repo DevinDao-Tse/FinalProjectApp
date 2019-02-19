@@ -59,6 +59,7 @@ public class Editing extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editing);
+        getSupportActionBar().hide();
         dl = (DrawerLayout) findViewById(R.id.drawer_layout);
         reqPermission();
 
