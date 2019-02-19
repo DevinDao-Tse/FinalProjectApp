@@ -26,6 +26,15 @@
                     android:padding="@dimen/_2sdp">
 
                     <TextView
+                        android:id="@+id/UserProIDHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/_4sdp"
+                        android:text="UserProID"
+                        android:textStyle="bold" />
+
+
+                    <TextView
                         android:id="@+id/UserIDHeader"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -148,6 +157,7 @@
             style="@style/Widget.AppCompat.ImageButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="backToMainMenu"
             app:srcCompat="?attr/actionModeCloseDrawable" />
 
     </LinearLayout>

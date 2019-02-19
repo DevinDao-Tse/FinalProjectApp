@@ -63,13 +63,10 @@ public class SummaryReport extends AppCompatActivity
 
     }
 
-
     public void backToMainMenu(View view)
     {
         Intent i = new Intent(SummaryReport.this, Main_Menu.class);
         startActivity(i);
 
     }
-
-
 }

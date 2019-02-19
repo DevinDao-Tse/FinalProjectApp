@@ -12,7 +12,9 @@ import com.example.a1530630.learningapplication.Models.AudioAndImages;
 import com.example.a1530630.learningapplication.Models.Module_Results;
 import com.example.a1530630.learningapplication.Models.Modules;
 import com.example.a1530630.learningapplication.Models.User;
+import com.example.a1530630.learningapplication.Models.UserModuleProcess;
 import com.example.a1530630.learningapplication.Models.User_Track;
+
 
 public class SQLiteManage extends SQLiteOpenHelper
 {
@@ -317,22 +319,13 @@ public class SQLiteManage extends SQLiteOpenHelper
         return  cursor;
     }
 
-    ///Created a new Cursor method for Detailed report
+    ///Created a new method for Detailed report
     public Cursor getUserModuleProcess()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "SELECT "+User.COLUMN_ID+" AS "+"_id"+","+User.COLUMN_USERNAME+","+User.COLUMN_PASSWORD+
-                ","+User.COLUMN_FULL_NAME+","+User.COLUMN_EMAIL+","+User.COLUMN_CREATED+ " ,"
-                +Module_Results.MODULE_RESULT_COLUMN_MODULE_ID+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_ONE+","+
-                Module_Results.MODULE_RESULT_COLUMN_LESSON_TWO+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_THREE+ ","+
-                Module_Results.MODULE_RESULT_COLUMN_LESSON_FOUR+","+Module_Results.MODULE_RESULT_COLUMN_LESSON_FIVE+
-                " FROM "+ User.USER_TABLE_NAME+ " INNER JOIN "+Module_Results.MODULE_RESULT_TABLE_NAME
-                + " ON "+User.COLUMN_ID + " = "+Module_Results.MODULE_RESULT_COLUMN_USER_ID+
-                " WHERE "+(User.COLUMN_ID+" = "+"?");
-
+        String sql = "SELECT * FROM "+ UserModuleProcess.UM_TABLE_NAME;
         Cursor cursor = db.rawQuery(sql,null);
         return cursor;
-
     }
 
     //Created a new cursor method for summary report
@@ -342,7 +335,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         String sql = "SELECT "+User.COLUMN_ID+","+User.COLUMN_FULL_NAME +","+User.COLUMN_USERNAME +","+User.COLUMN_EMAIL+","
                 +User.COLUMN_CREATED+ " FROM " +User.USER_TABLE_NAME;
 
-        Cursor cursor = db.rawQuery(sql, null);
+        Cursor cursor = db.rawQuery(sql,null);
         return cursor;
     }
 
@@ -405,6 +398,7 @@ public class SQLiteManage extends SQLiteOpenHelper
         db.execSQL(Module_Results.CREATE_MODULE_RESULT);
         db.execSQL(User_Track.CREATE_USER_TRACK_TABLE);
         db.execSQL(AudioAndImages.CREATE_AudandImg_TABLE);
+        db.execSQL(UserModuleProcess.CREATE_UM_TABLE);
     }
 
 

@@ -37,6 +37,7 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
     SharedPreferences sharedPreferences;
     float total;
     int res;
+    NavigationView nv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +127,14 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
                 String userName = settings.getString("Username",null);
                 TextView user = findViewById(R.id.nav_header_textView);
                 user.setText(userName);
+
+                if(!userName.contains("admin"))
+                {
+                    nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
+                    nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
+                    nv.getMenu().findItem(R.id.nav_add).setVisible(false);
+
+                }
             }
             @Override
             public void onDrawerClosed(@NonNull View view) {}
@@ -133,7 +142,7 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
             public void onDrawerStateChanged(int i) {}
         });
 
-        NavigationView nv = findViewById(R.id.nav_view);
+        nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
 
     }
@@ -154,30 +163,50 @@ public class Profile extends Main_Menu implements NavigationView.OnNavigationIte
         Intent i;
         switch (menuItem.getItemId())
         {
-            case R.id.nav_menu:
-            {
-                i = new Intent(this,Main_Menu.class);
+
+            case R.id.nav_menu: {
+                i = new Intent(this, Main_Menu.class);
                 startActivity(i);
                 return true;
             }
-            case R.id.nav_profile:
-            {
-                i = new Intent(this,Profile.class);
+            case R.id.nav_profile: {
+                i = new Intent(this, Profile.class);
                 startActivity(i);
                 return true;
-
             }
 
-            case R.id.nav_exit:
-            {
+            case R.id.nav_summary: {
+                i = new Intent(this, SummaryReport.class);
+                startActivity(i);
+                return true;
+            }
+
+            case R.id.nav_detail:{
+                i = new Intent(this, DetailedReport.class);
+                startActivity(i);
+                return true;
+            }
+
+            case R.id.nav_exit: {
                 SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.clear();
                 editor.commit();
-                i = new Intent(getApplicationContext(),Login.class);
+                i = new Intent(getApplicationContext(), Login.class);
                 startActivity(i);
                 return true;
             }
+            case R.id.nav_add: {
+                i = new Intent(getApplicationContext(), Store.class);
+                startActivity(i);
+                return true;
+            }
+            case R.id.nav_tutorial: {
+                i = new Intent(getApplicationContext(), Tutorial.class);
+                startActivity(i);
+                return true;
+            }
+
         }
 
         return true;

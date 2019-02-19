@@ -8,80 +8,112 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.a1530630.learningapplication.Database.SQLiteManage;
-import com.example.a1530630.learningapplication.Models.Module_Results;
-import com.example.a1530630.learningapplication.Models.User;
+import com.example.a1530630.learningapplication.Models.UserModuleProcess;
 
-public class DetailedAdapter extends CursorAdapter
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+
+public class DetailedAdapter extends ArrayAdapter<UserModuleProcess>
 {
     private static String detailTag = "DetailedAdapter";
+    private Context detContext;
+    int detResources;
     SQLiteManage db;
+    int proId;
+    int idUM;
+    String uName;
+    String pWord;
+    String fName;
+    String eMail;
+    String compDate;
+    int modUM;
+    int lOne;
+    int lTwo;
+    int lThree;
+    int lFour;
+    int lFive;
 
-    public DetailedAdapter(Context context, Cursor cursor)
+
+
+    public DetailedAdapter(Context context, int resources, ArrayList<UserModuleProcess>objects)
     {
-        super(context,cursor,0);
+        super(context,resources,objects);
+        detContext = context;
+        detResources = resources;
+
     }
 
     @Nullable
     @Override
-    public void bindView(View view, Context context, Cursor cursor)
+    public View getView(int position, View contextView, ViewGroup parent)
     {
-        //Find fields to populate
-        TextView tvUserID = view.findViewById(R.id.userIDText);
-        TextView tvUser = view.findViewById(R.id.userText1);
-        TextView tvPass = view.findViewById(R.id.passText1);
-        TextView tvFull = view.findViewById(R.id.fullText1);
-        TextView tvEmail = view.findViewById(R.id.emailText1);
-        TextView tvDate = view.findViewById(R.id.dateText1);
-        TextView tvModule = view.findViewById(R.id.moduleText1);
-        TextView tvLesOne = view.findViewById(R.id.lesson1Text);
-        TextView tvLesTwo = view.findViewById(R.id.lesson2Text);
-        TextView tvLesThree = view.findViewById(R.id.lesson3Text);
-        TextView tvLesFour = view.findViewById(R.id.lesson4Text);
-        TextView tvLesFive = view.findViewById(R.id.lesson5Text);
+        db = new SQLiteManage(detContext);
+        int umProID = getItem(position).getUserProID();
+        int umUserID = getItem(position).getUserID();
+        String umUserN = getItem(position).getUserN();
+        String umPass = getItem(position).getPassW();
+        String umFullN = getItem(position).getFullN();
+        String umEmail = getItem(position).getEmailAddress();
+        String umDate = getItem(position).getDateCompleted();
+        int umModuleID = getItem(position).getModuleID();
+        int umLessOne = getItem(position).getLessonOne();
+        int umLessTwo = getItem(position).getLessonTwo();
+        int umLessThree = getItem(position).getLessonThree();
+        int umLessFour = getItem(position).getLessonFour();
+        int umLessFive = getItem(position).getLessonFive();
 
-        //Extract properties from cursor
-        int userID = cursor.getInt(cursor.getColumnIndex(User.COLUMN_ID));
-        String userName1 = cursor.getString(cursor.getColumnIndex(User.COLUMN_USERNAME));
-        String passWord = cursor.getString(cursor.getColumnIndex(User.COLUMN_PASSWORD));
-        String fullName1 = cursor.getString(cursor.getColumnIndex(User.COLUMN_FULL_NAME));
-        String emailAdd = cursor.getString(cursor.getColumnIndex(User.COLUMN_EMAIL));
-        String dateComp = cursor.getString(cursor.getColumnIndex(User.COLUMN_CREATED));
-        int moduleId = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_MODULE_ID));
-        int lessonOne = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_ONE));
-        int lessonTwo = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_TWO));
-        int lessonThree = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_THREE));
-        int lessonFour = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_FOUR));
-        int lessonFive = cursor.getInt(cursor.getColumnIndex(Module_Results.MODULE_RESULT_COLUMN_LESSON_FIVE));
+        proId = umProID;
+        idUM = umUserID;
+        uName = umUserN;
+        pWord = umPass;
+        fName = umFullN;
+        eMail = umEmail;
+        compDate = umDate;
+        modUM = umModuleID;
+        lOne = umLessOne;
+        lTwo = umLessTwo;
+        lThree = umLessThree;
+        lFour = umLessFour;
+        lFive = umLessFive;
 
-        //Set the textview fields with extracted cursor properties
-        tvUserID.setText(String.valueOf(userID));
-        tvUser.setText(String.valueOf(userName1));
-        tvPass.setText(String.valueOf(passWord));
-        tvFull.setText(String.valueOf(fullName1));
-        tvEmail.setText(String.valueOf(emailAdd));
-        tvDate.setText(String.valueOf(dateComp));
-        tvModule.setText(String.valueOf(moduleId));
-        tvLesOne.setText(String.valueOf(lessonOne));
-        tvLesTwo.setText(String.valueOf(lessonTwo));
-        tvLesThree.setText(String.valueOf(lessonThree));
-        tvLesFour.setText(String.valueOf(lessonFour));
-        tvLesFive.setText(String.valueOf(lessonFive));
+        LayoutInflater inflater = LayoutInflater.from(detContext);
+        contextView = inflater.inflate(detResources, parent, false);
 
+        TextView umProIDTV = contextView.findViewById(R.id.userProIDText1);
+        TextView umUserIDTV = contextView.findViewById(R.id.userIDText1);
+        TextView umUserNTV = contextView.findViewById(R.id.userText1);
+        TextView umPassWTV = contextView.findViewById(R.id.passText1);
+        TextView umFullNTV = contextView.findViewById(R.id.fullText1);
+        TextView umEmailTV = contextView.findViewById(R.id.emailText1);
+        TextView umDateTV = contextView.findViewById(R.id.dateText1);
+        TextView umModuleTV = contextView.findViewById(R.id.moduleText1);
+        TextView umLess1TV = contextView.findViewById(R.id.lesson1Text);
+        TextView umLess2TV = contextView.findViewById(R.id.lesson2Text);
+        TextView umLess3TV = contextView.findViewById(R.id.lesson3Text);
+        TextView umLess4TV = contextView.findViewById(R.id.lesson4Text);
+        TextView umLess5TV = contextView.findViewById(R.id.lesson5Text);
+
+        umProIDTV.setText(String.valueOf(proId));
+        umUserIDTV.setText(String.valueOf(idUM));
+        umUserNTV.setText(String.valueOf(uName));
+        umPassWTV.setText(String.valueOf(pWord));
+        umFullNTV.setText(String.valueOf(fName));
+        umEmailTV.setText(String.valueOf(eMail));
+        umDateTV.setText(String.valueOf(compDate));
+        umModuleTV.setText(String.valueOf(modUM));
+        umLess1TV.setText(String.valueOf(lOne));
+        umLess2TV.setText(String.valueOf(lTwo));
+        umLess3TV.setText(String.valueOf(lThree));
+        umLess4TV.setText(String.valueOf(lFour));
+        umLess5TV.setText(String.valueOf(lFive));
+
+
+        return contextView;
     }
-
-    @Override
-    public View newView(Context context, Cursor cursor, ViewGroup parent)
-    {
-        db = new SQLiteManage(context);
-        LayoutInflater inflater = LayoutInflater.from(context);
-        View retView = inflater.inflate(R.layout.activity_detailed_adapter, parent, false);
-
-        return retView;
-    }
-
-
 }

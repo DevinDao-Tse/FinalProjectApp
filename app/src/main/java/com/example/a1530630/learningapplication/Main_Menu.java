@@ -115,12 +115,22 @@ public class Main_Menu extends AppCompatActivity
                 String userName = settings.getString("Username",null);
                 TextView user = findViewById(R.id.nav_header_textView);
                 user.setText(userName);
+
+                if(!userName.contains("admin"))
+                {
+                    nv.getMenu().findItem(R.id.nav_summary).setVisible(false);
+                    nv.getMenu().findItem(R.id.nav_detail).setVisible(false);
+                    nv.getMenu().findItem(R.id.nav_add).setVisible(false);
+
+                }
+
             }
             @Override
             public void onDrawerClosed(@NonNull View view) {}
             @Override
             public void onDrawerStateChanged(int i) {}
         });
+
 
         nv = findViewById(R.id.nav_view);
         nv.setNavigationItemSelectedListener(this);
@@ -257,12 +267,6 @@ public class Main_Menu extends AppCompatActivity
     {
         Intent i;
 
-        //Checking to see if username has admin or not
-        SharedPreferences preferences = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
-        String adminUser = preferences.getString("Username",null);
-
-        if(adminUser.contains("admin"))
-        {
             switch (menuItem.getItemId())
             {
 
@@ -310,43 +314,6 @@ public class Main_Menu extends AppCompatActivity
                 }
 
             }
-        }
-        else
-        {
-            switch (menuItem.getItemId())
-            {
-
-                case R.id.nav_menu: {
-                    i = new Intent(this, Main_Menu.class);
-                    startActivity(i);
-                    return true;
-                }
-                case R.id.nav_profile: {
-                    i = new Intent(this, Profile.class);
-                    startActivity(i);
-                    return true;
-                }
-
-
-                case R.id.nav_exit: {
-                    SharedPreferences settings = getSharedPreferences(Login.MyPreferences, Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = settings.edit();
-                    editor.clear();
-                    editor.commit();
-                    i = new Intent(getApplicationContext(), Login.class);
-                    startActivity(i);
-                    return true;
-                }
-
-                case R.id.nav_tutorial: {
-                    i = new Intent(getApplicationContext(), Tutorial.class);
-                    startActivity(i);
-                    return true;
-                }
-
-
-            }
-        }
 
             return true;
         }
