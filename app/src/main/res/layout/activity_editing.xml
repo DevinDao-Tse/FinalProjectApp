@@ -30,7 +30,7 @@
             android:layout_below="@id/SaveBtn"
             android:layout_marginTop="30dp"
             android:layout_centerHorizontal="true"
-            app:srcCompat="@drawable/ic_home_icon"/>
+            app:srcCompat="?attr/homeAsUpIndicator"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"

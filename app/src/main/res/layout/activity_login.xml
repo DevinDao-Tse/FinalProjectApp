@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,16 +9,13 @@
     tools:context=".Login">
 
     <!--android:background="#c7e8fb"-->
-
-
-
-
         <TextView
             android:id="@+id/loginView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="40dp"
+            android:layout_below="@id/imageView3"
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:text="Login"
@@ -28,8 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/loginView"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
             android:layout_centerHorizontal="true"
+            android:textColor="@color/colorWhite"
             android:ems="10"
             android:textColorHint="@color/colorWhite"
             android:textSize="@dimen/_15sdp"
@@ -41,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textColor="@color/colorWhite"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/LoginUser"
             android:ems="10"
@@ -81,5 +81,13 @@
             android:layout_marginTop="20dp"
             android:text="Don't Have a account? \nClick here to register"
             android:textSize="@dimen/_16sdp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/back" />
 
 </RelativeLayout>
